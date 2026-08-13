@@ -54,10 +54,10 @@ def run_retrieval_only_benchmark(orchestrator, test_suite):
             status = "[green]ANSWERED (Grounded LLaMA-3.1)[/green]"
         console.print(f"[{idx:02d}/{len(test_suite)}] '{item['query'][:38]}...' ➔ {status} in {res['timings']['total']:.1f}ms")
         # Rate Limit Pacing Math: Measured real telemetry = 234.2 prompt + 89.4 completion = 323.6 avg tokens/query.
-        # Groq llama-3.1-8b-instant rate limit = 14,400 TPM (240.0 tokens/sec).
-        # Required min interval = 323.6 / 240 = 1.35s. Spacing calls 2.0s apart yields 161.8 tokens/sec sustained throughput,
-        # staying safely below Groq's 240.0 tokens/sec limit and eliminating HTTP 429 rate limit backoff cycles.
-        time.sleep(2.0)
+        # Groq llama-3.1-8b-instant rate limit = 14,400 TPM (240.0 tokens/sec) evaluated over a 60-second sliding window.
+        # Spacing calls 2.5s apart yields 129.4 tokens/sec (max 7,766 tokens per 60s window), remaining well below the
+        # 14,400 TPM sliding limit across all 35 queries and eliminating 429 rate limit backoff retries.
+        time.sleep(2.5)
 
     percentiles = orchestrator.metrics_db.compute_percentiles(mode="retrieval_only")
     return percentiles, grounded_count, refused_count

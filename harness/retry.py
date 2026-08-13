@@ -47,19 +47,19 @@ def retry_step(max_retries: int = 3, base_delay: float = 0.5, max_delay: float =
                     if retry_after is not None and retry_after > 0:
                         sleep_time = min(max_delay, retry_after + random.uniform(0.05, 0.20))
                         logger.warning(
-                            f"Groq rate limit hit (HTTP 429) for {func.__name__} (attempt {attempt + 1}/{max_retries}). "
-                            f"Respecting Retry-After header: backing off for {sleep_time:.2f}s..."
+                            f"⚠️ Retry attempt {attempt + 1}/{max_retries} for {func.__name__}: "
+                            f"Groq 429 RateLimitError hit! Respecting Retry-After header: sleeping {sleep_time:.2f}s..."
                         )
                     elif is_rate_limit:
                         sleep_time = min(max_delay, base_delay * (2 ** attempt)) + random.uniform(0.1, 0.3)
                         logger.warning(
-                            f"Groq rate limit hit (HTTP 429) for {func.__name__} (attempt {attempt + 1}/{max_retries}). "
-                            f"Backing off with jitter for {sleep_time:.2f}s..."
+                            f"⚠️ Retry attempt {attempt + 1}/{max_retries} for {func.__name__}: "
+                            f"Groq 429 RateLimitError hit! Backing off for {sleep_time:.2f}s (base_delay={base_delay}s)..."
                         )
                     else:
                         sleep_time = min(max_delay, base_delay * (2 ** attempt)) + random.uniform(0.01, 0.05)
                         logger.warning(
-                            f"Retry {attempt + 1}/{max_retries} for {func.__name__} after {sleep_time*1000:.1f}ms due to: {e}"
+                            f"⚠️ Retry attempt {attempt + 1}/{max_retries} for {func.__name__} after {sleep_time*1000:.1f}ms due to: {e}"
                         )
 
                     time.sleep(sleep_time)
