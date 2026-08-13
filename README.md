@@ -1,29 +1,79 @@
 # HH Goa 2026 - Voice-Enabled RAG Pipeline 🎙️🌴
 
-> High-performance, low-latency, guardrailed Voice-to-Answer system for **Hacker House Goa 2026 (Task #2)**.
+[![License: MIT](https://img.shields.io/badge/License-MIT-emerald.svg)](LICENSE)
+[![Task](https://img.shields.io/badge/HH_Goa-Task_%232-blue.svg)](https://hhgoa.com)
+[![STT](https://img.shields.io/badge/STT-Sarvam_AI_saarika:v2-purple.svg)](https://www.sarvam.ai)
+[![Python](https://img.shields.io/badge/Python-3.10%2B-brightgreen.svg)](https://www.python.org)
 
-## Architecture Highlights
-- **Harness Core (`harness/base.py`)**: Typed execution step units with microsecond telemetry and retry decorators.
-- **Multi-Strategy Chunking (`chunking/strategies.py`)**: Fixed-window, Recursive sentence-aware, and Semantic paragraph splitters.
-- **Vector Retrieval (`retrieval/vector_store.py`)**: ChromaDB persistent vector index with cosine similarity scores.
-- **Guardrails (`guardrails/threshold_gate.py`)**: Hard threshold gate (similarity < 0.65) that knows when **NOT** to answer to prevent hallucination.
-- **Latency Analytics (`benchmarks/run_benchmarks.py`)**: Automatic P50 / P70 / P100 empirical measurement.
+> High-performance, low-latency, guardrailed Voice-to-Answer RAG system built for **Hacker House Goa 2026 (Task #2)**.
 
-## Quickstart
+---
 
-```bash
-# 1. Install dependencies
-pip install -r requirements.txt
+## ⚡ Key Highlights & Architecture
 
-# 2. Ingest corpus
-python -m dataset.loader
+1. **Voice Input (STT)**: Powered by Sarvam AI (`saarika:v2`) for ultra-low latency Indic and Indian-English speech recognition with retry harnesses.
+2. **Engineered Chunking**: Swappable chunking strategies (Fixed-window with sliding overlap, Recursive sentence boundary splitter, and Semantic paragraph splitter) — benchmarked against `ai4bharat/MSMARCO-XI`.
+3. **Retrieval**: ChromaDB persistent vector index with cosine distance-to-similarity extraction.
+4. **Refusal Guardrails**: Hard threshold confidence gates (`similarity < 0.30`) enforcing **"knowing when NOT to answer"** to prevent hallucinations and eliminate wasteful generation latency on out-of-domain queries.
+5. **Latency Telemetry**: Automatic SQLite logging measuring empirical **P50 / P70 / P100** percentiles across real query runs.
 
-# 3. Run P50/P70/P100 Benchmark Suite
-python -m benchmarks.run_benchmarks
+---
 
-# 4. Launch Live Demo & API Server
-python app.py
+## 📂 Repository Structure
 
-## License
-
-Distributed under the MIT License. See [`LICENSE`](LICENSE) for more information.
+```text
+voice-rag-goa/
+├── app.py                      # FastAPI server + live browser demo UI
+├── requirements.txt            # Project dependencies
+├── LICENSE                     # MIT License
+├── README.md                   # Project documentation & benchmark report
+│
+├── config/                     # Configuration & Environment management
+│   ├── __init__.py
+│   ├── settings.py             # Pydantic BaseSettings (.env reader)
+│   └── logger.py               # Structured Rich logger
+│
+├── dataset/                    # Dataset ingestion & corpus management
+│   ├── __init__.py
+│   └── loader.py               # Corpus loader & indexer for ai4bharat/MSMARCO-XI
+│
+├── chunking/                   # Engineered multi-strategy chunking module
+│   ├── __init__.py
+│   └── strategies.py           # Fixed-window, Recursive-sentence & Semantic splitters
+│
+├── retrieval/                  # Vector search & embeddings
+│   ├── __init__.py
+│   └── vector_store.py         # ChromaDB client with cosine similarity computation
+│
+├── stt/                        # Speech-to-Text inference layer
+│   ├── __init__.py
+│   └── sarvam_engine.py        # Sarvam AI (saarika:v2) integration with retries
+│
+├── guardrails/                 # Safety & Hallucination gates
+│   ├── __init__.py
+│   └── threshold_gate.py       # Grounding confidence threshold & refusal mechanism
+│
+├── generation/                 # LLM synthesis layer
+│   ├── __init__.py
+│   ├── llm.py                  # Grounded generation step with fallback recovery
+│   └── prompts.py              # Strict factual RAG prompts
+│
+├── harness/                    # Orchestration & Execution harness
+│   ├── __init__.py
+│   ├── base.py                 # BaseStep & StepResult interfaces with telemetry
+│   ├── retry.py                # Exponential backoff retry decorator
+│   └── orchestrator.py         # End-to-end Voice-RAG pipeline coordinator
+│
+├── infrastructure/             # Metrics & Storage persistence
+│   ├── __init__.py
+│   └── metrics_db.py           # SQLite stage-by-stage latency logging & percentile calculator
+│
+├── benchmarks/                 # Latency analytics & test suite
+│   ├── __init__.py
+│   └── run_benchmarks.py       # P50 / P70 / P100 empirical benchmark runner
+│
+├── data/                       # Persistent storage (created at runtime, ignored in git)
+│   ├── chroma/                 # Vector database files
+│   └── metrics.db              # Latency logs database
+│
+└── sample_audio/               # Sample audio files for benchmarking
