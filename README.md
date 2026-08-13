@@ -77,6 +77,7 @@ voice-rag-goa/
 │   └── metrics.db              # Latency logs database
 │
 └── sample_audio/               # Sample audio files for benchmarking
+```
 
 📊 Empirical Latency Analytics (P50 / P70 / P100)
 Benchmarked across 8 diverse test queries (both in-domain grounded and out-of-domain guardrail refusal cases):
@@ -107,5 +108,4 @@ python -m benchmarks.run_benchmarks
 # 5. Launch Live Demo server
 python app.py
 📜 License
-Distributed under the MIT License. See LICENSE[LICENSE] for more information.
-EOF
+Distributed under the MIT License. See LICENSE for more information.
