@@ -1,19 +1,22 @@
+import os
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import Field
 
 class Settings(BaseSettings):
-    sarvam_api_key: str = Field(default="demo_sarvam_key", env="SARVAM_API_KEY")
+    sarvam_api_key: str = Field(default="", env="SARVAM_API_KEY")
     sarvam_stt_url: str = Field(default="https://api.sarvam.ai/speech-to-text", env="SARVAM_STT_URL")
     
-    # LLM Settings (Groq API for ultra-fast generation)
+    # Hugging Face Token for fast authenticated downloads
+    hf_token: str = Field(default="", env="HF_TOKEN")
+    
+    # LLM Settings
     groq_api_key: str = Field(default="", env="GROQ_API_KEY")
     groq_model: str = Field(default="llama-3.1-8b-instant", env="GROQ_MODEL")
-    ollama_model: str = Field(default="llama3.2:1b", env="OLLAMA_MODEL")
-    ollama_host: str = Field(default="http://localhost:11434", env="OLLAMA_HOST")
     
+    # Vector DB & Guardrail Defaults
     chroma_path: str = Field(default="./data/chroma", env="CHROMA_PATH")
     metrics_db_path: str = Field(default="./data/metrics.db", env="METRICS_DB_PATH")
-    similarity_threshold: float = Field(default=0.30, env="SIMILARITY_THRESHOLD")
+    similarity_threshold: float = Field(default=0.25, env="SIMILARITY_THRESHOLD")
     default_top_k: int = Field(default=3, env="DEFAULT_TOP_K")
     log_level: str = Field(default="INFO", env="LOG_LEVEL")
 

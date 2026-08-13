@@ -1,17 +1,22 @@
 from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.responses import HTMLResponse, JSONResponse
+from contextlib import asynccontextmanager
 from harness.orchestrator import VoiceRAGOrchestrator
 from dataset.loader import ingest_corpus
 import shutil
 import tempfile
 import os
 
-app = FastAPI(title="HH Goa Voice-RAG Service", version="1.0.0")
-orchestrator = VoiceRAGOrchestrator()
+orchestrator = None
 
-@app.on_event("startup")
-def startup_event():
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    global orchestrator
     ingest_corpus()
+    orchestrator = VoiceRAGOrchestrator()
+    yield
+
+app = FastAPI(title="HH Goa Voice-RAG Service", lifespan=lifespan)
 
 @app.post("/api/query")
 async def handle_query(
@@ -58,12 +63,11 @@ def index():
                     <span class="text-xs text-slate-500 font-mono">#RAGInGoa</span>
                 </div>
                 <h1 class="text-3xl font-black mt-1">🎙️ Voice-Enabled Grounded RAG</h1>
-                <p class="text-slate-400 text-sm mt-1">Sarvam STT · Multi-Strategy Chunking · Latency Analytics · Refusal Guardrail</p>
+                <p class="text-slate-400 text-sm mt-1">Sarvam STT (saarika:v2.5) · Multi-Strategy Chunking · Latency Analytics · Refusal Guardrail</p>
             </header>
 
             <!-- Input Controls -->
             <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 space-y-5">
-                <!-- Microphone & File Upload Row -->
                 <div>
                     <label class="block text-sm font-medium text-slate-300 mb-2">Voice Input (Microphone or Audio File)</label>
                     <div class="flex flex-wrap items-center gap-3">
@@ -130,7 +134,7 @@ def index():
             async function toggleRecording() {
                 if (!isRecording) {
                     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-                        alert("⚠️ Microphone access requires opening this page at http://localhost:8000 or http://127.0.0.1:8000 (not an IP address), or using HTTPS. You can also use the 'Upload .WAV' button.");
+                        alert("⚠️ Microphone access requires opening this page at http://localhost:8000 or http://127.0.0.1:8000. You can also use the 'Upload .WAV' button.");
                         return;
                     }
                     try {
@@ -145,7 +149,7 @@ def index():
                         document.getElementById('recordBtn').className = "flex items-center gap-2 bg-amber-600 hover:bg-amber-500 text-white font-semibold px-5 py-2.5 rounded-lg text-sm transition";
                         document.getElementById('recordStatus').innerText = "🔴 Recording microphone...";
                     } catch (err) {
-                        alert("Microphone permission denied or unavailable: " + err.message);
+                        alert("Microphone permission error: " + err.message);
                     }
                 } else {
                     if (mediaRecorder && mediaRecorder.state !== "inactive") {
@@ -171,7 +175,7 @@ def index():
                     const data = await res.json();
                     renderResult(data);
                 } catch (e) {
-                    alert("Pipeline query failed: " + e.message);
+                    alert("Query failed: " + e.message);
                     document.getElementById('loader').classList.add('hidden');
                 }
             }
@@ -220,6 +224,16 @@ def index():
                 document.getElementById('loader').classList.add('hidden');
                 document.getElementById('outputCard').classList.remove('hidden');
                 document.getElementById('recordStatus').innerText = "";
+                
+                if (data.error) {
+                    document.getElementById('transcriptText').innerText = "Error: " + data.error;
+                    document.getElementById('answerText').innerText = "Pipeline stopped due to error.";
+                    const badge = document.getElementById('statusBadge');
+                    badge.className = 'px-3 py-1 text-xs rounded-full font-mono bg-red-950 text-red-400 border border-red-800';
+                    badge.innerText = '❌ ERROR';
+                    return;
+                }
+
                 document.getElementById('transcriptText').innerText = data.transcript || "N/A";
                 document.getElementById('answerText').innerText = data.answer || "No response";
 
