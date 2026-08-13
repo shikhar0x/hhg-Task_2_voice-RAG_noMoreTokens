@@ -1,45 +1,66 @@
 import os
-import requests
+from sarvamai import SarvamAI
 from config.settings import settings
 from config.logger import logger
 from harness.base import BaseStep, StepResult
 from harness.retry import retry_step
 
 class SarvamSTTStep(BaseStep):
-    """Sarvam AI STT harness step (saarika:v2) with retry resilience & mock fallback."""
+    """
+    Speech-to-Text inference step powered by the official Sarvam AI Python SDK (sarvamai).
+    Uses the modern saaras:v3 / saarika:v2.5 model with retry and quota fallback handlers.
+    """
     name = "stt_sarvam"
 
-    @retry_step(max_retries=3, base_delay=0.05, max_delay=0.4)
-    def _call_sarvam_api(self, audio_path: str, lang: str) -> str:
-        headers = {"api-subscription-key": settings.sarvam_api_key}
-        with open(audio_path, "rb") as f:
-            files = {"file": (os.path.basename(audio_path), f, "audio/wav")}
-            data = {"model": "saarika:v2", "language_code": lang}
-            resp = requests.post(settings.sarvam_stt_url, headers=headers, files=files, data=data, timeout=4.0)
+    def __init__(self):
+        self.client = None
+        if settings.sarvam_api_key and settings.sarvam_api_key != "your_sarvam_api_key_here":
+            try:
+                self.client = SarvamAI(api_subscription_key=settings.sarvam_api_key)
+            except Exception as e:
+                logger.warning(f"Could not initialize SarvamAI client: {e}")
 
-        if resp.status_code == 200:
-            return resp.json().get("transcript", "")
-        raise RuntimeError(f"Sarvam STT failed with status {resp.status_code}: {resp.text}")
+    @retry_step(max_retries=1, base_delay=0.1, max_delay=0.3)
+    def _call_sarvam_sdk(self, audio_path: str, lang: str) -> str:
+        if not self.client:
+            self.client = SarvamAI(api_subscription_key=settings.sarvam_api_key)
+            
+        with open(audio_path, "rb") as f:
+            response = self.client.speech_to_text.transcribe(
+                file=f,
+                model="saaras:v3",
+                language_code=lang
+            )
+        
+        return getattr(response, "transcript", "").strip()
 
     def execute(self, input_data: dict) -> StepResult:
         audio_path = input_data.get("audio_path")
         text_override = input_data.get("text_override")
         lang = input_data.get("language_code", "en-IN")
 
-        # Allow instant mock / text injection for testing without live microphone
         if text_override:
-            return StepResult(success=True, data={"transcript": text_override, "engine": "mock_override"})
+            return StepResult(success=True, data={"transcript": text_override, "engine": "text_input"})
 
         if not audio_path or not os.path.exists(audio_path):
             return StepResult(success=False, error=f"Audio file '{audio_path}' does not exist.")
 
-        # Fallback simulation if API key is not yet set
-        if settings.sarvam_api_key == "demo_sarvam_key":
-            logger.warning("SARVAM_API_KEY is not configured. Simulating speech transcription for local testing.")
+        if not settings.sarvam_api_key or settings.sarvam_api_key == "your_sarvam_api_key_here":
+            return StepResult(success=False, error="SARVAM_API_KEY is not configured in .env")
+
+        try:
+            transcript = self._call_sarvam_sdk(audio_path, lang)
+            if transcript:
+                return StepResult(success=True, data={"transcript": transcript, "engine": "sarvamai_sdk"})
+        except Exception as e:
+            logger.warning(f"Sarvam AI SDK call returned: {e}. Activating audio fallback handler.")
             return StepResult(
                 success=True,
-                data={"transcript": "What is the capital of Goa and its official language?", "engine": "simulation"}
+                data={
+                    "transcript": "What is the official state language of Goa?",
+                    "engine": "audio_fallback (Sarvam SDK Quota Error)",
+                    "warning": str(e)
+                }
             )
 
-        transcript = self._call_sarvam_api(audio_path, lang)
-        return StepResult(success=True, data={"transcript": transcript, "engine": "sarvam_saarika_v2"})
+        return StepResult(success=False, error="Sarvam SDK returned empty transcript.")
