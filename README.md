@@ -23,3 +23,7 @@ python -m benchmarks.run_benchmarks
 
 # 4. Launch Live Demo & API Server
 python app.py
+
+## License
+
+Distributed under the MIT License. See [`LICENSE`](LICENSE) for more information.
