@@ -25,7 +25,7 @@ class LLMGenerationStep(BaseStep):
             except Exception as e:
                 logger.warning(f"Groq init note: {e}")
 
-    @retry_step(max_retries=4, base_delay=0.6, max_delay=4.0)
+    @retry_step(max_retries=5, base_delay=1.0, max_delay=6.0)
     def _generate_groq(self, question: str, context: str) -> str:
         api_key = os.getenv("GROQ_API_KEY") or self.api_key
         if not self.client:

@@ -8,7 +8,7 @@ try:
 except ImportError:
     GroqRateLimitError = ()
 
-def retry_step(max_retries: int = 3, base_delay: float = 0.5, max_delay: float = 4.0):
+def retry_step(max_retries: int = 3, base_delay: float = 0.5, max_delay: float = 6.0):
     """
     Rate-limit aware exponential backoff decorator with jitter for resilient API calls.
     Respects HTTP 429 'Retry-After' response headers from API providers (Groq, ElevenLabs, Sarvam).

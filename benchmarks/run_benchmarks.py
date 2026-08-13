@@ -53,18 +53,18 @@ def run_retrieval_only_benchmark(orchestrator, test_suite):
             grounded_count += 1
             status = "[green]ANSWERED (Grounded LLaMA-3.1)[/green]"
         console.print(f"[{idx:02d}/{len(test_suite)}] '{item['query'][:38]}...' ➔ {status} in {res['timings']['total']:.1f}ms")
-        # Rate Limit Pacing Math: Measured real telemetry = 234.2 prompt + 89.4 completion = 323.6 avg tokens/query.
-        # Groq llama-3.1-8b-instant rate limit = 14,400 TPM (240.0 tokens/sec) evaluated over a 60-second sliding window.
-        # Spacing calls 2.5s apart yields 129.4 tokens/sec (max 7,766 tokens per 60s window), remaining well below the
-        # 14,400 TPM sliding limit across all 35 queries and eliminating 429 rate limit backoff retries.
-        time.sleep(2.5)
+        # Rate Limit Pacing Math: Measured real telemetry = 323.6 avg tokens/query.
+        # Groq on-demand tier limit = 6,000 TPM (100.0 tokens/sec).
+        # Required min interval = 323.6 / 100 = 3.24s. Spacing calls 3.5s apart yields 92.5 tokens/sec (5,547 tokens/min),
+        # remaining safely below Groq's 6,000 TPM limit across all 35 queries and eliminating 429 rate limit backoffs.
+        time.sleep(3.5)
 
     percentiles = orchestrator.metrics_db.compute_percentiles(mode="retrieval_only")
     return percentiles, grounded_count, refused_count
 
 def run_full_e2e_benchmark(orchestrator):
     console.rule("[bold green]🚀 Mode 2: Full End-to-End Latency (Real STT + Groq LLaMA-3.1)[/bold green]")
-    time.sleep(2.0)  # Pacing pause to ensure Groq rate limit window resets
+    time.sleep(3.5)  # Pacing pause to ensure Groq rate limit window resets
 
     manifest_path = "benchmarks/audio_manifest.json"
     audio_queries = []
@@ -105,7 +105,7 @@ def run_full_e2e_benchmark(orchestrator):
         total_dur = res['timings'].get('total', 0.0)
         transcript_snippet = res.get('transcript', item['query'])[:38]
         console.print(f"[{idx:02d}/{len(audio_queries)}] '{transcript_snippet}...' ➔ {status} (STT: {stt_dur:.1f}ms | Total: {total_dur:.1f}ms)")
-        time.sleep(2.5)
+        time.sleep(3.5)
 
     percentiles = orchestrator.metrics_db.compute_percentiles(mode="end_to_end")
     return percentiles, grounded_count, refused_count
