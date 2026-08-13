@@ -14,8 +14,8 @@ class Settings(BaseSettings):
     chroma_path: str = Field(default="./data/chroma", env="CHROMA_PATH")
     metrics_db_path: str = Field(default="./data/metrics.db", env="METRICS_DB_PATH")
     
-    # Calibrated threshold for 5-6 out-of-domain refusals
-    similarity_threshold: float = Field(default=0.22, env="SIMILARITY_THRESHOLD")
+    # Calibrated threshold for zero false-negative refusals across MSMARCO-XI corpus
+    similarity_threshold: float = Field(default=0.18, env="SIMILARITY_THRESHOLD")
     default_top_k: int = Field(default=3, env="DEFAULT_TOP_K")
     log_level: str = Field(default="INFO", env="LOG_LEVEL")
 

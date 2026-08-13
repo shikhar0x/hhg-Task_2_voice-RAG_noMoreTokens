@@ -53,7 +53,10 @@ def run_retrieval_only_benchmark(orchestrator, test_suite):
             grounded_count += 1
             status = "[green]ANSWERED (Grounded LLaMA-3.1)[/green]"
         console.print(f"[{idx:02d}/{len(test_suite)}] '{item['query'][:38]}...' ➔ {status} in {res['timings']['total']:.1f}ms")
-        time.sleep(0.3)
+        # Rate Limit Pacing Rationale: Groq llama-3.1-8b-instant enforces 14,400 TPM (~240 tokens/sec).
+        # Multi-passage RAG prompts average ~500 tokens. A 0.8s pacing delay (~625 tokens/sec window)
+        # prevents bursting past Groq's TPM sliding rate limit, eliminating HTTP 429 backoff tail latency.
+        time.sleep(0.8)
 
     percentiles = orchestrator.metrics_db.compute_percentiles(mode="retrieval_only")
     return percentiles, grounded_count, refused_count

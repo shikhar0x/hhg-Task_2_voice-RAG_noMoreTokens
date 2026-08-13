@@ -39,6 +39,14 @@ def test_layer4_check_hallucination_direct():
     hallucinated_ans = "Quantum computers use Shor algorithm to factor RSA keys rapidly."
     assert guard.check_hallucination(hallucinated_ans, context) is False
 
+def test_layer4_paraphrasing_stemming_regression():
+    """Regression test proving check_hallucination tolerates reasonable paraphrasing (e.g. cantaloupes/cantaloupe, matures/mature)."""
+    guard = GroundingGuardrailStep()
+    context = "Cantaloupe requires 90 days to reach maturity and harvest readiness."
+    paraphrased_answer = "Cantaloupes typically mature in 90 days under warm growing conditions."
+    
+    assert guard.check_hallucination(paraphrased_answer, context) is True
+
 def test_orchestrator_invokes_layer4_hallucination_check(mocker):
     orchestrator = VoiceRAGOrchestrator()
 
