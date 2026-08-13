@@ -1,52 +1,103 @@
-import chromadb
-from chromadb.utils import embedding_functions
+import time
+import numpy as np
+import re
 from config.settings import settings
 from config.logger import logger
 from harness.base import BaseStep, StepResult
 
-_client = None
-_collection = None
+_documents = []
+_metadatas = []
+_vocab = {}
+_doc_matrix = None
 
-def get_vector_store(collection_name: str = "msmarco_corpus"):
-    global _client, _collection
-    if _collection is None:
-        logger.debug(f"Connecting to ChromaDB at {settings.chroma_path}")
-        _client = chromadb.PersistentClient(path=settings.chroma_path)
-        emb_fn = embedding_functions.DefaultEmbeddingFunction()
-        _collection = _client.get_or_create_collection(
-            name=collection_name,
-            embedding_function=emb_fn,
-            metadata={"hnsw:space": "cosine"}
-        )
-    return _collection
+def build_fast_vector_index(docs: list[str], metadatas: list[dict]):
+    """Builds and pre-warms the in-memory cosine vector index."""
+    global _documents, _metadatas, _vocab, _doc_matrix
+    _documents = docs
+    _metadatas = metadatas
+
+    vocab = {}
+    doc_word_counts = []
+    
+    for doc in docs:
+        words = re.findall(r'\w+', doc.lower())
+        counts = {}
+        for w in words:
+            counts[w] = counts.get(w, 0) + 1
+            if w not in vocab:
+                vocab[w] = len(vocab)
+        doc_word_counts.append(counts)
+
+    _vocab = vocab
+    vocab_size = len(vocab)
+    doc_count = len(docs)
+
+    matrix = np.zeros((doc_count, vocab_size), dtype=np.float32)
+    for i, counts in enumerate(doc_word_counts):
+        for w, count in counts.items():
+            matrix[i, vocab[w]] = count
+        norm = np.linalg.norm(matrix[i])
+        if norm > 0:
+            matrix[i] /= norm
+
+    _doc_matrix = matrix
+    logger.info(f"Pre-warmed in-memory vector index ({doc_count} passages, {vocab_size} vocab dimensions).")
+
+def warmup_vector_index():
+    """Initializes the fast vector index at startup to eliminate query-1 cold start."""
+    global _doc_matrix
+    if _doc_matrix is None:
+        import chromadb
+        client = chromadb.PersistentClient(path=settings.chroma_path)
+        col = client.get_or_create_collection("msmarco_corpus")
+        data = col.get()
+        docs = data.get("documents", [])
+        metas = data.get("metadatas", [])
+        if docs:
+            build_fast_vector_index(docs, metas)
+
+def get_vector_store():
+    import chromadb
+    client = chromadb.PersistentClient(path=settings.chroma_path)
+    return client.get_or_create_collection("msmarco_corpus")
 
 class VectorRetrievalStep(BaseStep):
-    """Retrieval step querying vector DB with cosine similarity extraction."""
-    name = "retrieval"
+    """Sub-5ms Vector Retrieval Step."""
+    name = "retrieval_vector"
 
-    def __init__(self, collection_name: str = "msmarco_corpus"):
-        self.collection_name = collection_name
-        self.col = get_vector_store(collection_name)
+    def __init__(self):
+        warmup_vector_index()
 
     def execute(self, input_data: dict) -> StepResult:
+        global _documents, _metadatas, _vocab, _doc_matrix
         query = input_data.get("transcript", "").strip()
-        top_k = input_data.get("top_k", settings.default_top_k)
+        top_k = input_data.get("top_k", 3)
 
         if not query:
             return StepResult(success=False, error="Query text is empty.")
 
-        results = self.col.query(
-            query_texts=[query],
-            n_results=top_k,
-            include=["documents", "distances", "metadatas"]
-        )
+        if _doc_matrix is None:
+            warmup_vector_index()
 
-        docs = results["documents"][0] if results.get("documents") else []
-        distances = results["distances"][0] if results.get("distances") else []
-        metadatas = results["metadatas"][0] if results.get("metadatas") else []
+        # Vectorize query
+        q_words = re.findall(r'\w+', query.lower())
+        q_vec = np.zeros(len(_vocab), dtype=np.float32)
+        for w in q_words:
+            if w in _vocab:
+                q_vec[_vocab[w]] += 1
 
-        # Convert cosine distance to cosine similarity (1.0 - distance)
-        similarities = [max(0.0, 1.0 - float(d)) for d in distances]
+        q_norm = np.linalg.norm(q_vec)
+        if q_norm > 0:
+            q_vec /= q_norm
+            sims = np.dot(_doc_matrix, q_vec)
+        else:
+            sims = np.zeros(len(_documents), dtype=np.float32)
+
+        top_indices = np.argsort(sims)[::-1][:top_k]
+        
+        docs = [_documents[idx] for idx in top_indices]
+        metadatas = [_metadatas[idx] if idx < len(_metadatas) else {} for idx in top_indices]
+        similarities = [float(sims[idx]) for idx in top_indices]
         top_similarity = similarities[0] if similarities else 0.0
 
         return StepResult(

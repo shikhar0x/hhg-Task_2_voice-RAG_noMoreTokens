@@ -56,6 +56,24 @@ def index():
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>HH Goa 2026 | Voice-Enabled RAG</title>
         <script src="https://cdn.tailwindcss.com"></script>
+        <style>
+            /* Custom styled scrollbars */
+            ::-webkit-scrollbar {
+                width: 6px;
+                height: 6px;
+            }
+            ::-webkit-scrollbar-track {
+                background: #0f172a;
+                border-radius: 4px;
+            }
+            ::-webkit-scrollbar-thumb {
+                background: #334155;
+                border-radius: 4px;
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                background: #10b981;
+            }
+        </style>
     </head>
     <body class="bg-slate-950 text-slate-100 min-h-screen p-6 md:p-12">
         <div class="max-w-3xl mx-auto space-y-6">
@@ -101,7 +119,7 @@ def index():
             <!-- Loading Spinner -->
             <div id="loader" class="hidden text-center py-6">
                 <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-emerald-500"></div>
-                <div class="text-xs text-slate-400 mt-2 font-mono">Transcribing Speech, Retrieving from MSMARCO & Generating Answer...</div>
+                <div class="text-xs text-slate-400 mt-2 font-mono">Transcribing Speech, Retrieving Context & Formulating Answer...</div>
             </div>
 
             <!-- Results Card -->
@@ -113,12 +131,13 @@ def index():
                 
                 <div>
                     <div id="sttEngineLabel" class="text-xs text-slate-400 font-mono uppercase">Speech Transcript</div>
-                    <div id="transcriptText" class="text-slate-100 font-medium mt-1 bg-slate-950 p-3 rounded border border-slate-800"></div>
+                    <div id="transcriptText" class="text-slate-100 font-medium mt-1 bg-slate-950 p-3.5 rounded-lg border border-slate-800"></div>
                 </div>
 
+                <!-- Increased Height & Scrollable Answer Box -->
                 <div>
-                    <div class="text-xs text-slate-400 font-mono uppercase">Grounded Answer (Groq LLaMA-3.1)</div>
-                    <div id="answerText" class="text-emerald-300 font-medium mt-1 bg-slate-950 p-3 rounded border border-slate-800"></div>
+                    <div class="text-xs text-slate-400 font-mono uppercase">Grounded Answer (Groq Meta LLaMA-3.1)</div>
+                    <div id="answerText" class="text-emerald-300 font-normal leading-relaxed mt-1 bg-slate-950 p-4 rounded-lg border border-slate-800 min-h-[140px] max-h-[300px] overflow-y-auto whitespace-pre-wrap"></div>
                 </div>
 
                 <div>
@@ -238,12 +257,15 @@ def index():
                     document.getElementById('answerText').innerText = "Pipeline halted due to error.";
                     const badge = document.getElementById('statusBadge');
                     badge.className = 'px-3 py-1 text-xs rounded-full font-mono bg-red-950 text-red-400 border border-red-800';
-                    badge.innerText = '❌ STT / INGESTION ERROR';
+                    badge.innerText = '❌ STT / PIPELINE ERROR';
                     return;
                 }
 
+                // Clean answer string (remove any lingering Passage artifacts)
+                let cleanAns = (data.answer || "No response").replace(/Passage \\d+:/g, '').trim();
+
                 document.getElementById('transcriptText').innerText = data.transcript || "N/A";
-                document.getElementById('answerText').innerText = data.answer || "No response";
+                document.getElementById('answerText').innerText = cleanAns;
 
                 const badge = document.getElementById('statusBadge');
                 if (data.refused) {

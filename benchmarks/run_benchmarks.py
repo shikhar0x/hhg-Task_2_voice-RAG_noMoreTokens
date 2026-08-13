@@ -1,5 +1,6 @@
 import json
 import os
+import time
 from harness.orchestrator import VoiceRAGOrchestrator
 from rich.console import Console
 from rich.table import Table
@@ -41,8 +42,11 @@ def main():
             status = "[red]REFUSED (Guardrail Gate)[/red]"
         else:
             grounded_count += 1
-            status = "[green]ANSWERED (Grounded)[/green]"
-        console.print(f"[{idx:02d}/{len(test_suite)}] '{item['query'][:40]}...' ➔ {status} in {res['timings']['total']:.1f}ms")
+            status = "[green]ANSWERED (Grounded LLaMA-3.1)[/green]"
+        console.print(f"[{idx:02d}/{len(test_suite)}] '{item['query'][:38]}...' ➔ {status} in {res['timings']['total']:.1f}ms")
+        
+        # 150ms pacing to prevent API throttling
+        time.sleep(0.15)
 
     percentiles = orchestrator.metrics_db.compute_percentiles()
 
@@ -58,7 +62,7 @@ def main():
     console.print("\n")
     console.print(table)
     console.print(f"\n[bold green]Summary:[/bold green] In-Domain Grounded: [green]{grounded_count}[/green] | Guardrail Refusals: [red]{refused_count}[/red]")
-    console.print("[bold green]✅ All 35 benchmark queries recorded in SQLite database for statistical rigor![/bold green]\n")
+    console.print("[bold green]✅ All 35 speed-test queries recorded in SQLite metrics database![/bold green]\n")
 
 if __name__ == "__main__":
     main()

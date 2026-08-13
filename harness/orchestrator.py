@@ -52,7 +52,10 @@ class VoiceRAGOrchestrator:
             }
 
         # 3. Guardrail Gate ("Know when not to answer")
-        guard_res = self.guardrail.run({"retrieval_result": ret_res.data})
+        guard_res = self.guardrail.run({
+            "query": transcript,
+            "retrieval_result": ret_res.data
+        })
         timings["guardrail"] = guard_res.duration_ms
 
         if guard_res.refused:
@@ -70,7 +73,7 @@ class VoiceRAGOrchestrator:
                 "timings": timings
             }
 
-        # 4. LLM Generation (Groq LLaMA-3.1)
+        # 4. LLM Generation (Groq Meta LLaMA-3.1)
         gen_res = self.generation.run({
             "transcript": transcript,
             "context": guard_res.data.get("valid_context", "")
@@ -78,12 +81,13 @@ class VoiceRAGOrchestrator:
         timings["generation"] = gen_res.duration_ms
         timings["total"] = (time.perf_counter() - start_total) * 1000.0
 
+        answer = gen_res.data.get("answer", "")
         self.metrics_db.log(query_id, transcript, timings, refused=False)
 
         return {
             "query_id": query_id,
             "transcript": transcript,
-            "answer": gen_res.data.get("answer"),
+            "answer": answer,
             "refused": False,
             "similarities": ret_res.data.get("similarities", []),
             "retrieved_docs": ret_res.data.get("documents", []),
