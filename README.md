@@ -63,23 +63,23 @@ Benchmarked across **35 diverse queries** (30 authentic queries directly from `a
 | Pipeline Stage | P50 (Median) | P70 | P100 (Max Worst-Case) | Stage Description |
 | :--- | :--- | :--- | :--- | :--- |
 | **STT** | `0.02 ms` | `0.02 ms` | `0.05 ms` | Bypassed (Text Override Input) |
-| **Vector Retrieval** | `1.49 ms` | `3.03 ms` | `6.68 ms` | In-Memory NumPy TF Cosine Index |
-| **Guardrail Gate (Pre-Gen)** | `0.05 ms` | `0.06 ms` | `3.86 ms` | Layers 1–3 Safety & Threshold Gate |
-| **LLM Generation (Text Mode)** | **`217.62 ms`** | **`281.40 ms`** | **`522.32 ms`** | Groq LLaMA-3.1 Cloud API |
-| **Hallucination Check (Post-Gen)** | `0.15 ms` | `0.17 ms` | `1.29 ms` | Layer 4 Entity Term-Overlap Check |
-| **Total End-to-End** | **`221.51 ms`** | **`282.83 ms`** | **`523.52 ms`** | Complete Text Pipeline Run |
+| **Vector Retrieval** | `0.76 ms` | `2.93 ms` | `120.08 ms` | In-Memory NumPy TF Cosine Index |
+| **Guardrail Gate (Pre-Gen)** | `0.05 ms` | `0.06 ms` | `3.43 ms` | Layers 1–3 Safety & Threshold Gate |
+| **LLM Generation (Text Mode)** | **`288.67 ms`** | **`336.22 ms`** | **`4494.64 ms`** | Groq LLaMA-3.1 Cloud API |
+| **Hallucination Check (Post-Gen)** | `0.17 ms` | `0.25 ms` | `1.54 ms` | Layer 4 Entity Term-Overlap Check |
+| **Total End-to-End** | **`292.27 ms`** | **`338.93 ms`** | **`4495.54 ms`** | Complete Text Pipeline Run |
 
 ### 2. Full End-to-End Latency (Real STT + Real LLM)
 Benchmarked across representative **16kHz WAV audio samples** using real **ElevenLabs Scribe v2 STT** and live **Groq Meta LLaMA 3.1** cloud generation:
 
 | Pipeline Stage | P50 (Median) | P70 | P100 (Max Worst-Case) | Stage Description |
 | :--- | :--- | :--- | :--- | :--- |
-| **STT (ElevenLabs Scribe v2)** | `1224.20 ms` | `1654.53 ms` | `1908.46 ms` | Remote Speech-to-Text API Network Latency |
-| **Vector Retrieval** | `3.04 ms` | `3.62 ms` | `4.29 ms` | **In-Memory Vector Search (`< 50ms` Target Met 🏆)** |
-| **Guardrail Gate (Pre-Gen)** | `0.06 ms` | `0.07 ms` | `9.25 ms` | Pre-Generation Safety & Threshold Gate |
-| **LLM Generation (Groq LLaMA-3.1)** | **`174.70 ms`** | **`201.20 ms`** | **`277.61 ms`** | Groq Cloud LPU Inference Network Latency |
-| **Hallucination Check (Post-Gen)** | `0.11 ms` | `0.14 ms` | `0.40 ms` | Layer 4 Entity Term-Overlap Check |
-| **Total End-to-End** | **`1503.87 ms`** | **`1776.64 ms`** | **`2086.44 ms`** | **Real Audio & Neural LLM End-to-End** |
+| **STT (ElevenLabs Scribe v2)** | `1199.03 ms` | `1468.34 ms` | `1737.89 ms` | Remote Speech-to-Text API Network Latency |
+| **Vector Retrieval** | `0.61 ms` | `0.80 ms` | `4.92 ms` | **In-Memory Vector Search (`< 50ms` Target Met 🏆)** |
+| **Guardrail Gate (Pre-Gen)** | `0.06 ms` | `0.06 ms` | `2.87 ms` | Pre-Generation Safety & Threshold Gate |
+| **LLM Generation (Groq LLaMA-3.1)** | **`218.56 ms`** | **`262.59 ms`** | **`2410.04 ms`** | Groq Cloud LPU Inference Network Latency |
+| **Hallucination Check (Post-Gen)** | `0.12 ms` | `0.18 ms` | `3.99 ms` | Layer 4 Entity Term-Overlap Check |
+| **Total End-to-End** | **`1509.30 ms`** | **`1673.59 ms`** | **`3881.54 ms`** | **Real Audio & Neural LLM End-to-End** |
 
 ### 🔍 Latency & Performance Breakdown
 
