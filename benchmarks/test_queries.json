@@ -2,181 +2,186 @@
   {
     "query_id": "1102432",
     "eng_query": ". what is a corporation?",
-    "indic_query": "কৰ্পোৰেচন কি?",
-    "ground_truth_answer": "A corporation is a company or group of people authorized to act as a single entity and recognized as such in law."
+    "indic_query": "\u0995\u09f0\u09cd\u09aa\u09cb\u09f0\u09c7\u099a\u09a8 \u0995\u09bf?",
+    "ground_truth_answer": "A corporation is a company or group of people authorized to act as a single entity and recognized as such in law.",
+    "audio_file": "benchmarks/audio_samples/query_1102432.wav"
   },
   {
     "query_id": "1102431",
     "eng_query": "why did rachel carson write an obligation to endure",
-    "indic_query": "ৰেচেল কাৰ্চনে কিয় এক বাধ্যবাধকতা সহ্য কৰিবলৈ লিখিছিল",
-    "ground_truth_answer": "Rachel Carson writes The Obligation to Endure because believes that as man tries to eliminate unwanted insects and weeds, however he is actually causing more problems by polluting the environment."
+    "indic_query": "\u09f0\u09c7\u099a\u09c7\u09b2 \u0995\u09be\u09f0\u09cd\u099a\u09a8\u09c7 \u0995\u09bf\u09af\u09bc \u098f\u0995 \u09ac\u09be\u09a7\u09cd\u09af\u09ac\u09be\u09a7\u0995\u09a4\u09be \u09b8\u09b9\u09cd\u09af \u0995\u09f0\u09bf\u09ac\u09b2\u09c8 \u09b2\u09bf\u0996\u09bf\u099b\u09bf\u09b2",
+    "ground_truth_answer": "Rachel Carson writes The Obligation to Endure because believes that as man tries to eliminate unwanted insects and weeds, however he is actually causing more problems by polluting the environment.",
+    "audio_file": "benchmarks/audio_samples/query_1102431.wav"
   },
   {
     "query_id": "90836",
     "eng_query": "chart for foods low in potassium.",
-    "indic_query": "পটাছিয়াম কম থকা খাদ্যৰ তালিকা।",
+    "indic_query": "\u09aa\u099f\u09be\u099b\u09bf\u09af\u09bc\u09be\u09ae \u0995\u09ae \u09a5\u0995\u09be \u0996\u09be\u09a6\u09cd\u09af\u09f0 \u09a4\u09be\u09b2\u09bf\u0995\u09be\u0964",
     "ground_truth_answer": "No Answer Present."
   },
   {
     "query_id": "55665",
     "eng_query": "bottom front of a cargo ship",
-    "indic_query": "কাৰ্গো জাহাজ এখনৰ তল প্ৰথম ভাগ",
-    "ground_truth_answer": "No Answer Present."
+    "indic_query": "\u0995\u09be\u09f0\u09cd\u0997\u09cb \u099c\u09be\u09b9\u09be\u099c \u098f\u0996\u09a8\u09f0 \u09a4\u09b2 \u09aa\u09cd\u09f0\u09a5\u09ae \u09ad\u09be\u0997",
+    "ground_truth_answer": "No Answer Present.",
+    "audio_file": "benchmarks/audio_samples/query_55665.wav"
   },
   {
     "query_id": "205107",
     "eng_query": "honesty or integrity definition",
-    "indic_query": "সততা বা সততার সংজ্ঞা",
-    "ground_truth_answer": "Honesty: The condition of being honest. \nIntegrity: The value and morals of a individual in relation or in addition to honesty."
+    "indic_query": "\u09b8\u09a4\u09a4\u09be \u09ac\u09be \u09b8\u09a4\u09a4\u09be\u09b0 \u09b8\u0982\u099c\u09cd\u099e\u09be",
+    "ground_truth_answer": "Honesty: The condition of being honest. \nIntegrity: The value and morals of a individual in relation or in addition to honesty.",
+    "audio_file": "benchmarks/audio_samples/query_205107.wav"
   },
   {
     "query_id": "1060386",
     "eng_query": "what is barometric pressure in lincoln ne now?",
-    "indic_query": "লিংকন নিউত এতিয়া বেৰ'মেট্ৰিক চাপ কিমান?",
+    "indic_query": "\u09b2\u09bf\u0982\u0995\u09a8 \u09a8\u09bf\u0989\u09a4 \u098f\u09a4\u09bf\u09af\u09bc\u09be \u09ac\u09c7\u09f0'\u09ae\u09c7\u099f\u09cd\u09f0\u09bf\u0995 \u099a\u09be\u09aa \u0995\u09bf\u09ae\u09be\u09a8?",
     "ground_truth_answer": "No Answer Present."
   },
   {
     "query_id": "1090356",
     "eng_query": "struthers city school district state number",
-    "indic_query": "ষ্ট্ৰুথাৰ্ছ চিটি স্কুল জিলা ৰাজ্যিক নম্বৰ",
+    "indic_query": "\u09b7\u09cd\u099f\u09cd\u09f0\u09c1\u09a5\u09be\u09f0\u09cd\u099b \u099a\u09bf\u099f\u09bf \u09b8\u09cd\u0995\u09c1\u09b2 \u099c\u09bf\u09b2\u09be \u09f0\u09be\u099c\u09cd\u09af\u09bf\u0995 \u09a8\u09ae\u09cd\u09ac\u09f0",
     "ground_truth_answer": "No Answer Present."
   },
   {
     "query_id": "168868",
     "eng_query": "does medical marijuana help with ptsd",
-    "indic_query": "চিকিৎসা সংক্ৰান্ত গাঁজাই মন্ত্ৰসমূহৰ সৈতে সহায় কৰে নেকি?",
-    "ground_truth_answer": "No Answer Present."
+    "indic_query": "\u099a\u09bf\u0995\u09bf\u09ce\u09b8\u09be \u09b8\u0982\u0995\u09cd\u09f0\u09be\u09a8\u09cd\u09a4 \u0997\u09be\u0981\u099c\u09be\u0987 \u09ae\u09a8\u09cd\u09a4\u09cd\u09f0\u09b8\u09ae\u09c2\u09b9\u09f0 \u09b8\u09c8\u09a4\u09c7 \u09b8\u09b9\u09be\u09af\u09bc \u0995\u09f0\u09c7 \u09a8\u09c7\u0995\u09bf?",
+    "ground_truth_answer": "No Answer Present.",
+    "audio_file": "benchmarks/audio_samples/query_168868.wav"
   },
   {
     "query_id": "300122",
     "eng_query": "how many women did frank gifford marry",
-    "indic_query": "ফ্ৰেংক গিফৰ্ডে কিমানগৰাকী মহিলাক বিয়া কৰাইছিল",
+    "indic_query": "\u09ab\u09cd\u09f0\u09c7\u0982\u0995 \u0997\u09bf\u09ab\u09f0\u09cd\u09a1\u09c7 \u0995\u09bf\u09ae\u09be\u09a8\u0997\u09f0\u09be\u0995\u09c0 \u09ae\u09b9\u09bf\u09b2\u09be\u0995 \u09ac\u09bf\u09af\u09bc\u09be \u0995\u09f0\u09be\u0987\u099b\u09bf\u09b2",
     "ground_truth_answer": "Frank Gifford married to three women."
   },
   {
     "query_id": "290643",
     "eng_query": "how many ongoing trump administration investigations",
-    "indic_query": "ট্ৰাম্প প্ৰশাসনৰ কিমানটা তদন্ত চলি আছে",
+    "indic_query": "\u099f\u09cd\u09f0\u09be\u09ae\u09cd\u09aa \u09aa\u09cd\u09f0\u09b6\u09be\u09b8\u09a8\u09f0 \u0995\u09bf\u09ae\u09be\u09a8\u099f\u09be \u09a4\u09a6\u09a8\u09cd\u09a4 \u099a\u09b2\u09bf \u0986\u099b\u09c7",
     "ground_truth_answer": "No Answer Present."
   },
   {
     "query_id": "197590",
     "eng_query": "guide to how to collect followers on wow",
-    "indic_query": "ৱাওত অনুগামীসকলক কেনেকৈ সংগ্ৰহ কৰিব লাগে তাৰ নিৰ্দেশনা",
+    "indic_query": "\u09f1\u09be\u0993\u09a4 \u0985\u09a8\u09c1\u0997\u09be\u09ae\u09c0\u09b8\u0995\u09b2\u0995 \u0995\u09c7\u09a8\u09c7\u0995\u09c8 \u09b8\u0982\u0997\u09cd\u09f0\u09b9 \u0995\u09f0\u09bf\u09ac \u09b2\u09be\u0997\u09c7 \u09a4\u09be\u09f0 \u09a8\u09bf\u09f0\u09cd\u09a6\u09c7\u09b6\u09a8\u09be",
     "ground_truth_answer": "No Answer Present."
   },
   {
     "query_id": "265552",
     "eng_query": "how long is zales layaway",
-    "indic_query": "জেলছ কিমান দিন আছে আঁতৰত থাকিব লাগে",
+    "indic_query": "\u099c\u09c7\u09b2\u099b \u0995\u09bf\u09ae\u09be\u09a8 \u09a6\u09bf\u09a8 \u0986\u099b\u09c7 \u0986\u0981\u09a4\u09f0\u09a4 \u09a5\u09be\u0995\u09bf\u09ac \u09b2\u09be\u0997\u09c7",
     "ground_truth_answer": "No Answer Present."
   },
   {
     "query_id": "227261",
     "eng_query": "how does pollution increase human population",
-    "indic_query": "প্ৰদূষণে মানুহৰ জনসংখ্যা কেনেকৈ বৃদ্ধি কৰে",
-    "ground_truth_answer": "এই প্ৰক্ৰিয়া অনুসৰি প্ৰকৃত � পদাৰ্থটো পোৱা গৈছিল এক � সুকীয়া স্থানত পোৱা যায়।"
+    "indic_query": "\u09aa\u09cd\u09f0\u09a6\u09c2\u09b7\u09a3\u09c7 \u09ae\u09be\u09a8\u09c1\u09b9\u09f0 \u099c\u09a8\u09b8\u0982\u0996\u09cd\u09af\u09be \u0995\u09c7\u09a8\u09c7\u0995\u09c8 \u09ac\u09c3\u09a6\u09cd\u09a7\u09bf \u0995\u09f0\u09c7",
+    "ground_truth_answer": "\u098f\u0987 \u09aa\u09cd\u09f0\u0995\u09cd\u09f0\u09bf\u09df\u09be \u0985\u09a8\u09c1\u09b8\u09f0\u09bf \u09aa\u09cd\u09f0\u0995\u09c3\u09a4 \ufffd \u09aa\u09a6\u09be\u09f0\u09cd\u09a5\u099f\u09cb \u09aa\u09cb\u09f1\u09be \u0997\u09c8\u099b\u09bf\u09b2 \u098f\u0995 \ufffd \u09b8\u09c1\u0995\u09c0\u09df\u09be \u09b8\u09cd\u09a5\u09be\u09a8\u09a4 \u09aa\u09cb\u09f1\u09be \u09af\u09be\u09df\u0964"
   },
   {
     "query_id": "227029",
     "eng_query": "how does nhl playoff seeding work",
-    "indic_query": "এনএইচএল প্লে'অফ ছীডিং কেনেকৈ কাম কৰে",
+    "indic_query": "\u098f\u09a8\u098f\u0987\u099a\u098f\u09b2 \u09aa\u09cd\u09b2\u09c7'\u0985\u09ab \u099b\u09c0\u09a1\u09bf\u0982 \u0995\u09c7\u09a8\u09c7\u0995\u09c8 \u0995\u09be\u09ae \u0995\u09f0\u09c7",
     "ground_truth_answer": "No Answer Present."
   },
   {
     "query_id": "166290",
     "eng_query": "does filth cause ringworm?",
-    "indic_query": "ময়লাৰ ফলত আঙুঠিৰ ক্ষত হয় নেকি?",
+    "indic_query": "\u09ae\u09af\u09bc\u09b2\u09be\u09f0 \u09ab\u09b2\u09a4 \u0986\u0999\u09c1\u09a0\u09bf\u09f0 \u0995\u09cd\u09b7\u09a4 \u09b9\u09af\u09bc \u09a8\u09c7\u0995\u09bf?",
     "ground_truth_answer": "No Answer Present."
   },
   {
     "query_id": "316415",
     "eng_query": "how much does it cost to recement a crown",
-    "indic_query": "এটা মুকুট পুনৰ স্থাপন কৰিবলৈ কিমান খৰচ হয়",
+    "indic_query": "\u098f\u099f\u09be \u09ae\u09c1\u0995\u09c1\u099f \u09aa\u09c1\u09a8\u09f0 \u09b8\u09cd\u09a5\u09be\u09aa\u09a8 \u0995\u09f0\u09bf\u09ac\u09b2\u09c8 \u0995\u09bf\u09ae\u09be\u09a8 \u0996\u09f0\u099a \u09b9\u09af\u09bc",
     "ground_truth_answer": "No Answer Present."
   },
   {
     "query_id": "1060370",
     "eng_query": "what is barrel o slime?",
-    "indic_query": "বেৰেল অ’ স্লাইম কি?",
+    "indic_query": "\u09ac\u09c7\u09f0\u09c7\u09b2 \u0985\u2019 \u09b8\u09cd\u09b2\u09be\u0987\u09ae \u0995\u09bf?",
     "ground_truth_answer": "No Answer Present."
   },
   {
     "query_id": "233826",
     "eng_query": "how fast does an eagle travel",
-    "indic_query": "এটা ঈগলে কিমান দ্ৰুতগতিত ভ্ৰমণ কৰে",
+    "indic_query": "\u098f\u099f\u09be \u0988\u0997\u09b2\u09c7 \u0995\u09bf\u09ae\u09be\u09a8 \u09a6\u09cd\u09f0\u09c1\u09a4\u0997\u09a4\u09bf\u09a4 \u09ad\u09cd\u09f0\u09ae\u09a3 \u0995\u09f0\u09c7",
     "ground_truth_answer": "30 to 55 mph"
   },
   {
     "query_id": "1090355",
     "eng_query": "stubhub toll free number",
-    "indic_query": "ষ্টাবহাব টোল বিনামূলীয়া নম্বৰ",
+    "indic_query": "\u09b7\u09cd\u099f\u09be\u09ac\u09b9\u09be\u09ac \u099f\u09cb\u09b2 \u09ac\u09bf\u09a8\u09be\u09ae\u09c2\u09b2\u09c0\u09af\u09bc\u09be \u09a8\u09ae\u09cd\u09ac\u09f0",
     "ground_truth_answer": "The toll free number of Stubhub is 866-788-2482."
   },
   {
     "query_id": "287284",
     "eng_query": "how many kw do solar city panels produce",
-    "indic_query": "সৌৰ চিটি পেনেলসমূহে কিমান কিলোৱাট উৎপাদন কৰে",
+    "indic_query": "\u09b8\u09cc\u09f0 \u099a\u09bf\u099f\u09bf \u09aa\u09c7\u09a8\u09c7\u09b2\u09b8\u09ae\u09c2\u09b9\u09c7 \u0995\u09bf\u09ae\u09be\u09a8 \u0995\u09bf\u09b2\u09cb\u09f1\u09be\u099f \u0989\u09ce\u09aa\u09be\u09a6\u09a8 \u0995\u09f0\u09c7",
     "ground_truth_answer": "No Answer Present."
   },
   {
     "query_id": "187378",
     "eng_query": "first defense nasal filter sales numbers",
-    "indic_query": "প্ৰথম প্ৰতিৰক্ষা নাকৰ ফিল্টাৰ বিক্ৰীৰ সংখ্যা",
+    "indic_query": "\u09aa\u09cd\u09f0\u09a5\u09ae \u09aa\u09cd\u09f0\u09a4\u09bf\u09f0\u0995\u09cd\u09b7\u09be \u09a8\u09be\u0995\u09f0 \u09ab\u09bf\u09b2\u09cd\u099f\u09be\u09f0 \u09ac\u09bf\u0995\u09cd\u09f0\u09c0\u09f0 \u09b8\u0982\u0996\u09cd\u09af\u09be",
     "ground_truth_answer": "No Answer Present."
   },
   {
     "query_id": "361332",
     "eng_query": "how to get clear desktop icon on windows 8",
-    "indic_query": "উইণ্ড'জ ৮-ত কিদৰে ক্লিয়াৰ ডেস্কটপ আইকন পাব",
+    "indic_query": "\u0989\u0987\u09a3\u09cd\u09a1'\u099c \u09ee-\u09a4 \u0995\u09bf\u09a6\u09f0\u09c7 \u0995\u09cd\u09b2\u09bf\u09af\u09bc\u09be\u09f0 \u09a1\u09c7\u09b8\u09cd\u0995\u099f\u09aa \u0986\u0987\u0995\u09a8 \u09aa\u09be\u09ac",
     "ground_truth_answer": "No Answer Present."
   },
   {
     "query_id": "165349",
     "eng_query": "does delta fly to bangalore",
-    "indic_query": "ডেল্টা বাংগালোৰলৈ উৰি যায়",
+    "indic_query": "\u09a1\u09c7\u09b2\u09cd\u099f\u09be \u09ac\u09be\u0982\u0997\u09be\u09b2\u09cb\u09f0\u09b2\u09c8 \u0989\u09f0\u09bf \u09af\u09be\u09af\u09bc",
     "ground_truth_answer": "Yes"
   },
   {
     "query_id": "260880",
     "eng_query": "how long for cantaloupe to mature",
-    "indic_query": "কেণ্টালুপ পূৰঠ হ'বলৈ কিমান সময় লাগে",
+    "indic_query": "\u0995\u09c7\u09a3\u09cd\u099f\u09be\u09b2\u09c1\u09aa \u09aa\u09c2\u09f0\u09a0 \u09b9'\u09ac\u09b2\u09c8 \u0995\u09bf\u09ae\u09be\u09a8 \u09b8\u09ae\u09af\u09bc \u09b2\u09be\u0997\u09c7",
     "ground_truth_answer": "90 days."
   },
   {
     "query_id": "110842",
     "eng_query": "cost to replace converter with test pipe",
-    "indic_query": "পৰীক্ষামূলক পাইপৰ সৈতে কনভাৰ্টাৰ সলনি কৰাৰ খৰচ",
+    "indic_query": "\u09aa\u09f0\u09c0\u0995\u09cd\u09b7\u09be\u09ae\u09c2\u09b2\u0995 \u09aa\u09be\u0987\u09aa\u09f0 \u09b8\u09c8\u09a4\u09c7 \u0995\u09a8\u09ad\u09be\u09f0\u09cd\u099f\u09be\u09f0 \u09b8\u09b2\u09a8\u09bf \u0995\u09f0\u09be\u09f0 \u0996\u09f0\u099a",
     "ground_truth_answer": "No Answer Present."
   },
   {
     "query_id": "116898",
     "eng_query": "defination arbitrary",
-    "indic_query": "সংজ্ঞা নিৰ্ধাৰণ স্বেচ্ছামূলক",
+    "indic_query": "\u09b8\u0982\u099c\u09cd\u099e\u09be \u09a8\u09bf\u09f0\u09cd\u09a7\u09be\u09f0\u09a3 \u09b8\u09cd\u09ac\u09c7\u099a\u09cd\u099b\u09be\u09ae\u09c2\u09b2\u0995",
     "ground_truth_answer": "A course of action or a decision that is not based on reason or judgment but on personal will or discretion without regard to rules or standards."
   },
   {
     "query_id": "237853",
     "eng_query": "how is time to degree calculated graduate degrees",
-    "indic_query": "সময় কেনেকৈ ডিগ্ৰী গণনা কৰা হয়",
+    "indic_query": "\u09b8\u09ae\u09af\u09bc \u0995\u09c7\u09a8\u09c7\u0995\u09c8 \u09a1\u09bf\u0997\u09cd\u09f0\u09c0 \u0997\u09a3\u09a8\u09be \u0995\u09f0\u09be \u09b9\u09af\u09bc",
     "ground_truth_answer": "No Answer Present."
   },
   {
     "query_id": "1060361",
     "eng_query": "what is barter system and its problems",
-    "indic_query": "বাৰ্টাৰ ব্যৱস্থা আৰু ইয়াৰ সমস্যাবোৰ কি",
+    "indic_query": "\u09ac\u09be\u09f0\u09cd\u099f\u09be\u09f0 \u09ac\u09cd\u09af\u09f1\u09b8\u09cd\u09a5\u09be \u0986\u09f0\u09c1 \u0987\u09af\u09bc\u09be\u09f0 \u09b8\u09ae\u09b8\u09cd\u09af\u09be\u09ac\u09cb\u09f0 \u0995\u09bf",
     "ground_truth_answer": "Barter is a type of trade where goods or services are exchanged for a certain amount of other goods or services; no money is involved in the transaction. And the biggest problem of the barter system in economics is that primitive barter requires those whom you wish to trade with must have something YOU want."
   },
   {
     "query_id": "144943",
     "eng_query": "did roblox have a power ranger event",
-    "indic_query": "ডিড ৰবলক্সত এটা পাৱাৰ ৰেঞ্জাৰ ইভেণ্ট আছিলনে?",
+    "indic_query": "\u09a1\u09bf\u09a1 \u09f0\u09ac\u09b2\u0995\u09cd\u09b8\u09a4 \u098f\u099f\u09be \u09aa\u09be\u09f1\u09be\u09f0 \u09f0\u09c7\u099e\u09cd\u099c\u09be\u09f0 \u0987\u09ad\u09c7\u09a3\u09cd\u099f \u0986\u099b\u09bf\u09b2\u09a8\u09c7?",
     "ground_truth_answer": "No Answer Present."
   },
   {
     "query_id": "1090353",
     "eng_query": "study of climate weather",
-    "indic_query": "জলবায়ু বতৰৰ অধ্যয়ন",
+    "indic_query": "\u099c\u09b2\u09ac\u09be\u09af\u09bc\u09c1 \u09ac\u09a4\u09f0\u09f0 \u0985\u09a7\u09cd\u09af\u09af\u09bc\u09a8",
     "ground_truth_answer": "Weather is the day-to-day state of the atmosphere in a region and its short-term variations, whereas climate is defined as statistical weather information that describes the variation of weather at a given place for a specified interval."
   }
 ]

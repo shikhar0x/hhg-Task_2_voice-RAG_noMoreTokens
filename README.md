@@ -2,27 +2,42 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-emerald.svg)](LICENSE)
 [![Task](https://img.shields.io/badge/HH_Goa-Task_%232-blue.svg)](https://hhgoa.com)
-[![STT](https://img.shields.io/badge/STT-ElevenLabs_%26_Sarvam_AI-purple.svg)](https://elevenlabs.io)
+[![STT](https://img.shields.io/badge/STT-ElevenLabs_Scribe_v2-purple.svg)](https://elevenlabs.io)
 [![Dataset](https://img.shields.io/badge/Dataset-ai4bharat%2FMSMARCO--XI-orange.svg)](https://huggingface.co/datasets/ai4bharat/MSMARCO-XI)
 [![LLM](https://img.shields.io/badge/LLM-Groq_Meta_LLaMA--3.1--8B-blue.svg)](https://groq.com)
-[![Latency](https://img.shields.io/badge/P100_Latency-21.28ms_(Constraint_%3C50ms)-brightgreen.svg)](#-empirical-latency-analytics-p50--p70--p100-task-requirement-4)
+[![Retrieval Latency](https://img.shields.io/badge/P50_Retrieval-0.77ms_(Constraint_%3C50ms)-brightgreen.svg)](#-empirical-latency-analytics-p50--p70--p100-task-requirement-4)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-brightgreen.svg)](https://www.python.org)
 
-> High-performance, ultra-low-latency, guardrailed Voice-to-Answer RAG system built for **Hacker House Goa 2026 (Task #2)**.
-> **Full Computational Pipeline: P50 = 0.68 ms | P70 = 3.32 ms | P100 = 21.28 ms — strictly beating the official 50ms constraint.**
-> **Grounded Conversational Generation: Meta LLaMA-3.1 on Groq Cloud LPUs.**
+> High-performance, guardrailed Voice-to-Answer RAG system built for **Hacker House Goa 2026 (Task #2)**.
+> **Core Computational Pipeline (Vector Retrieval & Guardrails): P50 = 0.77 ms | P100 = 7.09 ms — comfortably satisfying the official sub-50ms retrieval constraint.**
+> **Full End-to-End Voice Pipeline (Real Audio STT + Cloud Neural LLM): P50 = 1.65 s (1,645 ms) | P70 = 2.92 s | P100 = 3.27 s (governed by network roundtrips to ElevenLabs Scribe v2 and Groq Cloud LPUs).**
 
 ---
 
 ## ⚡ Key Highlights & Architecture
 
-1. **Voice Input (STT)**: Multi-engine support powered by ElevenLabs (`scribe_v2`) and Sarvam AI (`saaras:v3`) with automated retry harnesses.
+1. **Voice Input (STT)**: Powered by **ElevenLabs (`scribe_v2`)** as our primary and sole actively used Speech-to-Text engine per the task requirements. Sarvam AI (`saaras:v3`) is retained in code as an optional resilience fallback that is disabled by default (`ENABLE_FALLBACK_STT = False`).
 2. **Engineered Chunking (Task Requirement #2)**: Swappable chunking strategies (Fixed-window with sliding overlap, Recursive sentence boundary splitter, and Semantic paragraph splitter) empirically evaluated on `ai4bharat/MSMARCO-XI`.
-3. **Sub-50ms Vector Retrieval (Task Requirement #3)**: Pre-warmed in-memory vector index delivering **0.37 ms P50 retrieval latency** and **21.07 ms P100 worst-case latency** (comfortably beating the official 50ms constraint).
-4. **4-Layer Defense-in-Depth Guardrails (Task Requirement #6)**: Safety filters, confidence threshold gates (`similarity < 0.22`), context sufficiency checks, and post-generation hallucination validators enforcing **"knowing when NOT to answer"**.
+3. **Sub-50ms Vector Retrieval (Task Requirement #3)**: ChromaDB manages local disk persistence of passages and metadatas. Query-time retrieval runs on a pre-warmed, in-memory term-frequency cosine similarity index built using NumPy (`retrieval/vector_store.py`), delivering **0.77 ms P50 retrieval latency** and **7.09 ms P100 worst-case latency** (comfortably beating the official 50ms constraint).
+4. **4-Layer Defense-in-Depth Guardrails (Task Requirement #6)**:
+   - **Layer 1 (Pre-Gen)**: Unsafe / Inappropriate Input & Prompt-Injection Blacklist Filter.
+   - **Layer 2 (Pre-Gen)**: Insufficient Context Gate (refuses when zero relevant passages are retrieved).
+   - **Layer 3 (Pre-Gen)**: Off-Topic Confidence Threshold Gate (`similarity < 0.22` threshold).
+   - **Layer 4 (Post-Gen)**: Post-Generation Hallucination & Faithfulness Checker (invoked in `VoiceRAGOrchestrator` after `LLMGenerationStep` to verify entity term overlap against context before returning answer).
 5. **Real Neural Generation**: Powered by **Meta LLaMA 3.1 (`llama-3.1-8b-instant`)** on Groq Cloud LPUs generating fluent, unclipped, factual answers.
 6. **Execution Harness & Resilience (Task Requirement #5)**: Typed `BaseStep`/`StepResult` orchestration with exponential backoff and jitter to survive API rate limits under heavy burst load.
 7. **Empirical Latency Telemetry (Task Requirement #4)**: Automatic SQLite logging measuring empirical **P50 / P70 / P100** percentiles across real query runs.
+
+---
+
+## 🛡️ 4-Layer Defense-in-Depth Guardrail Suite
+
+The system implements a rigorous 4-Layer safety and grounding architecture ensuring **"knowing when NOT to answer"**:
+
+1. **Layer 1 — Safety & Blacklist Filter (Pre-Gen)**: Scans input text for prompt injection, exploits, or policy-violating patterns inside `GroundingGuardrailStep`.
+2. **Layer 2 — Insufficient Context Gate (Pre-Gen)**: Instantly halts execution if vector retrieval returns no relevant context passages.
+3. **Layer 3 — Off-Topic Confidence Threshold Gate (Pre-Gen)**: Validates cosine similarity score against threshold (`SIMILARITY_THRESHOLD = 0.22`). Refuses out-of-domain queries in ~0.07ms.
+4. **Layer 4 — Post-Generation Hallucination & Faithfulness Checker (Post-Gen)**: Executed in `VoiceRAGOrchestrator` after `LLMGenerationStep` finishes. Runs `check_hallucination(answer, context)` to verify entity term overlap. If the LLM generates an ungrounded claim, the response is marked `refused = True` with `refusal_reason = "Refusal: Generated answer failed post-generation grounding check against retrieved context."`, returning a safe fallback message.
 
 ---
 
@@ -40,17 +55,37 @@ Empirically evaluated on the complete **`ai4bharat/MSMARCO-XI`** dataset across 
 
 ## 📊 Empirical Latency Analytics (P50 / P70 / P100) (Task Requirement #4)
 
-Benchmarked across **35 diverse queries** (30 authentic queries directly from `ai4bharat/MSMARCO-XI` + 5 out-of-domain guardrail refusal cases):
+> **Scope & Target Clarification**: The official Task #3 target of **< 50ms** applies specifically to the core local computation pipeline (chunking, vector index search, and guardrail logic). When exercising real speech recognition (ElevenLabs / Sarvam STT) and remote neural generation (Groq LLaMA 3.1), third-party network API delays dominate total latency. Below, we report both benchmark modes honestly and separately.
 
-| Pipeline Stage | P50 (Median) | P70 | P100 (Max Worst-Case) | Official Constraint |
-| :--- | :--- | :--- | :--- | :---: |
-| **STT (ElevenLabs / Sarvam)** | `0.01 ms` | `0.01 ms` | `0.01 ms` | `< 50 ms` |
-| **Vector Retrieval (ChromaDB Fast Index)** | `0.37 ms` | `0.95 ms` | `21.07 ms` | **`< 50 ms` (PASSED 🏆)** |
-| **Guardrail Gate (4-Layer Suite)** | `0.03 ms` | `0.03 ms` | `4.43 ms` | `< 5 ms` |
-| **Grounded Synthesis (Final Output)** | `0.06 ms` | `0.07 ms` | `0.15 ms` | `< 50 ms` |
-| **Total End-to-End** | **`0.68 ms`** | **`3.32 ms`** | **`21.28 ms`** | **`< 50 ms` (PASSED 🏆)** |
+### 1. Retrieval-Only Pipeline Latency (STT Bypassed)
+Benchmarked across **35 diverse queries** (30 authentic queries directly from `ai4bharat/MSMARCO-XI` + 5 out-of-domain guardrail refusal cases) using text override to evaluate internal pipeline performance:
 
-> **Note on Guardrail Efficiency:** When out-of-domain queries are detected (e.g. quantum encryption), the guardrail halts execution in **~0.03ms**, completely skipping LLM generation and returning a safe refusal in under **4.5ms** with 0 hallucinations.
+| Pipeline Stage | P50 (Median) | P70 | P100 (Max Worst-Case) | Stage Description |
+| :--- | :--- | :--- | :--- | :--- |
+| **STT** | `0.02 ms` | `0.02 ms` | `0.02 ms` | Bypassed (Text Override Input) |
+| **Vector Retrieval** | `0.77 ms` | `1.05 ms` | `7.09 ms` | In-Memory NumPy TF Cosine Index |
+| **Guardrail Gate (Pre-Gen)** | `0.07 ms` | `0.07 ms` | `3.56 ms` | Layers 1–3 Safety & Threshold Gate |
+| **LLM Generation (Text Mode)** | `4377.19 ms` | `5204.20 ms` | `6369.80 ms` | Groq LLaMA-3.1 Cloud API |
+| **Hallucination Check (Post-Gen)** | `0.16 ms` | `0.19 ms` | `0.20 ms` | Layer 4 Entity Term-Overlap Check |
+| **Total End-to-End** | **`4380.23 ms`** | **`5205.62 ms`** | **`6370.64 ms`** | Complete Text Pipeline Run |
+
+### 2. Full End-to-End Latency (Real STT + Real LLM)
+Benchmarked across representative **16kHz WAV audio samples** using real **ElevenLabs Scribe v2 STT** and live **Groq Meta LLaMA 3.1** cloud generation:
+
+| Pipeline Stage | P50 (Median) | P70 | P100 (Max Worst-Case) | Stage Description |
+| :--- | :--- | :--- | :--- | :--- |
+| **STT (ElevenLabs Scribe v2)** | `1106.72 ms` | `1226.56 ms` | `1643.75 ms` | Remote Speech-to-Text API Network Latency |
+| **Vector Retrieval** | `0.62 ms` | `0.64 ms` | `2.70 ms` | **In-Memory Vector Search (`< 50ms` Target Met 🏆)** |
+| **Guardrail Gate (Pre-Gen)** | `0.05 ms` | `0.06 ms` | `1.54 ms` | Pre-Generation Safety & Threshold Gate |
+| **LLM Generation (Groq LLaMA-3.1)** | `175.17 ms` | `1510.68 ms` | `2229.06 ms` | Groq Cloud LPU Inference Network Latency |
+| **Hallucination Check (Post-Gen)** | `0.07 ms` | `0.09 ms` | `0.21 ms` | Layer 4 Entity Term-Overlap Check |
+| **Total End-to-End** | **`1645.67 ms`** | **`2923.86 ms`** | **`3270.27 ms`** | **Real Audio & Neural LLM End-to-End** |
+
+### 🔍 Latency & Performance Breakdown
+
+- **Vector Retrieval**: Achieves **0.62–0.77 ms P50** and **2.70–7.09 ms P100**, comfortably satisfying the sub-50ms retrieval constraint (**Target Met 🏆**).
+- **Guardrail Efficiency**: Pre-generation safety and threshold checks execute in **0.05–0.07 ms P50**. Out-of-domain queries are rejected in sub-millisecond time, avoiding unnecessary LLM call overhead.
+- **Third-Party Network Overhead**: Speech recognition (~1.1s P50) and cloud LLM generation (~0.18s–1.51s P50) reflect external web service roundtrips outside local computational control.
 
 ---
 
@@ -79,7 +114,7 @@ voice-rag-goa/
 │
 ├── retrieval/                  # Vector search & embeddings
 │   ├── __init__.py
-│   └── vector_store.py         # Sub-5ms Vector Store with Pre-Warmed Cosine Index
+│   └── vector_store.py         # Sub-1ms Vector Store (ChromaDB storage + NumPy in-memory TF cosine index)
 │
 ├── stt/                        # Speech-to-Text inference layer
 │   ├── __init__.py
@@ -106,13 +141,18 @@ voice-rag-goa/
 │
 ├── benchmarks/                 # Latency analytics & test suite
 │   ├── __init__.py
+│   ├── audio_samples/          # Representative WAV audio files for benchmark queries
+│   ├── audio_manifest.json     # Audio query manifest
+│   ├── generate_audio_samples.py # Script for generating WAV benchmark audio files
 │   ├── test_queries.json       # 30 Authentic MSMARCO-XI extracted queries
-│   └── run_benchmarks.py       # 35-Query P50 / P70 / P100 empirical benchmark runner
+│   └── run_benchmarks.py       # Dual-mode empirical benchmark runner (Retrieval-Only & Full E2E)
 │
 └── data/                       # Persistent storage (ignored in git)
     ├── chroma/                 # Vector database files (344 indexed passages)
     └── metrics.db              # Latency logs database
 ```
+
+---
 
 ## 🚀 Quickstart
 
@@ -132,9 +172,9 @@ cp .env.example .env
 # 4. Ingest MSMARCO-XI corpus
 python -m dataset.loader --samples 30 --strategy recursive_sentence
 
-# 5. Run chunking evaluation and the 35-query latency benchmark
+# 5. Run chunking evaluation and the dual-mode latency benchmark
 python -m chunking.benchmark
-python -m benchmarks.run_benchmarks
+python benchmarks/run_benchmarks.py
 
 # 6. Launch the live demo server
 python app.py
@@ -142,17 +182,21 @@ python app.py
 
 The demo is served at `http://127.0.0.1:8000`. It accepts live microphone input, uploaded audio, or a text-only query. `GET /api/metrics` returns the latency percentiles recorded in SQLite.
 
+---
+
 ## 🔐 Configuration
 
 Copy `.env.example` to `.env` and set the values you need:
 
 | Variable | Purpose |
 | :--- | :--- |
-| `ELEVENLABS_API_KEY` | Primary STT provider, using ElevenLabs Scribe v2. |
-| `SARVAM_API_KEY` | STT fallback provider, using Sarvam `saaras:v3`. |
-| `GROQ_API_KEY` | Enables Groq-backed grounded generation; otherwise the app uses its extractive fallback. |
+| `ELEVENLABS_API_KEY` | Primary & sole actively used STT provider (ElevenLabs Scribe v2). |
+| `SARVAM_API_KEY` | Optional STT fallback provider (Sarvam `saaras:v3`, disabled by default). |
+| `GROQ_API_KEY` | Enables Groq-backed grounded generation; required for benchmarks. |
 | `HF_TOKEN` | Optional Hugging Face token for dataset access. |
 | `SIMILARITY_THRESHOLD` | Retrieval confidence required before generation (default: `0.22`). |
+
+---
 
 ## 📜 License
 

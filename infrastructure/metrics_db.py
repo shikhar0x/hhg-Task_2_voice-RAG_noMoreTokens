@@ -22,18 +22,28 @@ class MetricsDB:
                     retrieval_ms REAL,
                     guardrail_ms REAL,
                     generation_ms REAL,
+                    hallucination_ms REAL DEFAULT 0.0,
                     total_ms REAL,
                     refused INTEGER,
-                    timestamp TEXT
+                    timestamp TEXT,
+                    mode TEXT DEFAULT 'end_to_end'
                 )
             """)
+            # Migration check: add columns if missing in older schema
+            cur = conn.cursor()
+            cur.execute("PRAGMA table_info(latency_logs)")
+            columns = [col[1] for col in cur.fetchall()]
+            if "mode" not in columns:
+                cur.execute("ALTER TABLE latency_logs ADD COLUMN mode TEXT DEFAULT 'end_to_end'")
+            if "hallucination_ms" not in columns:
+                cur.execute("ALTER TABLE latency_logs ADD COLUMN hallucination_ms REAL DEFAULT 0.0")
             conn.commit()
 
-    def log(self, query_id: str, transcript: str, timings: dict[str, float], refused: bool = False):
+    def log(self, query_id: str, transcript: str, timings: dict[str, float], refused: bool = False, mode: str = "end_to_end"):
         with sqlite3.connect(self.db_path) as conn:
             conn.execute("""
-                INSERT INTO latency_logs (query_id, transcript, stt_ms, retrieval_ms, guardrail_ms, generation_ms, total_ms, refused, timestamp)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                INSERT INTO latency_logs (query_id, transcript, stt_ms, retrieval_ms, guardrail_ms, generation_ms, hallucination_ms, total_ms, refused, timestamp, mode)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (
                 query_id,
                 transcript,
@@ -41,23 +51,28 @@ class MetricsDB:
                 timings.get("retrieval", 0.0),
                 timings.get("guardrail", 0.0),
                 timings.get("generation", 0.0),
+                timings.get("hallucination_check", 0.0),
                 timings.get("total", 0.0),
                 1 if refused else 0,
-                datetime.now().isoformat()
+                datetime.now().isoformat(),
+                mode
             ))
             conn.commit()
 
-    def compute_percentiles(self) -> dict[str, dict[str, str]]:
+    def compute_percentiles(self, mode: str | None = None) -> dict[str, dict[str, str]]:
         with sqlite3.connect(self.db_path) as conn:
             cur = conn.cursor()
-            cur.execute("SELECT stt_ms, retrieval_ms, guardrail_ms, generation_ms, total_ms FROM latency_logs")
+            if mode:
+                cur.execute("SELECT stt_ms, retrieval_ms, guardrail_ms, generation_ms, hallucination_ms, total_ms FROM latency_logs WHERE mode = ?", (mode,))
+            else:
+                cur.execute("SELECT stt_ms, retrieval_ms, guardrail_ms, generation_ms, hallucination_ms, total_ms FROM latency_logs")
             rows = cur.fetchall()
 
         if not rows:
             return {}
 
         data = np.array(rows)
-        stages = ["STT", "Vector Retrieval", "Guardrail Gate", "LLM Generation", "Total End-to-End"]
+        stages = ["STT", "Vector Retrieval", "Guardrail Gate", "LLM Generation", "Hallucination Check", "Total End-to-End"]
         metrics = {}
 
         for i, stage in enumerate(stages):

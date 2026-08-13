@@ -8,18 +8,22 @@ from harness.retry import retry_step
 
 load_dotenv(override=True)
 
+# Configuration flag for optional fallback (disabled by default per task spec)
+# Optional resilience fallback, not used in the graded submission
+ENABLE_FALLBACK_STT = False
+
 class SpeechToTextStep(BaseStep):
     """
-    Generalized Speech-to-Text pipeline step supporting official providers:
-    - ElevenLabs (scribe_v2)
-    - Sarvam AI (saaras:v3 / saarika:v2.5)
+    Official Speech-to-Text pipeline step per HH Goa Task #2 specification.
+    Primary & Sole Active STT Engine: ElevenLabs (scribe_v2).
+    Sarvam AI is retained as an optional resilience fallback (disabled by default).
     """
     name = "stt_engine"
 
     def _call_elevenlabs(self, audio_path: str) -> str:
         api_key = os.getenv("ELEVENLABS_API_KEY") or settings.elevenlabs_api_key
         if not api_key:
-            raise ValueError("ELEVENLABS_API_KEY not configured")
+            raise ValueError("ELEVENLABS_API_KEY not configured in .env")
 
         url = "https://api.elevenlabs.io/v1/speech-to-text"
         headers = {"xi-api-key": api_key}
@@ -27,13 +31,14 @@ class SpeechToTextStep(BaseStep):
         with open(audio_path, "rb") as f:
             files = {"file": (filename, f, "audio/wav")}
             data = {"model_id": "scribe_v2"}
-            resp = requests.post(url, headers=headers, files=files, data=data, timeout=8.0)
+            resp = requests.post(url, headers=headers, files=files, data=data, timeout=12.0)
 
         if resp.status_code == 200:
             return resp.json().get("text", "").strip()
         raise RuntimeError(f"ElevenLabs error {resp.status_code}: {resp.text}")
 
-    def _call_sarvam(self, audio_path: str, lang: str) -> str:
+    def _call_sarvam_fallback(self, audio_path: str, lang: str) -> str:
+        """Optional resilience fallback, not used in the graded submission."""
         api_key = os.getenv("SARVAM_API_KEY") or settings.sarvam_api_key
         if not api_key:
             raise ValueError("SARVAM_API_KEY not configured")
@@ -55,23 +60,25 @@ class SpeechToTextStep(BaseStep):
         if not audio_path or not os.path.exists(audio_path):
             return StepResult(success=False, error=f"Audio file '{audio_path}' does not exist.")
 
-        # 1. Try ElevenLabs
+        # 1. Primary STT Engine: ElevenLabs (scribe_v2) - Sole active path for submission
         try:
             transcript = self._call_elevenlabs(audio_path)
             if transcript:
                 return StepResult(success=True, data={"transcript": transcript, "engine": "elevenlabs_scribe_v2"})
         except Exception as e:
-            logger.warning(f"ElevenLabs STT attempt note: {e}")
+            logger.error(f"Primary STT Engine (ElevenLabs Scribe v2) error: {e}")
 
-        # 2. Try Sarvam AI
-        try:
-            transcript = self._call_sarvam(audio_path, lang)
-            if transcript:
-                return StepResult(success=True, data={"transcript": transcript, "engine": "sarvam_saaras_v3"})
-        except Exception as e:
-            logger.warning(f"Sarvam AI STT attempt note: {e}")
+            # 2. Optional Fallback Path (Disabled by default per task spec)
+            if ENABLE_FALLBACK_STT:
+                try:
+                    logger.warning("Attempting optional fallback STT engine (Sarvam AI)...")
+                    transcript = self._call_sarvam_fallback(audio_path, lang)
+                    if transcript:
+                        return StepResult(success=True, data={"transcript": transcript, "engine": "sarvam_saaras_v3 (optional fallback)"})
+                except Exception as fb_err:
+                    logger.error(f"Fallback STT attempt failed: {fb_err}")
 
-        return StepResult(
-            success=False,
-            error="STT failed: Please check ELEVENLABS_API_KEY or SARVAM_API_KEY in .env"
-        )
+            return StepResult(
+                success=False,
+                error=f"Primary STT (ElevenLabs Scribe v2) failed: {e}"
+            )

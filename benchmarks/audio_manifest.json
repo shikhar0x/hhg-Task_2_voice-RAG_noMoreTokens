@@ -1,0 +1,44 @@
+[
+  {
+    "query_id": "1102432",
+    "query": "what is a corporation?",
+    "type": "MSMARCO-XI Grounded",
+    "audio_path": "benchmarks/audio_samples/query_1102432.wav"
+  },
+  {
+    "query_id": "1102431",
+    "query": "why did rachel carson write an obligation to endure",
+    "type": "MSMARCO-XI Grounded",
+    "audio_path": "benchmarks/audio_samples/query_1102431.wav"
+  },
+  {
+    "query_id": "205107",
+    "query": "honesty or integrity definition",
+    "type": "MSMARCO-XI Grounded",
+    "audio_path": "benchmarks/audio_samples/query_205107.wav"
+  },
+  {
+    "query_id": "55665",
+    "query": "bottom front of a cargo ship",
+    "type": "MSMARCO-XI Grounded",
+    "audio_path": "benchmarks/audio_samples/query_55665.wav"
+  },
+  {
+    "query_id": "168868",
+    "query": "does medical marijuana help with ptsd",
+    "type": "MSMARCO-XI Grounded",
+    "audio_path": "benchmarks/audio_samples/query_168868.wav"
+  },
+  {
+    "query_id": "refusal_cake",
+    "query": "What is the recipe for baking a chocolate lava cake?",
+    "type": "Out-of-Domain Refusal",
+    "audio_path": "benchmarks/audio_samples/query_refusal_cake.wav"
+  },
+  {
+    "query_id": "refusal_quantum",
+    "query": "How do quantum computers factor 2048-bit RSA keys using Shor's algorithm?",
+    "type": "Out-of-Domain Refusal",
+    "audio_path": "benchmarks/audio_samples/query_refusal_quantum.wav"
+  }
+]

@@ -18,10 +18,13 @@ class VoiceRAGOrchestrator:
         self.generation = LLMGenerationStep()
         self.metrics_db = MetricsDB()
 
-    def process(self, audio_path: str | None = None, text_override: str | None = None) -> dict[str, Any]:
+    def process(self, audio_path: str | None = None, text_override: str | None = None, mode: str | None = None) -> dict[str, Any]:
         query_id = str(uuid.uuid4())[:8]
         start_total = time.perf_counter()
         timings: dict[str, float] = {}
+
+        if not mode:
+            mode = "retrieval_only" if (text_override and not audio_path) else "end_to_end"
 
         # 1. STT (Speech-to-Text)
         stt_res = self.stt.run({"audio_path": audio_path, "text_override": text_override})
@@ -60,8 +63,9 @@ class VoiceRAGOrchestrator:
 
         if guard_res.refused:
             timings["generation"] = 0.0
+            timings["hallucination_check"] = 0.0
             timings["total"] = (time.perf_counter() - start_total) * 1000.0
-            self.metrics_db.log(query_id, transcript, timings, refused=True)
+            self.metrics_db.log(query_id, transcript, timings, refused=True, mode=mode)
             return {
                 "query_id": query_id,
                 "transcript": transcript,
@@ -74,15 +78,39 @@ class VoiceRAGOrchestrator:
             }
 
         # 4. LLM Generation (Groq Meta LLaMA-3.1)
+        context = guard_res.data.get("valid_context", "")
         gen_res = self.generation.run({
             "transcript": transcript,
-            "context": guard_res.data.get("valid_context", "")
+            "context": context
         })
         timings["generation"] = gen_res.duration_ms
+        answer = gen_res.data.get("answer", "")
+
+        # 5. Guardrail Layer 4: Post-Generation Hallucination & Faithfulness Check
+        start_hallucination = time.perf_counter()
+        is_faithful = self.guardrail.check_hallucination(answer, context)
+        timings["hallucination_check"] = (time.perf_counter() - start_hallucination) * 1000.0
+
         timings["total"] = (time.perf_counter() - start_total) * 1000.0
 
-        answer = gen_res.data.get("answer", "")
-        self.metrics_db.log(query_id, transcript, timings, refused=False)
+        if not is_faithful:
+            refusal_reason = "Refusal: Generated answer failed post-generation grounding check against retrieved context."
+            logger.warning(f"Guardrail Layer 4 Triggered: {refusal_reason}")
+            fallback_answer = "I cannot provide this answer as it failed post-generation grounding verification against retrieved context."
+            self.metrics_db.log(query_id, transcript, timings, refused=True, mode=mode)
+            return {
+                "query_id": query_id,
+                "transcript": transcript,
+                "answer": fallback_answer,
+                "refused": True,
+                "refusal_reason": refusal_reason,
+                "similarities": ret_res.data.get("similarities", []),
+                "stt_engine": stt_engine,
+                "generation_provider": gen_res.data.get("provider", "unknown"),
+                "timings": timings
+            }
+
+        self.metrics_db.log(query_id, transcript, timings, refused=False, mode=mode)
 
         return {
             "query_id": query_id,
@@ -92,5 +120,6 @@ class VoiceRAGOrchestrator:
             "similarities": ret_res.data.get("similarities", []),
             "retrieved_docs": ret_res.data.get("documents", []),
             "stt_engine": stt_engine,
+            "generation_provider": gen_res.data.get("provider", "unknown"),
             "timings": timings
         }

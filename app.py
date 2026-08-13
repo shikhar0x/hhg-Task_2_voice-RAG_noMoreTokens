@@ -224,7 +224,7 @@ def index():
                         <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                         <span>Empirical Latency Breakdown</span>
                     </div>
-                    <div id="timingsBreakdown" class="grid grid-cols-2 sm:grid-cols-5 gap-3 font-mono text-xs text-center"></div>
+                    <div id="timingsBreakdown" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 font-mono text-xs text-center"></div>
                 </div>
             </div>
         </div>
@@ -357,20 +357,27 @@ def index():
                 const badge = document.getElementById('statusBadge');
                 if (data.refused) {
                     badge.className = 'px-3.5 py-1.5 text-xs rounded-full font-mono bg-rose-950/80 text-rose-300 border border-rose-800/80 flex items-center gap-1.5';
-                    badge.innerHTML = `${SVG_REFUSAL}<span>GUARDRAIL REFUSAL (OUT OF DOMAIN)</span>`;
+                    const refusalText = (data.refusal_reason && data.refusal_reason.includes("grounding check")) 
+                        ? "GUARDRAIL REFUSAL (UNFAITHFUL / HALLUCINATION)" 
+                        : "GUARDRAIL REFUSAL (OUT OF DOMAIN)";
+                    badge.innerHTML = `${SVG_REFUSAL}<span>${refusalText}</span>`;
                 } else {
                     badge.className = 'px-3.5 py-1.5 text-xs rounded-full font-mono bg-emerald-950/80 text-emerald-300 border border-emerald-800/80 flex items-center gap-1.5';
                     badge.innerHTML = `${SVG_GROUNDED}<span>GROUNDED ANSWER</span>`;
                 }
 
                 const timings = data.timings || {};
-                document.getElementById('timingsBreakdown').innerHTML = `
+                let html = `
                     <div class="bg-slate-950/90 p-3 rounded-xl border border-slate-800/80"><div class="text-slate-400 text-[11px]">STT</div><div class="text-emerald-400 font-bold mt-1 text-sm">${timings.stt ? timings.stt.toFixed(1) : 0}ms</div></div>
                     <div class="bg-slate-950/90 p-3 rounded-xl border border-slate-800/80"><div class="text-slate-400 text-[11px]">Retrieval</div><div class="text-emerald-400 font-bold mt-1 text-sm">${timings.retrieval ? timings.retrieval.toFixed(1) : 0}ms</div></div>
                     <div class="bg-slate-950/90 p-3 rounded-xl border border-slate-800/80"><div class="text-slate-400 text-[11px]">Guardrail</div><div class="text-emerald-400 font-bold mt-1 text-sm">${timings.guardrail ? timings.guardrail.toFixed(1) : 0}ms</div></div>
                     <div class="bg-slate-950/90 p-3 rounded-xl border border-slate-800/80"><div class="text-slate-400 text-[11px]">LLM</div><div class="text-emerald-400 font-bold mt-1 text-sm">${timings.generation ? timings.generation.toFixed(1) : 0}ms</div></div>
-                    <div class="bg-slate-950/90 p-3 rounded-xl border border-emerald-500/30 glow-emerald"><div class="text-slate-300 text-[11px]">Total</div><div class="text-emerald-300 font-bold mt-1 text-sm">${timings.total ? timings.total.toFixed(1) : 0}ms</div></div>
                 `;
+                if (timings.hallucination_check !== undefined) {
+                    html += `<div class="bg-slate-950/90 p-3 rounded-xl border border-slate-800/80"><div class="text-slate-400 text-[11px]">Hallucination Check</div><div class="text-emerald-400 font-bold mt-1 text-sm">${timings.hallucination_check.toFixed(1)}ms</div></div>`;
+                }
+                html += `<div class="bg-slate-950/90 p-3 rounded-xl border border-emerald-500/30 glow-emerald"><div class="text-slate-300 text-[11px]">Total</div><div class="text-emerald-300 font-bold mt-1 text-sm">${timings.total ? timings.total.toFixed(1) : 0}ms</div></div>`;
+                document.getElementById('timingsBreakdown').innerHTML = html;
             }
         </script>
     </body>
