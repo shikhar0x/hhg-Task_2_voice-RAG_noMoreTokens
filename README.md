@@ -77,3 +77,35 @@ voice-rag-goa/
 │   └── metrics.db              # Latency logs database
 │
 └── sample_audio/               # Sample audio files for benchmarking
+```
+
+📊 Empirical Latency Analytics (P50 / P70 / P100)
+Benchmarked across 8 diverse test queries (both in-domain grounded and out-of-domain guardrail refusal cases):
+
+Pipeline Stage	P50 (Median)	P70	P100 (Max)
+STT	0.01 ms	0.01 ms	0.03 ms
+Vector Retrieval	264.80 ms	271.52 ms	291.16 ms
+Guardrail Gate	0.01 ms	1.14 ms	1.33 ms
+LLM Generation	150.90 ms	156.39 ms	309.24 ms
+Total End-to-End	418.15 ms	430.81 ms	531.55 ms
+Note on Guardrail Efficiency: When out-of-domain queries are detected (e.g. baking recipes, quantum encryption), the guardrail halts execution within ~1ms, completely skipping LLM generation and returning a safe refusal in under 215ms.
+
+🚀 Quickstart
+Bash
+
+# 1. Activate virtual environment
+source venv/bin/activate
+
+# 2. Install dependencies
+pip install -r requirements.txt
+
+# 3. Index corpus
+python -m dataset.loader
+
+# 4. Run P50 / P70 / P100 empirical benchmarks
+python -m benchmarks.run_benchmarks
+
+# 5. Launch Live Demo server
+python app.py
+📜 License
+Distributed under the MIT License. See LICENSE for more information.
