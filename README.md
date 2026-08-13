@@ -5,12 +5,12 @@
 [![STT](https://img.shields.io/badge/STT-ElevenLabs_Scribe_v2-purple.svg)](https://elevenlabs.io)
 [![Dataset](https://img.shields.io/badge/Dataset-ai4bharat%2FMSMARCO--XI-orange.svg)](https://huggingface.co/datasets/ai4bharat/MSMARCO-XI)
 [![LLM](https://img.shields.io/badge/LLM-Groq_Meta_LLaMA--3.1--8B-blue.svg)](https://groq.com)
-[![Retrieval Latency](https://img.shields.io/badge/P50_Retrieval-0.77ms_(Constraint_%3C50ms)-brightgreen.svg)](#-empirical-latency-analytics-p50--p70--p100-task-requirement-4)
+[![Retrieval Latency](https://img.shields.io/badge/P50_Retrieval-1.49ms_(Constraint_%3C50ms)-brightgreen.svg)](#-empirical-latency-analytics-p50--p70--p100-task-requirement-4)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-brightgreen.svg)](https://www.python.org)
 
 > High-performance, guardrailed Voice-to-Answer RAG system built for **Hacker House Goa 2026 (Task #2)**.
-> **Core Computational Pipeline (Vector Retrieval & Guardrails): P50 = 0.77 ms | P100 = 7.09 ms — comfortably satisfying the official sub-50ms retrieval constraint.**
-> **Full End-to-End Voice Pipeline (Real Audio STT + Cloud Neural LLM): P50 = 1.65 s (1,645 ms) | P70 = 2.92 s | P100 = 3.27 s (governed by network roundtrips to ElevenLabs Scribe v2 and Groq Cloud LPUs).**
+> **Core Computational Pipeline (Vector Retrieval & Guardrails): P50 = 1.49 ms | P100 = 6.68 ms — comfortably satisfying the official sub-50ms retrieval constraint.**
+> **Full End-to-End Voice Pipeline (Real Audio STT + Cloud Neural LLM): P50 = 1.50 s (1,503 ms) | P70 = 1.78 s | P100 = 2.09 s (governed by network roundtrips to ElevenLabs Scribe v2 and Groq Cloud LPUs).**
 
 ---
 
@@ -18,11 +18,11 @@
 
 1. **Voice Input (STT)**: Powered by **ElevenLabs (`scribe_v2`)** as our primary and sole actively used Speech-to-Text engine per the task requirements. Sarvam AI (`saaras:v3`) is retained in code as an optional resilience fallback that is disabled by default (`ENABLE_FALLBACK_STT = False`).
 2. **Engineered Chunking (Task Requirement #2)**: Swappable chunking strategies (Fixed-window with sliding overlap, Recursive sentence boundary splitter, and Semantic paragraph splitter) empirically evaluated on `ai4bharat/MSMARCO-XI`.
-3. **Sub-50ms Vector Retrieval (Task Requirement #3)**: ChromaDB manages local disk persistence of passages and metadatas. Query-time retrieval runs on a pre-warmed, in-memory term-frequency cosine similarity index built using NumPy (`retrieval/vector_store.py`), delivering **0.77 ms P50 retrieval latency** and **7.09 ms P100 worst-case latency** (comfortably beating the official 50ms constraint).
+3. **Sub-50ms Vector Retrieval (Task Requirement #3)**: ChromaDB manages local disk persistence of passages and metadatas. Query-time retrieval runs on a pre-warmed, in-memory term-frequency cosine similarity index built using NumPy (`retrieval/vector_store.py`), delivering **1.49 ms P50 retrieval latency** and **6.68 ms P100 worst-case latency** (comfortably beating the official 50ms constraint).
 4. **4-Layer Defense-in-Depth Guardrails (Task Requirement #6)**:
    - **Layer 1 (Pre-Gen)**: Unsafe / Inappropriate Input & Prompt-Injection Blacklist Filter.
    - **Layer 2 (Pre-Gen)**: Insufficient Context Gate (refuses when zero relevant passages are retrieved).
-   - **Layer 3 (Pre-Gen)**: Off-Topic Confidence Threshold Gate (`similarity < 0.22` threshold).
+   - **Layer 3 (Pre-Gen)**: Off-Topic Confidence Threshold Gate (`similarity < 0.18` threshold).
    - **Layer 4 (Post-Gen)**: Post-Generation Hallucination & Faithfulness Checker (invoked in `VoiceRAGOrchestrator` after `LLMGenerationStep` to verify entity term overlap against context before returning answer).
 5. **Real Neural Generation**: Powered by **Meta LLaMA 3.1 (`llama-3.1-8b-instant`)** on Groq Cloud LPUs generating fluent, unclipped, factual answers.
 6. **Execution Harness & Resilience (Task Requirement #5)**: Typed `BaseStep`/`StepResult` orchestration with exponential backoff and jitter to survive API rate limits under heavy burst load.
@@ -36,7 +36,7 @@ The system implements a rigorous 4-Layer safety and grounding architecture ensur
 
 1. **Layer 1 — Safety & Blacklist Filter (Pre-Gen)**: Scans input text for prompt injection, exploits, or policy-violating patterns inside `GroundingGuardrailStep`.
 2. **Layer 2 — Insufficient Context Gate (Pre-Gen)**: Instantly halts execution if vector retrieval returns no relevant context passages.
-3. **Layer 3 — Off-Topic Confidence Threshold Gate (Pre-Gen)**: Validates cosine similarity score against threshold (`SIMILARITY_THRESHOLD = 0.22`). Refuses out-of-domain queries in ~0.07ms.
+3. **Layer 3 — Off-Topic Confidence Threshold Gate (Pre-Gen)**: Validates cosine similarity score against threshold (`SIMILARITY_THRESHOLD = 0.18`). Refuses out-of-domain queries in ~0.05ms.
 4. **Layer 4 — Post-Generation Hallucination & Faithfulness Checker (Post-Gen)**: Executed in `VoiceRAGOrchestrator` after `LLMGenerationStep` finishes. Runs `check_hallucination(answer, context)` to verify entity term overlap. If the LLM generates an ungrounded claim, the response is marked `refused = True` with `refusal_reason = "Refusal: Generated answer failed post-generation grounding check against retrieved context."`, returning a safe fallback message.
 
 ---
@@ -194,7 +194,7 @@ Copy `.env.example` to `.env` and set the values you need:
 | `SARVAM_API_KEY` | Optional STT fallback provider (Sarvam `saaras:v3`, disabled by default). |
 | `GROQ_API_KEY` | Enables Groq-backed grounded generation; required for benchmarks. |
 | `HF_TOKEN` | Optional Hugging Face token for dataset access. |
-| `SIMILARITY_THRESHOLD` | Retrieval confidence required before generation (default: `0.22`). |
+| `SIMILARITY_THRESHOLD` | Retrieval confidence required before generation (default: `0.18`). |
 
 ---
 
