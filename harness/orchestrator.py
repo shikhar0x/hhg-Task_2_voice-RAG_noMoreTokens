@@ -1,7 +1,7 @@
 import time
 import uuid
 from typing import Any
-from stt.sarvam_engine import SarvamSTTStep
+from stt.engine import SpeechToTextStep
 from retrieval.vector_store import VectorRetrievalStep
 from guardrails.threshold_gate import GroundingGuardrailStep
 from generation.llm import LLMGenerationStep
@@ -12,7 +12,7 @@ class VoiceRAGOrchestrator:
     """Central pipeline harness running end-to-end Voice-RAG execution."""
 
     def __init__(self):
-        self.stt = SarvamSTTStep()
+        self.stt = SpeechToTextStep()
         self.retrieval = VectorRetrievalStep()
         self.guardrail = GroundingGuardrailStep()
         self.generation = LLMGenerationStep()
@@ -23,25 +23,38 @@ class VoiceRAGOrchestrator:
         start_total = time.perf_counter()
         timings: dict[str, float] = {}
 
-        # 1. STT
+        # 1. STT (Speech-to-Text)
         stt_res = self.stt.run({"audio_path": audio_path, "text_override": text_override})
         timings["stt"] = stt_res.duration_ms
         if not stt_res.success:
-            return {"query_id": query_id, "success": False, "error": stt_res.error, "timings": timings}
+            return {
+                "query_id": query_id,
+                "success": False,
+                "error": stt_res.error,
+                "stt_engine": "error",
+                "timings": timings
+            }
 
         transcript = stt_res.data.get("transcript", "")
+        stt_engine = stt_res.data.get("engine", "stt")
 
-        # 2. Retrieval
+        # 2. Retrieval (ChromaDB Vector Store)
         ret_res = self.retrieval.run({"transcript": transcript})
         timings["retrieval"] = ret_res.duration_ms
         if not ret_res.success:
-            return {"query_id": query_id, "success": False, "error": ret_res.error, "timings": timings}
+            return {
+                "query_id": query_id,
+                "success": False,
+                "error": ret_res.error,
+                "transcript": transcript,
+                "stt_engine": stt_engine,
+                "timings": timings
+            }
 
-        # 3. Guardrail Gate
+        # 3. Guardrail Gate ("Know when not to answer")
         guard_res = self.guardrail.run({"retrieval_result": ret_res.data})
         timings["guardrail"] = guard_res.duration_ms
 
-        # Refusal Branch (Knows when NOT to answer -> saves latency & stops hallucination)
         if guard_res.refused:
             timings["generation"] = 0.0
             timings["total"] = (time.perf_counter() - start_total) * 1000.0
@@ -53,10 +66,11 @@ class VoiceRAGOrchestrator:
                 "refused": True,
                 "refusal_reason": guard_res.refusal_reason,
                 "similarities": ret_res.data.get("similarities", []),
+                "stt_engine": stt_engine,
                 "timings": timings
             }
 
-        # 4. LLM Generation
+        # 4. LLM Generation (Groq LLaMA-3.1)
         gen_res = self.generation.run({
             "transcript": transcript,
             "context": guard_res.data.get("valid_context", "")
@@ -73,5 +87,6 @@ class VoiceRAGOrchestrator:
             "refused": False,
             "similarities": ret_res.data.get("similarities", []),
             "retrieved_docs": ret_res.data.get("documents", []),
+            "stt_engine": stt_engine,
             "timings": timings
         }

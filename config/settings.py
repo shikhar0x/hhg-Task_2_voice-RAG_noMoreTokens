@@ -3,10 +3,12 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import Field
 
 class Settings(BaseSettings):
+    # STT API Keys (Supports both official providers)
+    elevenlabs_api_key: str = Field(default="", env="ELEVENLABS_API_KEY")
     sarvam_api_key: str = Field(default="", env="SARVAM_API_KEY")
     sarvam_stt_url: str = Field(default="https://api.sarvam.ai/speech-to-text", env="SARVAM_STT_URL")
     
-    # Hugging Face Token for fast authenticated downloads
+    # Hugging Face Token for fast dataset access
     hf_token: str = Field(default="", env="HF_TOKEN")
     
     # LLM Settings

@@ -2,7 +2,8 @@ from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.responses import HTMLResponse, JSONResponse
 from contextlib import asynccontextmanager
 from harness.orchestrator import VoiceRAGOrchestrator
-from dataset.loader import ingest_corpus
+from retrieval.vector_store import get_vector_store
+from config.logger import logger
 import shutil
 import tempfile
 import os
@@ -12,7 +13,8 @@ orchestrator = None
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     global orchestrator
-    ingest_corpus()
+    col = get_vector_store()
+    logger.info(f"Loaded ChromaDB vector index with {col.count()} passages.")
     orchestrator = VoiceRAGOrchestrator()
     yield
 
@@ -63,21 +65,21 @@ def index():
                     <span class="text-xs text-slate-500 font-mono">#RAGInGoa</span>
                 </div>
                 <h1 class="text-3xl font-black mt-1">🎙️ Voice-Enabled Grounded RAG</h1>
-                <p class="text-slate-400 text-sm mt-1">Sarvam STT (saarika:v2.5) · Multi-Strategy Chunking · Latency Analytics · Refusal Guardrail</p>
+                <p class="text-slate-400 text-sm mt-1">ElevenLabs & Sarvam STT · Multi-Strategy Chunking · Latency Analytics · Refusal Guardrail</p>
             </header>
 
             <!-- Input Controls -->
             <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 space-y-5">
                 <div>
-                    <label class="block text-sm font-medium text-slate-300 mb-2">Voice Input (Microphone or Audio File)</label>
+                    <label class="block text-sm font-medium text-slate-300 mb-2">Voice Input (Live Microphone or Audio Upload)</label>
                     <div class="flex flex-wrap items-center gap-3">
-                        <button id="recordBtn" onclick="toggleRecording()" class="flex items-center gap-2 bg-rose-600 hover:bg-rose-500 text-white font-semibold px-5 py-2.5 rounded-lg text-sm transition shadow-lg shadow-rose-950/50">
+                        <button id="recordBtn" onclick="toggleRecording()" class="flex items-center gap-2 bg-rose-600 hover:bg-rose-500 text-white font-semibold px-6 py-2.5 rounded-lg text-sm transition shadow-lg shadow-rose-950/50">
                             <span id="recordIcon" class="w-2.5 h-2.5 rounded-full bg-white animate-pulse"></span>
                             <span id="recordLabel">Start Live Mic</span>
                         </button>
 
                         <label class="cursor-pointer flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-medium px-4 py-2.5 rounded-lg text-sm transition">
-                            <span>📁 Upload .WAV / .MP3</span>
+                            <span>📁 Upload .WAV</span>
                             <input id="audioFileInput" type="file" accept="audio/*" class="hidden" onchange="uploadAudioFile(this)">
                         </label>
                         <span id="recordStatus" class="text-xs text-slate-400 font-mono w-full md:w-auto"></span>
@@ -86,12 +88,12 @@ def index():
 
                 <div class="relative flex items-center">
                     <div class="flex-grow border-t border-slate-800"></div>
-                    <span class="flex-shrink mx-4 text-xs uppercase text-slate-500 font-mono">or test with text</span>
+                    <span class="flex-shrink mx-4 text-xs uppercase text-slate-500 font-mono">or test with query text</span>
                     <div class="flex-grow border-t border-slate-800"></div>
                 </div>
 
                 <div class="flex gap-3">
-                    <input id="textInput" type="text" placeholder="e.g. What is the official state language of Goa?" class="flex-1 bg-slate-950 border border-slate-700 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-emerald-500">
+                    <input id="textInput" type="text" placeholder="e.g. What is the definition of honesty and integrity?" class="flex-1 bg-slate-950 border border-slate-700 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-emerald-500">
                     <button onclick="sendTextQuery()" class="bg-emerald-600 hover:bg-emerald-500 font-semibold px-6 py-2.5 rounded-lg text-sm transition shadow-lg shadow-emerald-950/50">Submit</button>
                 </div>
             </div>
@@ -99,7 +101,7 @@ def index():
             <!-- Loading Spinner -->
             <div id="loader" class="hidden text-center py-6">
                 <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-emerald-500"></div>
-                <div class="text-xs text-slate-400 mt-2 font-mono">Transcribing with Sarvam & Retrieving Grounded Context...</div>
+                <div class="text-xs text-slate-400 mt-2 font-mono">Transcribing Speech, Retrieving from MSMARCO & Generating Answer...</div>
             </div>
 
             <!-- Results Card -->
@@ -110,12 +112,12 @@ def index():
                 </div>
                 
                 <div>
-                    <div class="text-xs text-slate-400 font-mono uppercase">Speech Transcript (Sarvam STT)</div>
+                    <div id="sttEngineLabel" class="text-xs text-slate-400 font-mono uppercase">Speech Transcript</div>
                     <div id="transcriptText" class="text-slate-100 font-medium mt-1 bg-slate-950 p-3 rounded border border-slate-800"></div>
                 </div>
 
                 <div>
-                    <div class="text-xs text-slate-400 font-mono uppercase">Grounded Answer</div>
+                    <div class="text-xs text-slate-400 font-mono uppercase">Grounded Answer (Groq LLaMA-3.1)</div>
                     <div id="answerText" class="text-emerald-300 font-medium mt-1 bg-slate-950 p-3 rounded border border-slate-800"></div>
                 </div>
 
@@ -133,10 +135,6 @@ def index():
 
             async function toggleRecording() {
                 if (!isRecording) {
-                    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-                        alert("⚠️ Microphone access requires opening this page at http://localhost:8000 or http://127.0.0.1:8000. You can also use the 'Upload .WAV' button.");
-                        return;
-                    }
                     try {
                         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
                         mediaRecorder = new MediaRecorder(stream);
@@ -146,8 +144,8 @@ def index():
                         mediaRecorder.start();
                         isRecording = true;
                         document.getElementById('recordLabel').innerText = "Stop & Run";
-                        document.getElementById('recordBtn').className = "flex items-center gap-2 bg-amber-600 hover:bg-amber-500 text-white font-semibold px-5 py-2.5 rounded-lg text-sm transition";
-                        document.getElementById('recordStatus').innerText = "🔴 Recording microphone...";
+                        document.getElementById('recordBtn').className = "flex items-center gap-2 bg-amber-600 hover:bg-amber-500 text-white font-semibold px-6 py-2.5 rounded-lg text-sm transition";
+                        document.getElementById('recordStatus').innerText = "🔴 Microphone active. Speaking...";
                     } catch (err) {
                         alert("Microphone permission error: " + err.message);
                     }
@@ -157,8 +155,8 @@ def index():
                     }
                     isRecording = false;
                     document.getElementById('recordLabel').innerText = "Start Live Mic";
-                    document.getElementById('recordBtn').className = "flex items-center gap-2 bg-rose-600 hover:bg-rose-500 text-white font-semibold px-5 py-2.5 rounded-lg text-sm transition shadow-lg shadow-rose-950/50";
-                    document.getElementById('recordStatus').innerText = "Processing audio...";
+                    document.getElementById('recordBtn').className = "flex items-center gap-2 bg-rose-600 hover:bg-rose-500 text-white font-semibold px-6 py-2.5 rounded-lg text-sm transition shadow-lg shadow-rose-950/50";
+                    document.getElementById('recordStatus').innerText = "Transcribing audio...";
                 }
             }
 
@@ -168,7 +166,7 @@ def index():
 
                 const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
                 const formData = new FormData();
-                formData.append('audio', audioBlob, 'mic_input.wav');
+                formData.append('audio', audioBlob, 'mic_voice.wav');
 
                 try {
                     const res = await fetch('/api/query', { method: 'POST', body: formData });
@@ -195,7 +193,7 @@ def index():
                     const data = await res.json();
                     renderResult(data);
                 } catch (e) {
-                    alert("Upload processing failed: " + e.message);
+                    alert("Upload failed: " + e.message);
                     document.getElementById('loader').classList.add('hidden');
                 }
             }
@@ -225,12 +223,22 @@ def index():
                 document.getElementById('outputCard').classList.remove('hidden');
                 document.getElementById('recordStatus').innerText = "";
                 
+                // Dynamic STT Engine label
+                const engineLabel = document.getElementById('sttEngineLabel');
+                if (data.stt_engine && data.stt_engine.includes("elevenlabs")) {
+                    engineLabel.innerText = "Speech Transcript (ElevenLabs Scribe v2)";
+                } else if (data.stt_engine && data.stt_engine.includes("sarvam")) {
+                    engineLabel.innerText = "Speech Transcript (Sarvam AI saaras:v3)";
+                } else {
+                    engineLabel.innerText = "Query Input (Text Input)";
+                }
+
                 if (data.error) {
                     document.getElementById('transcriptText').innerText = "Error: " + data.error;
-                    document.getElementById('answerText').innerText = "Pipeline stopped due to error.";
+                    document.getElementById('answerText').innerText = "Pipeline halted due to error.";
                     const badge = document.getElementById('statusBadge');
                     badge.className = 'px-3 py-1 text-xs rounded-full font-mono bg-red-950 text-red-400 border border-red-800';
-                    badge.innerText = '❌ ERROR';
+                    badge.innerText = '❌ STT / INGESTION ERROR';
                     return;
                 }
 

@@ -1,3 +1,3 @@
-from stt.sarvam_engine import SarvamSTTStep
+from stt.engine import SpeechToTextStep
 
-__all__ = ["SarvamSTTStep"]
+__all__ = ["SpeechToTextStep"]
