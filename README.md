@@ -65,7 +65,7 @@ Benchmarked across **35 diverse queries** (30 authentic queries directly from `a
 | **STT** | `0.02 ms` | `0.02 ms` | `0.04 ms` | Bypassed (Text Override Input) |
 | **Vector Retrieval** | `0.73 ms` | `1.33 ms` | `9.11 ms` | In-Memory NumPy TF Cosine Index |
 | **Guardrail Gate (Pre-Gen)** | `0.06 ms` | `0.06 ms` | `3.56 ms` | Layers 1–3 Safety & Threshold Gate |
-| **LLM Generation (Text Mode)** | `143.02 ms` | `254.98 ms` | `528.46 ms` | Groq LLaMA-3.1 Cloud API |
+| **LLM Generation (Text Mode)** | **`143.02 ms`** | **`254.98 ms`** | **`528.46 ms`** | Groq LLaMA-3.1 Cloud API |
 | **Hallucination Check (Post-Gen)** | `0.15 ms` | `0.18 ms` | `0.48 ms` | Layer 4 Entity Term-Overlap Check |
 | **Total End-to-End** | **`150.72 ms`** | **`282.68 ms`** | **`534.30 ms`** | Complete Text Pipeline Run |
 
@@ -77,7 +77,7 @@ Benchmarked across representative **16kHz WAV audio samples** using real **Eleve
 | **STT (ElevenLabs Scribe v2)** | `1361.32 ms` | `1475.24 ms` | `1500.41 ms` | Remote Speech-to-Text API Network Latency |
 | **Vector Retrieval** | `2.62 ms` | `3.04 ms` | `3.40 ms` | **In-Memory Vector Search (`< 50ms` Target Met 🏆)** |
 | **Guardrail Gate (Pre-Gen)** | `0.07 ms` | `0.07 ms` | `4.12 ms` | Pre-Generation Safety & Threshold Gate |
-| **LLM Generation (Groq LLaMA-3.1)** | `151.52 ms` | `160.48 ms` | `3288.58 ms` | Groq Cloud LPU Inference Network Latency |
+| **LLM Generation (Groq LLaMA-3.1)** | **`151.52 ms`** | **`160.48 ms`** | **`3288.58 ms`** | Groq Cloud LPU Inference Network Latency |
 | **Hallucination Check (Post-Gen)** | `0.07 ms` | `0.09 ms` | `0.20 ms` | Layer 4 Entity Term-Overlap Check |
 | **Total End-to-End** | **`1541.42 ms`** | **`1740.01 ms`** | **`3749.62 ms`** | **Real Audio & Neural LLM End-to-End** |
 

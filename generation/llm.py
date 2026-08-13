@@ -21,7 +21,7 @@ class LLMGenerationStep(BaseStep):
         if self.api_key and self.api_key not in ("your_groq_api_key_here", "gsk_your_groq_api_key_here", ""):
             try:
                 from groq import Groq, RateLimitError
-                self.client = Groq(api_key=self.api_key)
+                self.client = Groq(api_key=self.api_key, max_retries=0)
             except Exception as e:
                 logger.warning(f"Groq init note: {e}")
 
@@ -30,7 +30,7 @@ class LLMGenerationStep(BaseStep):
         api_key = os.getenv("GROQ_API_KEY") or self.api_key
         if not self.client:
             from groq import Groq
-            self.client = Groq(api_key=api_key)
+            self.client = Groq(api_key=api_key, max_retries=0)
 
         clean_context = re.sub(r'Passage \d+:', '', context).strip()
         

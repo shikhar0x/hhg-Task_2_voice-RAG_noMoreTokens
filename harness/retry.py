@@ -3,6 +3,11 @@ import random
 import functools
 from config.logger import logger
 
+try:
+    from groq import RateLimitError as GroqRateLimitError
+except ImportError:
+    GroqRateLimitError = ()
+
 def retry_step(max_retries: int = 3, base_delay: float = 0.5, max_delay: float = 4.0):
     """
     Rate-limit aware exponential backoff decorator with jitter for resilient API calls.
@@ -24,10 +29,10 @@ def retry_step(max_retries: int = 3, base_delay: float = 0.5, max_delay: float =
                     retry_after = None
                     is_rate_limit = False
 
-                    # Check status code / exception type
+                    # Check exception type & status code
                     status_code = getattr(e, 'status_code', None)
                     err_str = str(e).lower()
-                    if status_code == 429 or "rate limit" in err_str or "429" in err_str:
+                    if (isinstance(GroqRateLimitError, type) and isinstance(e, GroqRateLimitError)) or status_code == 429 or "rate limit" in err_str or "429" in err_str:
                         is_rate_limit = True
 
                     # Check HTTP response headers for 'retry-after'
