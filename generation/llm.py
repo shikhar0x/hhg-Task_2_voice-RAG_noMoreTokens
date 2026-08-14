@@ -50,7 +50,7 @@ class LLMGenerationStep(BaseStep):
                 }
             ],
             model=settings.groq_model,
-            temperature=0.1,
+            temperature=0.0,
             max_tokens=250  # Increased token limit for complete, unclipped answers
         )
         return chat_completion.choices[0].message.content.strip()
