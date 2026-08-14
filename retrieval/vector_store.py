@@ -10,6 +10,19 @@ _metadatas = []
 _vocab = {}
 _doc_matrix = None
 
+def log_numpy_and_corpus_diagnostics():
+    """Prints NumPy BLAS/LAPACK configuration diagnostic."""
+    try:
+        import io
+        from contextlib import redirect_stdout
+        f = io.StringIO()
+        with redirect_stdout(f):
+            np.show_config()
+        config_str = f.getvalue().strip()
+        logger.info(f"NumPy System Configuration:\n{config_str}")
+    except Exception as e:
+        logger.warning(f"Could not retrieve numpy configuration: {e}")
+
 def build_fast_vector_index(docs: list[str], metadatas: list[dict]):
     """Builds and pre-warms the in-memory cosine vector index."""
     global _documents, _metadatas, _vocab, _doc_matrix
@@ -41,7 +54,8 @@ def build_fast_vector_index(docs: list[str], metadatas: list[dict]):
             matrix[i] /= norm
 
     _doc_matrix = matrix
-    logger.info(f"Pre-warmed in-memory vector index ({doc_count} passages, {vocab_size} vocab dimensions).")
+    log_numpy_and_corpus_diagnostics()
+    logger.info(f"Pre-warmed in-memory vector index ({doc_count} passages, {vocab_size} vocab dimensions). Matrix shape={matrix.shape}, dtype={matrix.dtype}.")
 
 def warmup_vector_index():
     """Initializes the fast vector index at startup to eliminate query-1 cold start."""

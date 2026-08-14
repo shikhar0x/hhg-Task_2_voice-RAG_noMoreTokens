@@ -1,5 +1,7 @@
 import os
 import re
+import time
+import httpx
 from dotenv import load_dotenv
 from config.settings import settings
 from config.logger import logger
@@ -16,12 +18,17 @@ class LLMGenerationStep(BaseStep):
     name = "generation_llm"
 
     def __init__(self):
+        super().__init__()
         self.api_key = os.getenv("GROQ_API_KEY") or settings.groq_api_key
         self.client = None
+        self.http_client = httpx.Client(
+            limits=httpx.Limits(max_keepalive_connections=10, max_connections=20, keepalive_expiry=60.0),
+            timeout=30.0
+        )
         if self.api_key and self.api_key not in ("your_groq_api_key_here", "gsk_your_groq_api_key_here", ""):
             try:
-                from groq import Groq, RateLimitError
-                self.client = Groq(api_key=self.api_key, max_retries=0)
+                from groq import Groq
+                self.client = Groq(api_key=self.api_key, http_client=self.http_client, max_retries=0)
             except Exception as e:
                 logger.warning(f"Groq init note: {e}")
 
@@ -30,10 +37,11 @@ class LLMGenerationStep(BaseStep):
         api_key = os.getenv("GROQ_API_KEY") or self.api_key
         if not self.client:
             from groq import Groq
-            self.client = Groq(api_key=api_key, max_retries=0)
+            self.client = Groq(api_key=api_key, http_client=self.http_client, max_retries=0)
 
         clean_context = re.sub(r'Passage \d+:', '', context).strip()
         
+        t0 = time.perf_counter()
         chat_completion = self.client.chat.completions.create(
             messages=[
                 {
@@ -53,6 +61,8 @@ class LLMGenerationStep(BaseStep):
             temperature=0.0,
             max_tokens=250  # Increased token limit for complete, unclipped answers
         )
+        elapsed_ms = (time.perf_counter() - t0) * 1000.0
+        logger.info(f"Groq LLM generation completed in {elapsed_ms:.1f}ms (httpx connection pool active)")
         return chat_completion.choices[0].message.content.strip()
 
     def execute(self, input_data: dict) -> StepResult:

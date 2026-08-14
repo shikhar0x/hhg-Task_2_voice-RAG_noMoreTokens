@@ -1,4 +1,5 @@
 import os
+import time
 import requests
 from dotenv import load_dotenv
 from config.settings import settings
@@ -20,18 +21,29 @@ class SpeechToTextStep(BaseStep):
     """
     name = "stt_engine"
 
+    def __init__(self):
+        super().__init__()
+        self.session = requests.Session()
+
     def _call_elevenlabs(self, audio_path: str) -> str:
         api_key = os.getenv("ELEVENLABS_API_KEY") or settings.elevenlabs_api_key
         if not api_key:
             raise ValueError("ELEVENLABS_API_KEY not configured in .env")
 
+        if not hasattr(self, "session") or self.session is None:
+            self.session = requests.Session()
+
         url = "https://api.elevenlabs.io/v1/speech-to-text"
         headers = {"xi-api-key": api_key}
         filename = os.path.basename(audio_path)
+        
+        t0 = time.perf_counter()
         with open(audio_path, "rb") as f:
             files = {"file": (filename, f, "audio/wav")}
             data = {"model_id": "scribe_v2"}
-            resp = requests.post(url, headers=headers, files=files, data=data, timeout=12.0)
+            resp = self.session.post(url, headers=headers, files=files, data=data, timeout=12.0)
+        elapsed_ms = (time.perf_counter() - t0) * 1000.0
+        logger.info(f"ElevenLabs STT API call completed in {elapsed_ms:.1f}ms (HTTP session pool active)")
 
         if resp.status_code == 200:
             return resp.json().get("text", "").strip()
