@@ -1,23 +1,37 @@
 {
-  "timestamp": "2026-08-14 02:13:16",
+  "timestamp": "2026-08-14 22:59:48",
   "total_queries": 35,
   "confusion_matrix": {
-    "TP": 11,
-    "TN": 7,
-    "FP": 16,
-    "FN": 1
+    "TP": 9,
+    "TN": 14,
+    "FP": 9,
+    "FN": 3
   },
   "metrics": {
-    "accuracy": 0.5143,
-    "precision": 0.4074,
-    "recall": 0.9167,
-    "f1_score": 0.5641
+    "accuracy": 0.6571,
+    "precision": 0.5,
+    "recall": 0.75,
+    "f1_score": 0.6
   },
   "false_negatives": [
+    {
+      "query_id": "227261",
+      "query": "how does pollution increase human population",
+      "top_similarity": 0.3063816428184509,
+      "trigger_layer": "Layer 4 (Post-Gen Grounding)",
+      "refusal_reason": "Refusal: Generated answer failed post-generation grounding check against retrieved context."
+    },
     {
       "query_id": "233826",
       "query": "how fast does an eagle travel",
       "top_similarity": 0.20100754499435425,
+      "trigger_layer": "Layer 4 (Post-Gen Grounding)",
+      "refusal_reason": "Refusal: Generated answer failed post-generation grounding check against retrieved context."
+    },
+    {
+      "query_id": "260880",
+      "query": "how long for cantaloupe to mature",
+      "top_similarity": 0.47043752670288086,
       "trigger_layer": "Layer 4 (Post-Gen Grounding)",
       "refusal_reason": "Refusal: Generated answer failed post-generation grounding check against retrieved context."
     }
@@ -37,12 +51,13 @@
       "top_similarity": 0.4885699450969696,
       "answer": "A corporation is a company or group of people authorized to act as a single entity (legally a person) and recognized as such in law.",
       "timings": {
-        "stt": 0.006642003427259624,
-        "retrieval": 0.45262400089995936,
-        "guardrail": 0.6023189998813905,
-        "generation": 322.2358200000599,
-        "hallucination_check": 0.2922569983638823,
-        "total": 323.60826399963116
+        "stt": 0.006745001883246005,
+        "retrieval": 0.413802990806289,
+        "guardrail": 0.4202069976599887,
+        "generation": 366.7548249941319,
+        "hallucination_check": 0.2664279891178012,
+        "hedge_check": 0.010544012184254825,
+        "total": 367.89038601273205
       }
     },
     {
@@ -59,12 +74,13 @@
       "top_similarity": 0.5353033542633057,
       "answer": "Rachel Carson wrote \"The Obligation to Endure\" as a convincing argument about the harmful uses of chemicals, pesticides, herbicides, and fertilizers on the environment, suggesting that these substances are not only detrimental to the environment but also to its inhabitants.",
       "timings": {
-        "stt": 0.019046994566451758,
-        "retrieval": 0.4116380005143583,
-        "guardrail": 0.03873199602821842,
-        "generation": 190.1386360041215,
-        "hallucination_check": 0.12588400568347424,
-        "total": 190.7571480041952
+        "stt": 0.007018999895080924,
+        "retrieval": 0.33865201112348586,
+        "guardrail": 0.028954993467777967,
+        "generation": 164.8485659970902,
+        "hallucination_check": 0.35592500353232026,
+        "hedge_check": 0.016667007002979517,
+        "total": 165.61444899707567
       }
     },
     {
@@ -73,20 +89,21 @@
       "query": "chart for foods low in potassium.",
       "ground_truth_answer": "No Answer Present.",
       "expected_action": "REFUSE",
-      "actual_action": "ANSWER",
-      "status": "FP",
-      "refused": false,
-      "refusal_reason": "",
-      "trigger_layer": "N/A",
+      "actual_action": "REFUSE",
+      "status": "TN",
+      "refused": true,
+      "refusal_reason": "Refusal: Model indicated insufficient grounded information to answer.",
+      "trigger_layer": "Layer 5 (Hedge / Non-Answer)",
       "top_similarity": 0.5465943813323975,
-      "answer": "Based on the provided context passages, it appears that a chart for foods low in potassium is not explicitly mentioned. However, it can be inferred that a list of low sodium low potassium foods is available, which can be accessed through the provided link to a searchable collection of nutritional data on thousands of foods. This list may include foods that are low in both sodium and potassium, which can be useful for individuals looking to manage their blood pressure and overall health.",
+      "answer": "I cannot provide this answer as the model indicated insufficient grounded information to answer from the retrieved context.",
       "timings": {
-        "stt": 0.008916998922359198,
-        "retrieval": 0.33078699925681576,
-        "guardrail": 0.02396899799350649,
-        "generation": 256.2043750003795,
-        "hallucination_check": 0.19178399816155434,
-        "total": 256.7691990043386
+        "stt": 0.008809001883491874,
+        "retrieval": 0.32180300331674516,
+        "guardrail": 0.02439999661874026,
+        "generation": 271.16070500051137,
+        "hallucination_check": 0.1313700049649924,
+        "hedge_check": 0.011422001989558339,
+        "total": 271.66907300124876
       }
     },
     {
@@ -101,14 +118,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.4040610194206238,
-      "answer": "The term that describes the bottom front of a cargo ship is \"amidships\" is not correct in this context. However, the term that is closest to describing the bottom of a ship is not provided in the context passages. However, the term \"amidships\" is used to describe the midship section of a ship.",
+      "answer": "The term that describes the bottom front of a cargo ship is \"amidships.\"",
       "timings": {
-        "stt": 0.010899995686486363,
-        "retrieval": 6.452255001931917,
-        "guardrail": 0.038017999031580985,
-        "generation": 269.9847080002655,
-        "hallucination_check": 0.2838769942172803,
-        "total": 276.78619799553417
+        "stt": 0.006436996045522392,
+        "retrieval": 0.3257060016039759,
+        "guardrail": 0.02596600097604096,
+        "generation": 142.4206800002139,
+        "hallucination_check": 0.1443859946448356,
+        "hedge_check": 0.008956994861364365,
+        "total": 142.94217099086381
       }
     },
     {
@@ -123,14 +141,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.3354101777076721,
-      "answer": "Based on the provided context passages, honesty can be defined as the condition of being honest, sincerity or fairness, and virtue or respect.",
+      "answer": "Based on the provided context passages, honesty can be defined as the condition of being honest (1), sincerity or fairness (2), and virtue or respect (3).",
       "timings": {
-        "stt": 0.01644100120756775,
-        "retrieval": 4.043241002364084,
-        "guardrail": 0.053158000810071826,
-        "generation": 2211.4520749964868,
-        "hallucination_check": 0.1719900028547272,
-        "total": 2215.7568570037256
+        "stt": 0.009238006896339357,
+        "retrieval": 0.32599900441709906,
+        "guardrail": 0.023392000002786517,
+        "generation": 163.5596089909086,
+        "hallucination_check": 0.14044200361240655,
+        "hedge_check": 0.011373005690984428,
+        "total": 164.08072799094953
       }
     },
     {
@@ -147,12 +166,13 @@
       "top_similarity": 0.4170288145542145,
       "answer": "I cannot provide this answer as it failed post-generation grounding verification against retrieved context.",
       "timings": {
-        "stt": 0.01393399725202471,
-        "retrieval": 0.5960809940006584,
-        "guardrail": 0.05413300095824525,
-        "generation": 2482.9277790049673,
-        "hallucination_check": 0.34049600071739405,
-        "total": 2483.9509099983843
+        "stt": 0.008336995961144567,
+        "retrieval": 0.3277999931015074,
+        "guardrail": 0.02603299799375236,
+        "generation": 424.95720999431796,
+        "hallucination_check": 0.19613299809861928,
+        "hedge_check": 0.0,
+        "total": 425.5352199979825
       }
     },
     {
@@ -169,12 +189,13 @@
       "top_similarity": 0.624609649181366,
       "answer": "The Struthers City School District is located in the state of Ohio.",
       "timings": {
-        "stt": 0.01748400245560333,
-        "retrieval": 2.832942998793442,
-        "guardrail": 0.06298499647527933,
-        "generation": 5301.803310998366,
-        "hallucination_check": 0.1903809970826842,
-        "total": 5304.929384001298
+        "stt": 0.0065820058807730675,
+        "retrieval": 0.32132900378201157,
+        "guardrail": 0.025901012122631073,
+        "generation": 139.21275798929855,
+        "hallucination_check": 0.15910100773908198,
+        "hedge_check": 0.009266004781238735,
+        "total": 139.7457260027295
       }
     },
     {
@@ -189,14 +210,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.46423834562301636,
-      "answer": "There is evidence suggesting that medical marijuana may help alleviate symptoms of post-traumatic stress disorder (PTSD), although more research is needed to fully understand its effects. Currently, there are medical studies underway to study the relationship between cannabis use and the relief of PTSD symptoms. Additionally, some states have already added PTSD as a qualifying condition for medical marijuana, indicating growing political momentum for its potential benefits in treating this condition.",
+      "answer": "There is evidence suggesting that medical marijuana may help alleviate symptoms of post-traumatic stress disorder (PTSD), although more research is needed to fully understand its effects. Currently, there are medical studies underway to investigate the relationship between cannabis use and the relief of PTSD symptoms. Additionally, some states have already added PTSD as a qualifying condition for medical marijuana, indicating growing political momentum in this area.",
       "timings": {
-        "stt": 0.013309007044881582,
-        "retrieval": 0.6115209980634972,
-        "guardrail": 0.0524869974469766,
-        "generation": 3356.6043570026523,
-        "hallucination_check": 0.12976800644537434,
-        "total": 3357.4266729992814
+        "stt": 0.008839997462928295,
+        "retrieval": 0.3275170020060614,
+        "guardrail": 0.02404999395366758,
+        "generation": 278.89084999333136,
+        "hallucination_check": 0.24786300491541624,
+        "hedge_check": 0.023892003810033202,
+        "total": 279.53462800360285
       }
     },
     {
@@ -213,12 +235,13 @@
       "top_similarity": 0.2981424033641815,
       "answer": "According to the provided context passages, Frank Gifford was married to three different women: Kathie Lee Gifford, Astrid Gifford, and Maxine Avis Ewart.",
       "timings": {
-        "stt": 0.008458002412226051,
-        "retrieval": 2.6378740003565326,
-        "guardrail": 0.030547002097591758,
-        "generation": 4226.144418003969,
-        "hallucination_check": 0.18622299830894917,
-        "total": 4229.019390004396
+        "stt": 0.011077005183324218,
+        "retrieval": 7.20153099973686,
+        "guardrail": 0.08337100734934211,
+        "generation": 167.56628999428358,
+        "hallucination_check": 0.17256599676329643,
+        "hedge_check": 0.01186100416816771,
+        "total": 175.07254899828695
       }
     },
     {
@@ -235,12 +258,13 @@
       "top_similarity": 0.21166688203811646,
       "answer": "There are currently three investigations into Russian interference in the 2016 election and alleged collusion with the Trump campaign.",
       "timings": {
-        "stt": 0.01611299376236275,
-        "retrieval": 0.8854849947965704,
-        "guardrail": 0.056035998568404466,
-        "generation": 2347.7220159984427,
-        "hallucination_check": 0.22581500525120646,
-        "total": 2348.9247059987974
+        "stt": 0.008575996616855264,
+        "retrieval": 0.35985199792776257,
+        "guardrail": 0.025797999114729464,
+        "generation": 134.2281489924062,
+        "hallucination_check": 0.16808000509627163,
+        "hedge_check": 0.011263007763773203,
+        "total": 134.8121580085717
       }
     },
     {
@@ -255,14 +279,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.5619925260543823,
-      "answer": "Based on the provided context passages, it appears that the guide to collecting Followers on World of Warcraft (WoW) is a multi-part series. The first part of the guide details how to obtain three easy-to-obtain Followers for your Garrison, with a promise of a second installment that will explain how to get four more Followers with little to no work.\n\nTo collect Followers on WoW, you can follow the steps outlined in the first part of the guide, which is not explicitly stated in the provided passages. However, based on the context, it seems that the guide will provide you with the necessary information to obtain the three easy-to-obtain Followers mentioned.\n\nAdditionally, the passage mentions that you can visit the World of Warcraft Game Page to read the latest guides, news, and features, which may include the full guide to collecting Followers.\n\nIt's worth noting that the passage also mentions a Class/Spec: Assassination Rogue, but it's unclear how this relates to the guide on collecting Followers.",
+      "answer": "Based on the provided context passages, it appears that the guide to collecting Followers on World of Warcraft (WoW) is a multi-part series. The first part of the guide details how to obtain three easy-to-obtain Followers for your Garrison, with a promise of a second installment that will provide instructions on how to get four more Followers with little to no work.\n\nTo collect Followers on WoW, you should follow the instructions provided in the first part of the guide, which includes obtaining the three easy-to-obtain Followers mentioned. However, the specific details on how to obtain these Followers are not provided in the given context passages.\n\nIt is recommended to visit the World of Warcraft Game Page to access the latest guides, news, and features, which may include the complete guide to collecting Followers.",
       "timings": {
-        "stt": 0.0231869998970069,
-        "retrieval": 0.5746309980168007,
-        "guardrail": 0.0825749957584776,
-        "generation": 3519.5957039977657,
-        "hallucination_check": 0.41235899698222056,
-        "total": 3520.7360579952365
+        "stt": 0.007966998964548111,
+        "retrieval": 0.32378899049945176,
+        "guardrail": 0.024908993509598076,
+        "generation": 329.8065690032672,
+        "hallucination_check": 0.30615901050623506,
+        "hedge_check": 0.05626199708785862,
+        "total": 330.5380689998856
       }
     },
     {
@@ -271,20 +296,21 @@
       "query": "how long is zales layaway",
       "ground_truth_answer": "No Answer Present.",
       "expected_action": "REFUSE",
-      "actual_action": "ANSWER",
-      "status": "FP",
-      "refused": false,
-      "refusal_reason": "",
-      "trigger_layer": "N/A",
+      "actual_action": "REFUSE",
+      "status": "TN",
+      "refused": true,
+      "refusal_reason": "Refusal: Model indicated insufficient grounded information to answer.",
+      "trigger_layer": "Layer 5 (Hedge / Non-Answer)",
       "top_similarity": 0.24845199286937714,
-      "answer": "Unfortunately, I do not have any information about Zales layaway in the provided context passages.",
+      "answer": "I cannot provide this answer as the model indicated insufficient grounded information to answer from the retrieved context.",
       "timings": {
-        "stt": 0.013558004866354167,
-        "retrieval": 0.6421540019800887,
-        "guardrail": 0.0509550009155646,
-        "generation": 4320.243156005745,
-        "hallucination_check": 0.24630799453007057,
-        "total": 4321.215584997844
+        "stt": 0.010335003025829792,
+        "retrieval": 6.15220500912983,
+        "guardrail": 0.043091000407002866,
+        "generation": 146.3760910119163,
+        "hallucination_check": 0.16646400035824627,
+        "hedge_check": 0.004715009708888829,
+        "total": 152.76779199484736
       }
     },
     {
@@ -293,20 +319,21 @@
       "query": "how does pollution increase human population",
       "ground_truth_answer": "\u098f\u0987 \u09aa\u09cd\u09f0\u0995\u09cd\u09f0\u09bf\u09df\u09be \u0985\u09a8\u09c1\u09b8\u09f0\u09bf \u09aa\u09cd\u09f0\u0995\u09c3\u09a4 \ufffd \u09aa\u09a6\u09be\u09f0\u09cd\u09a5\u099f\u09cb \u09aa\u09cb\u09f1\u09be \u0997\u09c8\u099b\u09bf\u09b2 \u098f\u0995 \ufffd \u09b8\u09c1\u0995\u09c0\u09df\u09be \u09b8\u09cd\u09a5\u09be\u09a8\u09a4 \u09aa\u09cb\u09f1\u09be \u09af\u09be\u09df\u0964",
       "expected_action": "ANSWER",
-      "actual_action": "ANSWER",
-      "status": "TP",
-      "refused": false,
-      "refusal_reason": "",
-      "trigger_layer": "N/A",
+      "actual_action": "REFUSE",
+      "status": "FN",
+      "refused": true,
+      "refusal_reason": "Refusal: Generated answer failed post-generation grounding check against retrieved context.",
+      "trigger_layer": "Layer 4 (Post-Gen Grounding)",
       "top_similarity": 0.3063816428184509,
-      "answer": "The context passages do not explicitly state how pollution increases human population. However, they do mention that an increase in world population has come with an increase in air pollution. \n\nIt can be inferred that the relationship between pollution and human population is more of a consequence rather than a cause-and-effect relationship. In other words, as the human population increases, so does the amount of pollution, particularly air pollution, due to factors such as the burning of fossil fuels.\n\nTo answer the question directly, the context passages do not provide a clear explanation of how pollution increases human population.",
+      "answer": "I cannot provide this answer as it failed post-generation grounding verification against retrieved context.",
       "timings": {
-        "stt": 0.012286996934562922,
-        "retrieval": 0.6151060006232001,
-        "guardrail": 0.05360799696063623,
-        "generation": 4379.828618999454,
-        "hallucination_check": 0.24571700487285852,
-        "total": 4380.771957999968
+        "stt": 0.009205003152601421,
+        "retrieval": 7.049382998957299,
+        "guardrail": 0.03322800330352038,
+        "generation": 489.4719250005437,
+        "hallucination_check": 0.23768898972775787,
+        "hedge_check": 0.0,
+        "total": 496.81550200330094
       }
     },
     {
@@ -323,12 +350,13 @@
       "top_similarity": 0.23904570937156677,
       "answer": "I cannot provide this answer as it failed post-generation grounding verification against retrieved context.",
       "timings": {
-        "stt": 0.0142050048452802,
-        "retrieval": 0.5919809991610236,
-        "guardrail": 0.048167996283154935,
-        "generation": 3447.6513499976136,
-        "hallucination_check": 0.3238659992348403,
-        "total": 3448.647566001455
+        "stt": 0.010485004168003798,
+        "retrieval": 1.1815589969046414,
+        "guardrail": 0.030019000405445695,
+        "generation": 405.83674499066547,
+        "hallucination_check": 0.9038040006998926,
+        "hedge_check": 0.0,
+        "total": 407.973626992316
       }
     },
     {
@@ -345,12 +373,13 @@
       "top_similarity": 0.2309401035308838,
       "answer": "No, filth does not cause ringworm. According to the provided context passages, ringworm is caused by a fungus, specifically fungi of the Trichophyton, Microsporum, or Epidermophyton type, which live and spread on the outer layer of skin.",
       "timings": {
-        "stt": 0.015871002688072622,
-        "retrieval": 2.9023579991189763,
-        "guardrail": 0.0835190003272146,
-        "generation": 3225.43668000435,
-        "hallucination_check": 0.24490699433954433,
-        "total": 3228.7034039982245
+        "stt": 0.006987989763729274,
+        "retrieval": 0.3205480024917051,
+        "guardrail": 0.02383500395808369,
+        "generation": 171.86515500361566,
+        "hallucination_check": 0.1818730088416487,
+        "hedge_check": 0.014309000107459724,
+        "total": 172.4221520125866
       }
     },
     {
@@ -359,20 +388,21 @@
       "query": "how much does it cost to recement a crown",
       "ground_truth_answer": "No Answer Present.",
       "expected_action": "REFUSE",
-      "actual_action": "ANSWER",
-      "status": "FP",
-      "refused": false,
-      "refusal_reason": "",
-      "trigger_layer": "N/A",
+      "actual_action": "REFUSE",
+      "status": "TN",
+      "refused": true,
+      "refusal_reason": "Refusal: Generated answer failed post-generation grounding check against retrieved context.",
+      "trigger_layer": "Layer 4 (Post-Gen Grounding)",
       "top_similarity": 0.7563755512237549,
-      "answer": "The cost to recement a tooth crown can vary depending on several factors such as location, dentist's training, and materials used. However, based on the provided context passages, it can be estimated that the cost to recement a crowned tooth is likely to be significantly lower than the initial cost of placing a new crown. Unfortunately, the exact cost of recementing a crown is not explicitly mentioned in the provided passages.",
+      "answer": "I cannot provide this answer as it failed post-generation grounding verification against retrieved context.",
       "timings": {
-        "stt": 0.013491000572685152,
-        "retrieval": 0.6331969998427667,
-        "guardrail": 0.0556150043848902,
-        "generation": 4409.3843279988505,
-        "hallucination_check": 0.273694000497926,
-        "total": 4410.378199005208
+        "stt": 0.007787006325088441,
+        "retrieval": 0.32163500145543367,
+        "guardrail": 0.03949699748773128,
+        "generation": 447.7188559976639,
+        "hallucination_check": 0.8892259938875213,
+        "hedge_check": 0.0,
+        "total": 448.98768300481606
       }
     },
     {
@@ -387,14 +417,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.5129891633987427,
-      "answer": "Barrel O Slime appears to be a type of toy or novelty item that involves a container of slime, likely a putty-like substance, which is often used for entertainment purposes, such as gag pranks or fun party favors. It is also marketed as a product for kids, suggesting that it may be a type of children's toy or activity. The product description mentions that it comes in 24 different colors, which may indicate that it is a set of assorted slime containers or a single container with multiple colors.",
+      "answer": "Barrel O Slime appears to be a type of toy or novelty item that consists of a container filled with a colorful, gooey substance, likely a type of putty or slime. It is marketed as a fun and gag-prank item, suitable for parties and as a joke toy. The product is also mentioned as being suitable for kids, suggesting it may be a type of children's plaything or party favor.",
       "timings": {
-        "stt": 0.014545003068633378,
-        "retrieval": 0.6093609990784898,
-        "guardrail": 0.08103199797915295,
-        "generation": 2375.8840400041663,
-        "hallucination_check": 0.26567299937596545,
-        "total": 2376.874129004136
+        "stt": 0.00740200630389154,
+        "retrieval": 0.32508900039829314,
+        "guardrail": 0.022553009330295026,
+        "generation": 268.9416219945997,
+        "hallucination_check": 0.08545599121134728,
+        "hedge_check": 0.015384997823275626,
+        "total": 269.4068520067958
       }
     },
     {
@@ -411,12 +442,13 @@
       "top_similarity": 0.20100754499435425,
       "answer": "I cannot provide this answer as it failed post-generation grounding verification against retrieved context.",
       "timings": {
-        "stt": 0.013930999557487667,
-        "retrieval": 3.6793309991480783,
-        "guardrail": 0.029674003599211574,
-        "generation": 3347.667444999388,
-        "hallucination_check": 0.24876300449250266,
-        "total": 3351.651884004241
+        "stt": 0.007804992492310703,
+        "retrieval": 1.0684919980121776,
+        "guardrail": 0.024196997401304543,
+        "generation": 2583.782567991875,
+        "hallucination_check": 2.718700998229906,
+        "hedge_check": 0.0,
+        "total": 2587.6134509890107
       }
     },
     {
@@ -433,12 +465,13 @@
       "top_similarity": 0.6500113010406494,
       "answer": "The StubHub toll-free number is 1-866-788-2482.",
       "timings": {
-        "stt": 0.014810997527092695,
-        "retrieval": 3.1778189950273372,
-        "guardrail": 0.04127500142203644,
-        "generation": 5839.777367000352,
-        "hallucination_check": 0.08946000161813572,
-        "total": 5843.142673998955
+        "stt": 0.009994997526519,
+        "retrieval": 1.1374349996913224,
+        "guardrail": 0.031200004741549492,
+        "generation": 4247.992360993521,
+        "hallucination_check": 0.14338600158225745,
+        "hedge_check": 0.008483999408781528,
+        "total": 4249.335123007768
       }
     },
     {
@@ -455,12 +488,13 @@
       "top_similarity": 0.1632993072271347,
       "answer": "This question is out of domain or lacks strong grounding in the provided dataset. Refusing to guess to prevent hallucination.",
       "timings": {
-        "stt": 0.006747999577783048,
-        "retrieval": 0.361546000931412,
-        "guardrail": 1.5264710018527694,
+        "stt": 0.007805007044225931,
+        "retrieval": 0.37304399302229285,
+        "guardrail": 1.3835999998264015,
         "generation": 0.0,
         "hallucination_check": 0.0,
-        "total": 1.902798998344224
+        "hedge_check": 0.0,
+        "total": 1.7737040034262463
       }
     },
     {
@@ -469,20 +503,21 @@
       "query": "first defense nasal filter sales numbers",
       "ground_truth_answer": "No Answer Present.",
       "expected_action": "REFUSE",
-      "actual_action": "ANSWER",
-      "status": "FP",
-      "refused": false,
-      "refusal_reason": "",
-      "trigger_layer": "N/A",
+      "actual_action": "REFUSE",
+      "status": "TN",
+      "refused": true,
+      "refusal_reason": "Refusal: Model indicated insufficient grounded information to answer.",
+      "trigger_layer": "Layer 5 (Hedge / Non-Answer)",
       "top_similarity": 0.28867512941360474,
-      "answer": "Unfortunately, the provided context passages do not contain any information about the sales numbers of First Defense Nasal Screens. They do, however, provide details about the product offerings and sizes available for purchase online, as well as a mention of Joseph Moore's appearance on Shark Tank.",
+      "answer": "I cannot provide this answer as the model indicated insufficient grounded information to answer from the retrieved context.",
       "timings": {
-        "stt": 0.01756299752742052,
-        "retrieval": 0.75642199954018,
-        "guardrail": 0.02700900222407654,
-        "generation": 2279.5345519989496,
-        "hallucination_check": 0.23601700377184898,
-        "total": 2280.586281995056
+        "stt": 0.007377995643764734,
+        "retrieval": 0.3226589906262234,
+        "guardrail": 0.024861001293174922,
+        "generation": 3497.344071001862,
+        "hallucination_check": 0.13232100172899663,
+        "hedge_check": 0.005620007868856192,
+        "total": 3497.8470399946673
       }
     },
     {
@@ -497,14 +532,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.5583533048629761,
-      "answer": "To get a clear desktop icon on Windows 8, you can follow these steps: \n\nFirst, you need to access the desktop icon settings. To do this, you can check the icons that you want to have added on your desktop, and then go to step 8. \n\nHowever, if you want to remove some default desktop icons, you need to uncheck the icons that you want to have removed from your desktop, and then go to step 8. \n\nOnce you have unchecked the icons you want to remove, you can go to step 8, where you will find the related screenshot.",
+      "answer": "To get a clear desktop icon on Windows 8, you need to remove the icons that you don't want to see on your desktop. To do this, follow these steps: \n\nFirst, uncheck the icons that you want to have removed from your desktop. This will ensure that they are no longer displayed on your desktop. \n\nOnce you have unchecked the icons you want to remove, you can proceed to step 8, where you will find further instructions on how to finalize the changes.",
       "timings": {
-        "stt": 0.012976001016795635,
-        "retrieval": 3.4059640020132065,
-        "guardrail": 0.05379100184654817,
-        "generation": 3359.0593010012526,
-        "hallucination_check": 0.28937900060554966,
-        "total": 3362.839821005764
+        "stt": 0.007214010111056268,
+        "retrieval": 0.3386190073797479,
+        "guardrail": 0.024424007278867066,
+        "generation": 3440.4211720102467,
+        "hallucination_check": 0.15116400027181953,
+        "hedge_check": 0.020018007489852607,
+        "total": 3440.9728280006675
       }
     },
     {
@@ -519,14 +555,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.39901190996170044,
-      "answer": "Yes, Delta flies to Bangalore. According to the provided context passages, Delta has 6 flights weekly between Bangalore and Paris.",
+      "answer": "Yes, Delta does fly to Bangalore. According to the provided context passages, Delta Airlines has 6 flights weekly between Bangalore and Paris.",
       "timings": {
-        "stt": 0.016609003068879247,
-        "retrieval": 0.6564510040334426,
-        "guardrail": 0.050866001402027905,
-        "generation": 4197.439345000021,
-        "hallucination_check": 0.3175980018568225,
-        "total": 4198.500178004906
+        "stt": 0.007271009963005781,
+        "retrieval": 0.32878699130378664,
+        "guardrail": 0.025218003429472446,
+        "generation": 4271.5529129927745,
+        "hallucination_check": 0.18694100435823202,
+        "hedge_check": 0.011512995115481317,
+        "total": 4272.123647009721
       }
     },
     {
@@ -535,20 +572,21 @@
       "query": "how long for cantaloupe to mature",
       "ground_truth_answer": "90 days.",
       "expected_action": "ANSWER",
-      "actual_action": "ANSWER",
-      "status": "TP",
-      "refused": false,
-      "refusal_reason": "",
-      "trigger_layer": "N/A",
+      "actual_action": "REFUSE",
+      "status": "FN",
+      "refused": true,
+      "refusal_reason": "Refusal: Generated answer failed post-generation grounding check against retrieved context.",
+      "trigger_layer": "Layer 4 (Post-Gen Grounding)",
       "top_similarity": 0.47043752670288086,
-      "answer": "Unfortunately, the provided context passages do not mention the specific time it takes for cantaloupe to mature. However, we can infer that the time it takes for cantaloupe to mature is not mentioned in the given passages.",
+      "answer": "I cannot provide this answer as it failed post-generation grounding verification against retrieved context.",
       "timings": {
-        "stt": 0.013958000636193901,
-        "retrieval": 0.5904189965804107,
-        "guardrail": 0.08332799916388467,
-        "generation": 3249.2467160045635,
-        "hallucination_check": 0.254904996836558,
-        "total": 3250.2078249963233
+        "stt": 0.007390000973828137,
+        "retrieval": 0.32910901063587517,
+        "guardrail": 0.024488996132276952,
+        "generation": 3321.1295639921445,
+        "hallucination_check": 0.9335140057373792,
+        "hedge_check": 0.0,
+        "total": 3322.433513996657
       }
     },
     {
@@ -565,12 +603,13 @@
       "top_similarity": 0.4722250998020172,
       "answer": "The total cost to replace the catalytic converter with a test pipe is $60.",
       "timings": {
-        "stt": 0.014076998922973871,
-        "retrieval": 0.6036220001988113,
-        "guardrail": 0.07908300176495686,
-        "generation": 4247.452510993753,
-        "hallucination_check": 0.16378700092900544,
-        "total": 4248.330703005195
+        "stt": 0.007704002200625837,
+        "retrieval": 0.3292699984740466,
+        "guardrail": 0.025123998057097197,
+        "generation": 3294.8164569970686,
+        "hallucination_check": 0.09382300777360797,
+        "hedge_check": 0.007544993422925472,
+        "total": 3295.289824993233
       }
     },
     {
@@ -585,14 +624,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.6674237847328186,
-      "answer": "The definition of \"arbitrary\" is based on or subject to individual discretion or preference, or sometimes impulse or caprice. It refers to a decision, rule, penalty, size, shape, choice, or division that is made or determined without a fixed or logical basis, often relying on personal whim or capriciousness.",
+      "answer": "The definition of \"arbitrary\" is based on or subject to individual discretion or preference, or sometimes impulse or caprice. It refers to a decision, rule, penalty, size, shape, choice, or division that is made or determined without a fixed or established standard, and is therefore subject to the whims or personal opinions of an individual, often a dictator or someone in a position of power.",
       "timings": {
-        "stt": 0.017754005966708064,
-        "retrieval": 5.629751998640131,
-        "guardrail": 0.05226600478636101,
-        "generation": 2278.5207869965234,
-        "hallucination_check": 0.26078199880430475,
-        "total": 2284.5012600009795
+        "stt": 0.007748996722511947,
+        "retrieval": 3.0074829992372543,
+        "guardrail": 0.02669700188562274,
+        "generation": 2420.0136400031624,
+        "hallucination_check": 0.15265100228134543,
+        "hedge_check": 0.01791398972272873,
+        "total": 2423.415108001791
       }
     },
     {
@@ -601,20 +641,21 @@
       "query": "how is time to degree calculated graduate degrees",
       "ground_truth_answer": "No Answer Present.",
       "expected_action": "REFUSE",
-      "actual_action": "ANSWER",
-      "status": "FP",
-      "refused": false,
-      "refusal_reason": "",
-      "trigger_layer": "N/A",
+      "actual_action": "REFUSE",
+      "status": "TN",
+      "refused": true,
+      "refusal_reason": "Refusal: Model indicated insufficient grounded information to answer.",
+      "trigger_layer": "Layer 5 (Hedge / Non-Answer)",
       "top_similarity": 0.5406205058097839,
-      "answer": "Unfortunately, the provided context passages do not mention how time-to-degree is calculated for graduate degrees. The passages only discuss average time-to-degree metrics for undergraduate majors and mention an analysis that examines predictors of time-to-degree for bachelor's degree recipients. There is no information about graduate degrees.",
+      "answer": "I cannot provide this answer as the model indicated insufficient grounded information to answer from the retrieved context.",
       "timings": {
-        "stt": 0.01290400541620329,
-        "retrieval": 0.7208389943116345,
-        "guardrail": 0.0580709966016002,
-        "generation": 3267.0337200033828,
-        "hallucination_check": 0.3053319960599765,
-        "total": 3268.1518659956055
+        "stt": 0.009878000128082931,
+        "retrieval": 2.073173993267119,
+        "guardrail": 0.027381989639252424,
+        "generation": 4585.050437002792,
+        "hallucination_check": 0.11943599383812398,
+        "hedge_check": 0.008576011168770492,
+        "total": 4587.30118200765
       }
     },
     {
@@ -629,14 +670,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.3162277936935425,
-      "answer": "The barter system is not directly related to the provided context passages, but it can be inferred from the second passage. However, the passage does not explicitly describe the barter system. \n\nThe barter system is a method of exchange where individuals trade goods or services directly without using money. It is mentioned in the second passage as \"Barter Exchange\" with its limitations.\n\nThe problems of the barter system, as mentioned in the second passage, are:\n\n1. Lack of Double Coincidence of Wants: This means that for a barter exchange to occur, both the buyer and seller must have something that the other wants. This coincidence is rare, making the barter system impractical.\n\nHowever, the passage does not provide information about the barter system's relation to ringworm or Carson's views on environmental pollution.",
+      "answer": "Based on the provided context passages, here's a detailed answer to your question:\n\nThe barter system is not explicitly mentioned in the passages, but it can be inferred as a system of exchange where goods or services are traded directly for other goods or services without using a medium of exchange like money. However, the passage does mention \"Barter Exchange\" as one of the topics, but it doesn't provide a clear definition.\n\nThe passage does, however, discuss the limitations of the barter system, specifically mentioning the \"Lack of Double Coincidence of Wants\" as one of the major problems. This means that for a barter exchange to occur, both the buyer and seller must have something that the other wants, which is a rare occurrence.\n\nThe passage also mentions that Carson believes the intensification of agriculture is causing problems, but it doesn't relate this to the barter system.",
       "timings": {
-        "stt": 0.015435005479957908,
-        "retrieval": 0.6040689986548387,
-        "guardrail": 0.05381499795475975,
-        "generation": 3446.7505120046553,
-        "hallucination_check": 0.40621500374982134,
-        "total": 3447.8493019996677
+        "stt": 0.00790899503044784,
+        "retrieval": 0.3229239955544472,
+        "guardrail": 0.026670997613109648,
+        "generation": 3595.7203680009115,
+        "hallucination_check": 0.22699499095324427,
+        "hedge_check": 0.029938993975520134,
+        "total": 3596.345398997073
       }
     },
     {
@@ -645,20 +687,21 @@
       "query": "did roblox have a power ranger event",
       "ground_truth_answer": "No Answer Present.",
       "expected_action": "REFUSE",
-      "actual_action": "ANSWER",
-      "status": "FP",
-      "refused": false,
-      "refusal_reason": "",
-      "trigger_layer": "N/A",
+      "actual_action": "REFUSE",
+      "status": "TN",
+      "refused": true,
+      "refusal_reason": "Refusal: Model indicated insufficient grounded information to answer.",
+      "trigger_layer": "Layer 5 (Hedge / Non-Answer)",
       "top_similarity": 0.2601330280303955,
-      "answer": "There is no information provided in the given context passages about Roblox having a Power Rangers event. The passages discuss Power Rangers episodes and a bootleg film, but do not mention Roblox.",
+      "answer": "I cannot provide this answer as the model indicated insufficient grounded information to answer from the retrieved context.",
       "timings": {
-        "stt": 0.014657998690381646,
-        "retrieval": 3.5604769946075976,
-        "guardrail": 0.06124100036686286,
-        "generation": 3216.604396002367,
-        "hallucination_check": 0.1986679999390617,
-        "total": 3220.459004995064
+        "stt": 0.007666007149964571,
+        "retrieval": 0.3292749897809699,
+        "guardrail": 0.02447100996505469,
+        "generation": 4101.102036991506,
+        "hallucination_check": 0.11090100451838225,
+        "hedge_check": 0.007048001862131059,
+        "total": 4101.591356986319
       }
     },
     {
@@ -675,12 +718,13 @@
       "top_similarity": 0.6929023265838623,
       "answer": "The study of climate is called climatology, while the study of weather is called meteorology.",
       "timings": {
-        "stt": 0.01569999585626647,
-        "retrieval": 0.5991259968141094,
-        "guardrail": 0.0496460052090697,
-        "generation": 4251.478550002503,
-        "hallucination_check": 0.12244699610164389,
-        "total": 4252.283257999807
+        "stt": 0.008110000635497272,
+        "retrieval": 0.3275240014772862,
+        "guardrail": 0.0241390080191195,
+        "generation": 1309.7503580065677,
+        "hallucination_check": 0.10381599713582546,
+        "hedge_check": 0.009338997188024223,
+        "total": 1310.2338489989052
       }
     },
     {
@@ -697,12 +741,13 @@
       "top_similarity": 0.5128776431083679,
       "answer": "I cannot provide this answer as it failed post-generation grounding verification against retrieved context.",
       "timings": {
-        "stt": 0.008267001248896122,
-        "retrieval": 5.908126004214864,
-        "guardrail": 0.03172399738105014,
-        "generation": 1227.4396249995334,
-        "hallucination_check": 0.19999199867015705,
-        "total": 1233.6005219985964
+        "stt": 0.007214999641291797,
+        "retrieval": 1.21263500477653,
+        "guardrail": 0.028028007363900542,
+        "generation": 3280.4939720081165,
+        "hallucination_check": 0.10309201024938375,
+        "hedge_check": 0.0,
+        "total": 3281.855014996836
       }
     },
     {
@@ -719,12 +764,13 @@
       "top_similarity": 0.1624888926744461,
       "answer": "This question is out of domain or lacks strong grounding in the provided dataset. Refusing to guess to prevent hallucination.",
       "timings": {
-        "stt": 0.014905999705661088,
-        "retrieval": 0.6671170049230568,
-        "guardrail": 2.8564079984789714,
+        "stt": 0.007620998076163232,
+        "retrieval": 0.346340995747596,
+        "guardrail": 1.3582420069724321,
         "generation": 0.0,
         "hallucination_check": 0.0,
-        "total": 3.554240000084974
+        "hedge_check": 0.0,
+        "total": 1.7216579872183502
       }
     },
     {
@@ -741,12 +787,13 @@
       "top_similarity": 0.365509033203125,
       "answer": "I cannot provide this answer as it failed post-generation grounding verification against retrieved context.",
       "timings": {
-        "stt": 0.007950999133754522,
-        "retrieval": 0.3387100005056709,
-        "guardrail": 0.028761998692061752,
-        "generation": 4257.891468005255,
-        "hallucination_check": 0.32483600080013275,
-        "total": 4258.60351400479
+        "stt": 0.010577990906313062,
+        "retrieval": 3.9659780013607815,
+        "guardrail": 0.048816000344231725,
+        "generation": 3578.1936400017003,
+        "hallucination_check": 0.891953008249402,
+        "hedge_check": 0.0,
+        "total": 3583.125570003176
       }
     },
     {
@@ -755,20 +802,21 @@
       "query": "Who won the FIFA World Cup in 1930 in Uruguay?",
       "ground_truth_answer": "No Answer Present.",
       "expected_action": "REFUSE",
-      "actual_action": "ANSWER",
-      "status": "FP",
-      "refused": false,
-      "refusal_reason": "",
-      "trigger_layer": "N/A",
+      "actual_action": "REFUSE",
+      "status": "TN",
+      "refused": true,
+      "refusal_reason": "Refusal: Generated answer failed post-generation grounding check against retrieved context.",
+      "trigger_layer": "Layer 4 (Post-Gen Grounding)",
       "top_similarity": 0.4654746949672699,
-      "answer": "I don't have information about the FIFA World Cup winner in 1930 in the provided context passages.",
+      "answer": "I cannot provide this answer as it failed post-generation grounding verification against retrieved context.",
       "timings": {
-        "stt": 0.013026001397520304,
-        "retrieval": 5.056394002167508,
-        "guardrail": 0.03824899613391608,
-        "generation": 3211.4093790005427,
-        "hallucination_check": 0.23895900085335597,
-        "total": 3216.7707850021543
+        "stt": 0.007373993867076933,
+        "retrieval": 0.3467009955784306,
+        "guardrail": 0.026444002287462354,
+        "generation": 3489.6876760030864,
+        "hallucination_check": 0.9010859939735383,
+        "hedge_check": 0.0,
+        "total": 3490.978879999602
       }
     },
     {
@@ -785,12 +833,13 @@
       "top_similarity": 0.33161064982414246,
       "answer": "I cannot provide this answer as it failed post-generation grounding verification against retrieved context.",
       "timings": {
-        "stt": 0.013610995665658265,
-        "retrieval": 0.6082260006223805,
-        "guardrail": 0.054784999520052224,
-        "generation": 3183.383800002048,
-        "hallucination_check": 0.218289002077654,
-        "total": 3184.296016006556
+        "stt": 0.008199000149033964,
+        "retrieval": 2.598084000055678,
+        "guardrail": 0.03076600842177868,
+        "generation": 3526.5928269946016,
+        "hallucination_check": 0.11208299838472158,
+        "hedge_check": 0.0,
+        "total": 3529.352782003116
       }
     }
   ]

@@ -33,6 +33,8 @@ def parse_refusal_layer(reason: str) -> str:
         return "Layer 3 (Threshold Gate)"
     if "post-generation grounding check" in reason_lower or "hallucination" in reason_lower:
         return "Layer 4 (Post-Gen Grounding)"
+    if "insufficient grounded information" in reason_lower:
+        return "Layer 5 (Hedge / Non-Answer)"
     return "Refused (Other)"
 
 def main():

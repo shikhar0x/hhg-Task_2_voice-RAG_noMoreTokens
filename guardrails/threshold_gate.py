@@ -60,28 +60,46 @@ class GroundingGuardrailStep(BaseStep):
     def check_hallucination(self, answer: str, context: str) -> bool:
         """
         Layer 4: Checks if the generated answer is faithful to the retrieved context.
-        Applies lightweight suffix stemming before term-overlap comparison so reasonable
-        paraphrases (e.g. 'matures'/'mature', 'cantaloupes'/'cantaloupe') are tolerated.
+
+        Two sub-checks:
+          (1) NUMERIC FABRICATION — every number token in the answer must also appear
+              in the retrieved context. A specific figure absent from the context is a
+              hallucination even when the surrounding words overlap heavily (e.g. an
+              eagle "30-40 mph" answer over an Amtrak passage, or a "100-120 days"
+              answer over a passage that only states honeydew "80 days"). A strictly
+              grounded RAG system must derive every quantitative claim from the
+              retrieved passages, never from parametric knowledge.
+          (2) LEXICAL OVERLAP (stemmed) — the fraction of answer content words present
+              in the context must meet hallucination_threshold (default 0.20), so
+              reasonable paraphrases are tolerated.
         """
         if not answer or not context:
             return False
-        
-        # Extract meaningful entity words (length > 3)
+
+        # --- (1) Numeric fabrication: every number in the answer must be grounded ---
+        ans_nums = set(re.findall(r'\b\d[\d,.\-]*\b', answer.lower()))
+        ctx_nums = set(re.findall(r'\b\d[\d,.\-]*\b', context.lower()))
+        if ans_nums - ctx_nums:
+            logger.info(
+                f"Guardrail Layer 4: numeric fabrication detected "
+                f"(invented numbers not in context: {sorted(ans_nums - ctx_nums)})."
+            )
+            return False
+
+        # --- (2) Stemmed lexical overlap ---
         ans_raw = set(re.findall(r'\b[a-zA-Z]{4,}\b', answer.lower())) - {
-            "this", "that", "from", "with", "have", "were", "they", "their", "about", "would", "which", "there", "these", "where"
+            "this", "that", "from", "with", "have", "were", "they", "their",
+            "about", "would", "which", "there", "these", "where"
         }
         ctx_raw = set(re.findall(r'\b[a-zA-Z]{4,}\b', context.lower()))
-        
+
         if not ans_raw:
             return True
 
-        # Rationale for stemming: Convert inflections (plurals, verb tenses) to base roots
-        # so LLM paraphrases match retrieved context terms without false-positive refusals.
         ans_words = {stem_word(w) for w in ans_raw}
         ctx_words = {stem_word(w) for w in ctx_raw}
-            
+
         overlap = len(ans_words.intersection(ctx_words)) / len(ans_words)
-        # Flag as hallucination if overlap ratio is below threshold
         return overlap >= self.hallucination_threshold
 
     def execute(self, input_data: dict[str, Any]) -> StepResult:
