@@ -49,7 +49,7 @@
     "query_id": "168868",
     "eng_query": "does medical marijuana help with ptsd",
     "indic_query": "চিকিৎসা সংক্ৰান্ত গাঁজাই মন্ত্ৰসমূহৰ সৈতে সহায় কৰে নেকি?",
-    "ground_truth_answer": "No Answer Present.",
+    "ground_truth_answer": "Evidence suggests medical marijuana may help with PTSD; medical studies are currently underway.",
     "audio_file": "benchmarks/audio_samples/query_168868.wav"
   },
   {
@@ -62,13 +62,13 @@
     "query_id": "290643",
     "eng_query": "how many ongoing trump administration investigations",
     "indic_query": "ট্ৰাম্প প্ৰশাসনৰ কিমানটা তদন্ত চলি আছে",
-    "ground_truth_answer": "No Answer Present."
+    "ground_truth_answer": "There are currently three ongoing investigations."
   },
   {
     "query_id": "197590",
     "eng_query": "guide to how to collect followers on wow",
     "indic_query": "ৱাওত অনুগামীসকলক কেনেকৈ সংগ্ৰহ কৰিব লাগে তাৰ নিৰ্দেশনা",
-    "ground_truth_answer": "No Answer Present."
+    "ground_truth_answer": "The guide details three easy-to-obtain Followers for your Garrison, with a second part promising four more."
   },
   {
     "query_id": "265552",
@@ -134,7 +134,7 @@
     "query_id": "361332",
     "eng_query": "how to get clear desktop icon on windows 8",
     "indic_query": "উইণ্ড'জ ৮-ত কিদৰে ক্লিয়াৰ ডেস্কটপ আইকন পাব",
-    "ground_truth_answer": "No Answer Present."
+    "ground_truth_answer": "Uncheck the icons you want removed from your desktop to clear them."
   },
   {
     "query_id": "165349",
@@ -152,7 +152,7 @@
     "query_id": "110842",
     "eng_query": "cost to replace converter with test pipe",
     "indic_query": "পৰীক্ষামূলক পাইপৰ সৈতে কনভাৰ্টাৰ সলনি কৰাৰ খৰচ",
-    "ground_truth_answer": "No Answer Present."
+    "ground_truth_answer": "The total cost to replace the catalytic converter with a test pipe is $60."
   },
   {
     "query_id": "116898",

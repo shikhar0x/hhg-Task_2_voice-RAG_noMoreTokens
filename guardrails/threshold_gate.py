@@ -72,6 +72,14 @@ class GroundingGuardrailStep(BaseStep):
           (2) LEXICAL OVERLAP (stemmed) — the fraction of answer content words present
               in the context must meet hallucination_threshold (default 0.20), so
               reasonable paraphrases are tolerated.
+
+        NOTE: a capitalized "proper-noun" check was evaluated and deliberately REMOVED.
+        It was too crude for natural LLM prose — it flagged sentence-initial discourse
+        markers ("However", "Additionally", "Unfortunately", "First") as fabricated
+        proper nouns, producing false refusals on grounded answers. Catching semantic
+        fabrications such as a wrong term definition (e.g. "amidships" = "bottom front"
+        vs the passage's "midship section") or off-the-cuff genus names requires an
+        LLM-as-judge entailment layer, which is deferred.
         """
         if not answer or not context:
             return False

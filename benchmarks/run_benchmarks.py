@@ -129,6 +129,14 @@ def main():
 
     orchestrator = VoiceRAGOrchestrator()
 
+    # Untimed warmup: primes the NumPy/BLAS dot-product + argsort path so the
+    # first measured query does not pay cold-start thread-spin-up cost.
+    orchestrator.retrieval.run({"transcript": "warmup prime retrieval"})
+
+    # Untimed warmup pass: primes the in-memory vector index + NumPy/BLAS thread
+    # pool so first-call cold-start is NOT counted in the measured percentiles.
+    orchestrator.process(text_override="warmup prime query", mode="retrieval_only")
+
     # Clear previous latency logs for clean benchmark percentiles
     import sqlite3
     with sqlite3.connect(orchestrator.metrics_db.db_path) as conn:
