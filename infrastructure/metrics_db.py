@@ -40,7 +40,6 @@ class MetricsDB:
             conn.commit()
 
     def log(self, query_id: str, transcript: str, timings: dict[str, float], refused: bool = False, mode: str = "end_to_end"):
-        self._init_db()
         with sqlite3.connect(self.db_path) as conn:
             conn.execute("""
                 INSERT INTO latency_logs (query_id, transcript, stt_ms, retrieval_ms, guardrail_ms, generation_ms, hallucination_ms, total_ms, refused, timestamp, mode)
@@ -61,7 +60,6 @@ class MetricsDB:
             conn.commit()
 
     def compute_percentiles(self, mode: str | None = None) -> dict[str, dict[str, str]]:
-        self._init_db()
         with sqlite3.connect(self.db_path) as conn:
             cur = conn.cursor()
             if mode:

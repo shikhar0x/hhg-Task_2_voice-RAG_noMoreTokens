@@ -8,6 +8,16 @@ try:
 except ImportError:
     GroqRateLimitError = ()
 
+
+def _is_transient(e: Exception) -> bool:
+    """Only retry errors likely to resolve later; fail fast on deterministic ones."""
+    status = getattr(e, 'status_code', None)
+    if isinstance(status, int) and 400 <= status < 500 and status != 429:
+        return False
+    if isinstance(e, (ValueError, TypeError)):
+        return False
+    return True
+
 def retry_step(max_retries: int = 3, base_delay: float = 0.5, max_delay: float = 6.0):
     """
     Rate-limit aware exponential backoff decorator with jitter for resilient API calls.
@@ -22,7 +32,7 @@ def retry_step(max_retries: int = 3, base_delay: float = 0.5, max_delay: float =
                     return func(*args, **kwargs)
                 except Exception as e:
                     last_err = e
-                    if attempt == max_retries - 1:
+                    if not _is_transient(e) or attempt == max_retries - 1:
                         raise e
 
                     # Check for rate limit / Retry-After headers from API providers

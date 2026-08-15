@@ -26,3 +26,4 @@ gtts>=2.5.4
 # Testing Framework
 pytest>=8.0.0
 pytest-mock>=3.12.0
+httpx>=0.26.0

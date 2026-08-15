@@ -21,7 +21,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="HH Goa Voice-RAG Service", lifespan=lifespan)
 
 @app.post("/api/query")
-async def handle_query(
+def handle_query(
     audio: UploadFile = File(None),
     text_override: str = Form(None)
 ):

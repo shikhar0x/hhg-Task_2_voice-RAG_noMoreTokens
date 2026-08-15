@@ -11,6 +11,14 @@ UNSAFE_PATTERNS = [
     r'\b(ignore previous instructions|system prompt|disregard rules)\b'
 ]
 
+# Precompiled once for the hot path (Layer 1 runs on every query).
+_COMPILED_UNSAFE = [re.compile(p) for p in UNSAFE_PATTERNS]
+
+_STOPWORDS = {
+    "this", "that", "from", "with", "have", "were", "they", "their",
+    "about", "would", "which", "there", "these", "where"
+}
+
 def stem_word(w: str) -> str:
     """
     Lightweight English suffix-stripping stemmer.
@@ -52,8 +60,8 @@ class GroundingGuardrailStep(BaseStep):
     def check_safety(self, query: str) -> tuple[bool, str]:
         """Layer 1: Detects unsafe, abusive, or prompt-injection inputs."""
         q_lower = query.lower()
-        for pattern in UNSAFE_PATTERNS:
-            if re.search(pattern, q_lower):
+        for pattern in _COMPILED_UNSAFE:
+            if pattern.search(q_lower):
                 return False, "Refusal: Query flagged as unsafe, inappropriate, or policy-violating."
         return True, ""
 
@@ -95,10 +103,7 @@ class GroundingGuardrailStep(BaseStep):
             return False
 
         # --- (2) Stemmed lexical overlap ---
-        ans_raw = set(re.findall(r'\b[a-zA-Z]{4,}\b', answer.lower())) - {
-            "this", "that", "from", "with", "have", "were", "they", "their",
-            "about", "would", "which", "there", "these", "where"
-        }
+        ans_raw = set(re.findall(r'\b[a-zA-Z]{4,}\b', answer.lower())) - _STOPWORDS
         ctx_raw = set(re.findall(r'\b[a-zA-Z]{4,}\b', context.lower()))
 
         if not ans_raw:

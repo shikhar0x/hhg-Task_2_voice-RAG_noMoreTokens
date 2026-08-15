@@ -61,8 +61,7 @@ def warmup_vector_index():
     """Initializes the fast vector index at startup to eliminate query-1 cold start."""
     global _doc_matrix
     if _doc_matrix is None:
-        import chromadb
-        client = chromadb.PersistentClient(path=settings.chroma_path)
+        client = _get_chroma_client()
         col = client.get_or_create_collection("msmarco_corpus")
         data = col.get()
         docs = data.get("documents", [])
@@ -70,10 +69,20 @@ def warmup_vector_index():
         if docs:
             build_fast_vector_index(docs, metas)
 
+_chroma_client = None
+
+
+def _get_chroma_client():
+    """Single shared ChromaDB client to avoid multi-client 'database is locked' errors."""
+    global _chroma_client
+    if _chroma_client is None:
+        import chromadb
+        _chroma_client = chromadb.PersistentClient(path=settings.chroma_path)
+    return _chroma_client
+
+
 def get_vector_store():
-    import chromadb
-    client = chromadb.PersistentClient(path=settings.chroma_path)
-    return client.get_or_create_collection("msmarco_corpus")
+    return _get_chroma_client().get_or_create_collection("msmarco_corpus")
 
 class VectorRetrievalStep(BaseStep):
     """Sub-5ms Vector Retrieval Step."""

@@ -1,27 +1,19 @@
 {
-  "timestamp": "2026-08-14 23:18:11",
+  "timestamp": "2026-08-15 10:41:41",
   "total_queries": 35,
   "confusion_matrix": {
-    "TP": 14,
+    "TP": 15,
     "TN": 16,
     "FP": 4,
-    "FN": 1
+    "FN": 0
   },
   "metrics": {
-    "accuracy": 0.8571,
-    "precision": 0.7778,
-    "recall": 0.9333,
-    "f1_score": 0.8485
+    "accuracy": 0.8857,
+    "precision": 0.7895,
+    "recall": 1.0,
+    "f1_score": 0.8824
   },
-  "false_negatives": [
-    {
-      "query_id": "227261",
-      "query": "how does pollution increase human population",
-      "top_similarity": 0.3063816428184509,
-      "trigger_layer": "Layer 4 (Post-Gen Grounding)",
-      "refusal_reason": "Refusal: Generated answer failed post-generation grounding check against retrieved context."
-    }
-  ],
+  "false_negatives": [],
   "detailed_results": [
     {
       "index": 1,
@@ -37,13 +29,13 @@
       "top_similarity": 0.4885699450969696,
       "answer": "A corporation is a company or group of people authorized to act as a single entity (legally a person) and recognized as such in law.",
       "timings": {
-        "stt": 0.007021008059382439,
-        "retrieval": 0.6742000114172697,
-        "guardrail": 0.44675898971036077,
-        "generation": 5436.672588009969,
-        "hallucination_check": 0.30606199288740754,
-        "hedge_check": 0.01039900234900415,
-        "total": 5438.135606003925
+        "stt": 0.008762013749219477,
+        "retrieval": 0.4638800019165501,
+        "guardrail": 0.02701098856050521,
+        "generation": 538.5726819949923,
+        "hallucination_check": 0.2869580057449639,
+        "hedge_check": 0.010196003131568432,
+        "total": 539.3908109981567
       }
     },
     {
@@ -60,13 +52,13 @@
       "top_similarity": 0.5353033542633057,
       "answer": "Rachel Carson wrote \"The Obligation to Endure\" as a convincing argument about the harmful uses of chemicals, pesticides, herbicides, and fertilizers on the environment, suggesting that these substances are not only detrimental to the environment but also to its inhabitants.",
       "timings": {
-        "stt": 0.007408001692965627,
-        "retrieval": 0.3769330069189891,
-        "guardrail": 0.032041993108578026,
-        "generation": 194.82248299755156,
-        "hallucination_check": 0.15608100511599332,
-        "hedge_check": 0.015568002709187567,
-        "total": 195.428090999485
+        "stt": 0.007872993592172861,
+        "retrieval": 0.3612440050346777,
+        "guardrail": 0.02545899769756943,
+        "generation": 290.87988899846096,
+        "hallucination_check": 0.13718499394599348,
+        "hedge_check": 0.01684199378360063,
+        "total": 291.4473860000726
       }
     },
     {
@@ -83,13 +75,13 @@
       "top_similarity": 0.5465943813323975,
       "answer": "I cannot provide this answer as the model indicated insufficient grounded information to answer from the retrieved context.",
       "timings": {
-        "stt": 0.007157999789342284,
-        "retrieval": 0.33372300094924867,
-        "guardrail": 0.023198997951112688,
-        "generation": 289.77728899917565,
-        "hallucination_check": 0.14185599866323173,
-        "hedge_check": 0.01316200359724462,
-        "total": 290.3061719989637
+        "stt": 0.00717300281394273,
+        "retrieval": 0.4376940050860867,
+        "guardrail": 0.021115003619343042,
+        "generation": 381.9826330000069,
+        "hallucination_check": 0.15204800001811236,
+        "hedge_check": 0.013244003639556468,
+        "total": 382.6264980016276
       }
     },
     {
@@ -106,13 +98,13 @@
       "top_similarity": 0.4040610194206238,
       "answer": "The term that describes the bottom front of a cargo ship is \"amidships.\"",
       "timings": {
-        "stt": 0.006426998879760504,
-        "retrieval": 0.3297099901828915,
-        "guardrail": 0.02592901000753045,
-        "generation": 225.82616200088523,
-        "hallucination_check": 0.0933499977691099,
-        "hedge_check": 0.007775000995025039,
-        "total": 226.29904698987957
+        "stt": 0.006629998097196221,
+        "retrieval": 0.3429500065976754,
+        "guardrail": 0.019636994693428278,
+        "generation": 187.7437299990561,
+        "hallucination_check": 0.15474999963771552,
+        "hedge_check": 0.010700998245738447,
+        "total": 188.28867400588933
       }
     },
     {
@@ -129,13 +121,13 @@
       "top_similarity": 0.3354101777076721,
       "answer": "Based on the provided context passages, honesty can be defined as the condition of being honest (1), sincerity or fairness (2), and virtue or respect (3).",
       "timings": {
-        "stt": 0.006273010512813926,
-        "retrieval": 0.3309039893792942,
-        "guardrail": 0.023069995222613215,
-        "generation": 541.1765689932508,
-        "hallucination_check": 0.09605599916540086,
-        "hedge_check": 0.009718001820147038,
-        "total": 541.6525979962898
+        "stt": 0.00833999365568161,
+        "retrieval": 0.5420439993031323,
+        "guardrail": 0.019315004465170205,
+        "generation": 157.32728400325868,
+        "hallucination_check": 0.1293579989578575,
+        "hedge_check": 0.011669995728880167,
+        "total": 158.04942999966443
       }
     },
     {
@@ -152,13 +144,13 @@
       "top_similarity": 0.4170288145542145,
       "answer": "I cannot provide this answer as it failed post-generation grounding verification against retrieved context.",
       "timings": {
-        "stt": 0.006860995199531317,
-        "retrieval": 0.3323379933135584,
-        "guardrail": 0.026200999855063856,
-        "generation": 568.0778419919079,
-        "hallucination_check": 0.2289219992235303,
+        "stt": 0.008229006198234856,
+        "retrieval": 5.960808004601859,
+        "guardrail": 0.02447600127197802,
+        "generation": 480.8833830029471,
+        "hallucination_check": 0.2245619980385527,
         "hedge_check": 0.0,
-        "total": 568.6842239956604
+        "total": 487.1139090100769
       }
     },
     {
@@ -175,13 +167,13 @@
       "top_similarity": 0.624609649181366,
       "answer": "The Struthers City School District is located in the state of Ohio.",
       "timings": {
-        "stt": 0.009077004506252706,
-        "retrieval": 1.4570019993698224,
-        "guardrail": 0.034652999602258205,
-        "generation": 162.83271899737883,
-        "hallucination_check": 0.16178999794647098,
-        "hedge_check": 0.010871008271351457,
-        "total": 164.5194219890982
+        "stt": 0.006627000402659178,
+        "retrieval": 0.34497999877203256,
+        "guardrail": 0.020014995243400335,
+        "generation": 253.90549800067674,
+        "hallucination_check": 0.11534600344020873,
+        "hedge_check": 0.008228991646319628,
+        "total": 254.4100129889557
       }
     },
     {
@@ -198,13 +190,13 @@
       "top_similarity": 0.46423834562301636,
       "answer": "There is evidence suggesting that medical marijuana may help alleviate symptoms of post-traumatic stress disorder (PTSD), although more research is needed to fully understand its effects. Currently, there are medical studies underway to investigate the relationship between cannabis use and the relief of PTSD symptoms. Additionally, some states have already added PTSD as a qualifying condition for medical marijuana, indicating growing political momentum in this area.",
       "timings": {
-        "stt": 0.008230999810621142,
-        "retrieval": 6.211300991708413,
-        "guardrail": 0.03181099600624293,
-        "generation": 251.87225900299381,
-        "hallucination_check": 0.18845399608835578,
-        "hedge_check": 0.0218659988604486,
-        "total": 258.3458330045687
+        "stt": 0.006627989932894707,
+        "retrieval": 0.3467859933152795,
+        "guardrail": 0.02012999902945012,
+        "generation": 322.65535299666226,
+        "hallucination_check": 0.19723200239241123,
+        "hedge_check": 0.019525003153830767,
+        "total": 323.25617301103193
       }
     },
     {
@@ -221,13 +213,13 @@
       "top_similarity": 0.2981424033641815,
       "answer": "According to the provided context passages, Frank Gifford was married to three different women: Kathie Lee Gifford, Astrid Gifford, and Maxine Avis Ewart.",
       "timings": {
-        "stt": 0.00624000676907599,
-        "retrieval": 0.35925301199313253,
-        "guardrail": 0.023706001229584217,
-        "generation": 203.06331300525926,
-        "hallucination_check": 0.16570001025684178,
-        "hedge_check": 0.011738011380657554,
-        "total": 203.63939901289996
+        "stt": 0.006624002708122134,
+        "retrieval": 0.34255000355187804,
+        "guardrail": 0.019619998056441545,
+        "generation": 267.63808200485073,
+        "hallucination_check": 0.13722800940740854,
+        "hedge_check": 0.010741990990936756,
+        "total": 268.165521993069
       }
     },
     {
@@ -244,13 +236,13 @@
       "top_similarity": 0.21166688203811646,
       "answer": "There are currently three investigations into Russian interference in the 2016 election and alleged collusion with the Trump campaign.",
       "timings": {
-        "stt": 0.008896997314877808,
-        "retrieval": 4.5838730002287775,
-        "guardrail": 0.033042000723071396,
-        "generation": 166.10787800163962,
-        "hallucination_check": 0.16515000606887043,
-        "hedge_check": 0.010635994840413332,
-        "total": 170.92053600936197
+        "stt": 0.006739996024407446,
+        "retrieval": 0.34110600245185196,
+        "guardrail": 0.0219289941014722,
+        "generation": 166.49629900348373,
+        "hallucination_check": 0.1618899987079203,
+        "hedge_check": 0.011411000741645694,
+        "total": 167.0490270043956
       }
     },
     {
@@ -267,13 +259,13 @@
       "top_similarity": 0.5619925260543823,
       "answer": "Based on the provided context passages, it appears that the guide to collecting Followers on World of Warcraft (WoW) is a multi-part series. The first part of the guide details how to obtain three easy-to-obtain Followers for your Garrison, with a promise of a second installment that will provide instructions on how to get four more Followers with little to no work.\n\nTo collect Followers on WoW, you should follow the instructions provided in the first part of the guide, which includes obtaining the three easy-to-obtain Followers mentioned. However, the specific details on how to obtain these Followers are not provided in the given context passages.\n\nIt is recommended to visit the World of Warcraft Game Page to access the latest guides, news, and features, which may include the complete guide to collecting Followers.",
       "timings": {
-        "stt": 0.008158007403835654,
-        "retrieval": 0.33842999255284667,
-        "guardrail": 0.02531999780330807,
-        "generation": 358.2784860045649,
-        "hallucination_check": 0.1725069887470454,
-        "hedge_check": 0.02870601019822061,
-        "total": 358.86323598970193
+        "stt": 0.0068259978434070945,
+        "retrieval": 0.335652002831921,
+        "guardrail": 0.018574006389826536,
+        "generation": 349.03606900479645,
+        "hallucination_check": 0.2067869936581701,
+        "hedge_check": 0.02859000233002007,
+        "total": 349.6436239947798
       }
     },
     {
@@ -290,13 +282,13 @@
       "top_similarity": 0.24845199286937714,
       "answer": "I cannot provide this answer as the model indicated insufficient grounded information to answer from the retrieved context.",
       "timings": {
-        "stt": 0.006874994141981006,
-        "retrieval": 0.3370389895280823,
-        "guardrail": 0.02337699697818607,
-        "generation": 6234.6731099969475,
-        "hallucination_check": 0.10360799205955118,
-        "hedge_check": 0.003159002517350018,
-        "total": 6235.15607000445
+        "stt": 0.006275993655435741,
+        "retrieval": 0.3427969932090491,
+        "guardrail": 0.018876991816796362,
+        "generation": 169.28559099324048,
+        "hallucination_check": 0.16027000674512237,
+        "hedge_check": 0.003644003299996257,
+        "total": 169.82753899355885
       }
     },
     {
@@ -305,21 +297,21 @@
       "query": "how does pollution increase human population",
       "ground_truth_answer": "\u098f\u0987 \u09aa\u09cd\u09f0\u0995\u09cd\u09f0\u09bf\u09df\u09be \u0985\u09a8\u09c1\u09b8\u09f0\u09bf \u09aa\u09cd\u09f0\u0995\u09c3\u09a4 \ufffd \u09aa\u09a6\u09be\u09f0\u09cd\u09a5\u099f\u09cb \u09aa\u09cb\u09f1\u09be \u0997\u09c8\u099b\u09bf\u09b2 \u098f\u0995 \ufffd \u09b8\u09c1\u0995\u09c0\u09df\u09be \u09b8\u09cd\u09a5\u09be\u09a8\u09a4 \u09aa\u09cb\u09f1\u09be \u09af\u09be\u09df\u0964",
       "expected_action": "ANSWER",
-      "actual_action": "REFUSE",
-      "status": "FN",
-      "refused": true,
-      "refusal_reason": "Refusal: Generated answer failed post-generation grounding check against retrieved context.",
-      "trigger_layer": "Layer 4 (Post-Gen Grounding)",
+      "actual_action": "ANSWER",
+      "status": "TP",
+      "refused": false,
+      "refusal_reason": "",
+      "trigger_layer": "N/A",
       "top_similarity": 0.3063816428184509,
-      "answer": "I cannot provide this answer as it failed post-generation grounding verification against retrieved context.",
+      "answer": "The context passages do not directly address how pollution increases human population. However, they do provide some related information. \n\nThe passages mention that with an increase in world population, there has come an increase in air pollution. They also state that the burning of fossil fuels is the culprit behind the increase in air pollution. \n\nIt can be inferred that pollution, specifically air pollution, is a result of an increase in human population, not a cause. The increased population leads to higher energy demands, which in turn result in the burning of more fossil fuels and an increase in air pollution.",
       "timings": {
-        "stt": 0.006340007530525327,
-        "retrieval": 0.3468289942247793,
-        "guardrail": 0.026317997253499925,
-        "generation": 2989.044151006965,
-        "hallucination_check": 0.18165798974223435,
-        "hedge_check": 0.0,
-        "total": 2989.615482001682
+        "stt": 0.008728005923330784,
+        "retrieval": 0.34743300057016313,
+        "guardrail": 0.020696010324172676,
+        "generation": 2496.6540099994745,
+        "hallucination_check": 0.13925200619269162,
+        "hedge_check": 0.022881009499542415,
+        "total": 2497.2024820017396
       }
     },
     {
@@ -336,13 +328,13 @@
       "top_similarity": 0.23904570937156677,
       "answer": "I cannot provide this answer as it failed post-generation grounding verification against retrieved context.",
       "timings": {
-        "stt": 0.009799987310543656,
-        "retrieval": 2.6363029901403934,
-        "guardrail": 0.03246699634473771,
-        "generation": 3845.3451300010784,
-        "hallucination_check": 0.9413030056748539,
+        "stt": 0.006717003998346627,
+        "retrieval": 0.3368319885339588,
+        "guardrail": 0.020032006432302296,
+        "generation": 3552.429988994845,
+        "hallucination_check": 0.9500809974269941,
         "hedge_check": 0.0,
-        "total": 3848.9765679987613
+        "total": 3553.7547200074187
       }
     },
     {
@@ -359,13 +351,13 @@
       "top_similarity": 0.2309401035308838,
       "answer": "No, filth does not cause ringworm. According to the provided context passages, ringworm is caused by a fungus, specifically fungi of the Trichophyton, Microsporum, or Epidermophyton type, which live and spread on the outer layer of skin.",
       "timings": {
-        "stt": 0.007223992724902928,
-        "retrieval": 0.34207699354737997,
-        "guardrail": 0.02506301098037511,
-        "generation": 4490.374752000207,
-        "hallucination_check": 0.12387000606395304,
-        "hedge_check": 0.012425007298588753,
-        "total": 4490.895119990455
+        "stt": 0.006650996510870755,
+        "retrieval": 0.3287670115241781,
+        "guardrail": 0.017982994904741645,
+        "generation": 5600.7913399953395,
+        "hallucination_check": 0.12544800119940192,
+        "hedge_check": 0.01210399204865098,
+        "total": 5601.291184997535
       }
     },
     {
@@ -382,13 +374,13 @@
       "top_similarity": 0.7563755512237549,
       "answer": "I cannot provide this answer as it failed post-generation grounding verification against retrieved context.",
       "timings": {
-        "stt": 0.006642003427259624,
-        "retrieval": 0.39382300747092813,
-        "guardrail": 0.026358000468462706,
-        "generation": 4934.071681011119,
-        "hallucination_check": 0.8555990061722696,
+        "stt": 0.007315989932976663,
+        "retrieval": 0.35944000410381705,
+        "guardrail": 0.020813997252844274,
+        "generation": 3598.9244130032603,
+        "hallucination_check": 0.8919740066630766,
         "hedge_check": 0.0,
-        "total": 4935.364668999682
+        "total": 3600.214706006227
       }
     },
     {
@@ -405,13 +397,13 @@
       "top_similarity": 0.5129891633987427,
       "answer": "Barrel O Slime appears to be a type of toy or novelty item that consists of a container filled with a colorful, gooey substance, likely a type of putty or slime. It is marketed as a fun and gag-prank item, suitable for parties and as a joke toy. The product is also mentioned as being suitable for kids, suggesting it may be a type of children's plaything or party favor.",
       "timings": {
-        "stt": 0.007274997187778354,
-        "retrieval": 0.33862800046335906,
-        "guardrail": 0.02283400681335479,
-        "generation": 2505.813694995595,
-        "hallucination_check": 0.09441800648346543,
-        "hedge_check": 0.017122991266660392,
-        "total": 2506.310341996141
+        "stt": 0.0078029988799244165,
+        "retrieval": 0.3483680047793314,
+        "guardrail": 0.01740100560709834,
+        "generation": 3609.2772699921625,
+        "hallucination_check": 0.09746599243953824,
+        "hedge_check": 0.01554899790789932,
+        "total": 3609.7734829963883
       }
     },
     {
@@ -428,13 +420,13 @@
       "top_similarity": 0.20100754499435425,
       "answer": "I cannot provide this answer as it failed post-generation grounding verification against retrieved context.",
       "timings": {
-        "stt": 0.007780996384099126,
-        "retrieval": 0.3312820044811815,
-        "guardrail": 0.023943997803144157,
-        "generation": 2599.226103993715,
-        "hallucination_check": 0.9373939974466339,
+        "stt": 0.007465991075150669,
+        "retrieval": 0.3315089998068288,
+        "guardrail": 0.019489991245791316,
+        "generation": 2453.0327489919728,
+        "hallucination_check": 1.249460008693859,
         "hedge_check": 0.0,
-        "total": 2600.536860001739
+        "total": 2454.6529890067177
       }
     },
     {
@@ -451,13 +443,13 @@
       "top_similarity": 0.6500113010406494,
       "answer": "The StubHub toll-free number is 1-866-788-2482.",
       "timings": {
-        "stt": 0.007278998964466155,
-        "retrieval": 0.33549100044183433,
-        "guardrail": 0.024630004190839827,
-        "generation": 5321.241743004066,
-        "hallucination_check": 0.11503399582579732,
-        "hedge_check": 0.006259986548684537,
-        "total": 5321.740151994163
+        "stt": 0.010105999535880983,
+        "retrieval": 3.257017000578344,
+        "guardrail": 0.024693988962098956,
+        "generation": 4438.059435997275,
+        "hallucination_check": 0.12403700384311378,
+        "hedge_check": 0.0072270049713552,
+        "total": 4441.494380997028
       }
     },
     {
@@ -474,13 +466,13 @@
       "top_similarity": 0.1632993072271347,
       "answer": "This question is out of domain or lacks strong grounding in the provided dataset. Refusing to guess to prevent hallucination.",
       "timings": {
-        "stt": 0.007107999408617616,
-        "retrieval": 0.3539909957908094,
-        "guardrail": 1.3921860081609339,
+        "stt": 0.007146998541429639,
+        "retrieval": 0.34510099794715643,
+        "guardrail": 1.3752169907093048,
         "generation": 0.0,
         "hallucination_check": 0.0,
         "hedge_check": 0.0,
-        "total": 1.7627019988140091
+        "total": 1.7366109968861565
       }
     },
     {
@@ -497,13 +489,13 @@
       "top_similarity": 0.28867512941360474,
       "answer": "I cannot provide this answer as the model indicated insufficient grounded information to answer from the retrieved context.",
       "timings": {
-        "stt": 0.007484006346203387,
-        "retrieval": 0.38059501093812287,
-        "guardrail": 0.026251989766024053,
-        "generation": 2462.0959699968807,
-        "hallucination_check": 0.12410599447321147,
-        "hedge_check": 0.00583699147682637,
-        "total": 2462.6510569942184
+        "stt": 0.008065006113611162,
+        "retrieval": 2.880550004192628,
+        "guardrail": 0.02596199919935316,
+        "generation": 1512.4429940042319,
+        "hallucination_check": 0.16374100232496858,
+        "hedge_check": 0.006600996130146086,
+        "total": 1515.5414210021263
       }
     },
     {
@@ -520,13 +512,13 @@
       "top_similarity": 0.5583533048629761,
       "answer": "To get a clear desktop icon on Windows 8, you need to remove the icons that you don't want to see on your desktop. To do this, follow these steps: \n\nFirst, uncheck the icons that you want to have removed from your desktop. This will ensure that they are no longer displayed on your desktop. \n\nOnce you have unchecked the icons you want to remove, you can proceed to step 8, where you will find further instructions on how to finalize the changes.",
       "timings": {
-        "stt": 0.007615002687089145,
-        "retrieval": 0.3463790053501725,
-        "guardrail": 0.02575499820522964,
-        "generation": 3708.472045007511,
-        "hallucination_check": 0.16308299382217228,
-        "hedge_check": 0.019708997569978237,
-        "total": 3709.043954993831
+        "stt": 0.00757299130782485,
+        "retrieval": 0.3351410123286769,
+        "guardrail": 0.020006991690024734,
+        "generation": 4420.344533005846,
+        "hallucination_check": 0.1658200053498149,
+        "hedge_check": 0.02251101250294596,
+        "total": 4420.906482002465
       }
     },
     {
@@ -543,13 +535,13 @@
       "top_similarity": 0.39901190996170044,
       "answer": "Yes, Delta does fly to Bangalore. According to the provided context passages, Delta Airlines has 6 flights weekly between Bangalore and Paris.",
       "timings": {
-        "stt": 0.007134993211366236,
-        "retrieval": 0.33861400152090937,
-        "guardrail": 0.025814006221480668,
-        "generation": 5872.619223999209,
-        "hallucination_check": 0.19364200124982744,
-        "hedge_check": 0.009203009540215135,
-        "total": 5873.203173003276
+        "stt": 0.007643990102224052,
+        "retrieval": 0.3418179985601455,
+        "guardrail": 0.019728002371266484,
+        "generation": 6207.586547010578,
+        "hallucination_check": 0.15951000386849046,
+        "hedge_check": 0.009623006917536259,
+        "total": 6208.135071996367
       }
     },
     {
@@ -566,13 +558,13 @@
       "top_similarity": 0.47043752670288086,
       "answer": "I cannot provide this answer as it failed post-generation grounding verification against retrieved context.",
       "timings": {
-        "stt": 0.007109003490768373,
-        "retrieval": 0.3651560109574348,
-        "guardrail": 0.02628000220283866,
-        "generation": 204.37583400052972,
-        "hallucination_check": 1.581938995514065,
+        "stt": 0.006848989869467914,
+        "retrieval": 0.3386750031495467,
+        "guardrail": 0.019589002477005124,
+        "generation": 3307.0044530031737,
+        "hallucination_check": 0.8964919979916885,
         "hedge_check": 0.0,
-        "total": 206.36713900603354
+        "total": 3308.2764449936803
       }
     },
     {
@@ -589,13 +581,13 @@
       "top_similarity": 0.4722250998020172,
       "answer": "The total cost to replace the catalytic converter with a test pipe is $60.",
       "timings": {
-        "stt": 0.008493996574543417,
-        "retrieval": 0.3344209981150925,
-        "guardrail": 0.02409599255770445,
-        "generation": 5367.514192010276,
-        "hallucination_check": 0.09759899694472551,
-        "hedge_check": 0.007865994120948017,
-        "total": 5367.996835993836
+        "stt": 0.007713999366387725,
+        "retrieval": 0.33520100987516344,
+        "guardrail": 0.019055005395784974,
+        "generation": 1304.1564309969544,
+        "hallucination_check": 0.09292901086155325,
+        "hedge_check": 0.008811010047793388,
+        "total": 1304.6306609903695
       }
     },
     {
@@ -612,13 +604,13 @@
       "top_similarity": 0.6674237847328186,
       "answer": "The definition of \"arbitrary\" is based on or subject to individual discretion or preference, or sometimes impulse or caprice. It refers to a decision, rule, penalty, size, shape, choice, or division that is made or determined without a fixed or established standard, and is therefore subject to the whims or personal opinions of an individual, often a dictator or someone in a position of power.",
       "timings": {
-        "stt": 0.007324997568503022,
-        "retrieval": 0.33750500006135553,
-        "guardrail": 0.02271300763823092,
-        "generation": 2497.342873000889,
-        "hallucination_check": 0.11636999261099845,
-        "hedge_check": 0.016570003936067224,
-        "total": 2497.8529549989616
+        "stt": 0.007262002327479422,
+        "retrieval": 0.3397649998078123,
+        "guardrail": 0.016874997527338564,
+        "generation": 3366.2423890054924,
+        "hallucination_check": 0.140586998895742,
+        "hedge_check": 0.020796011085622013,
+        "total": 3366.7786609876202
       }
     },
     {
@@ -635,13 +627,13 @@
       "top_similarity": 0.5406205058097839,
       "answer": "I cannot provide this answer as the model indicated insufficient grounded information to answer from the retrieved context.",
       "timings": {
-        "stt": 0.008891001925803721,
-        "retrieval": 0.33639499451965094,
-        "guardrail": 0.025560992071405053,
-        "generation": 3375.3181009960826,
-        "hallucination_check": 0.14105199079494923,
-        "hedge_check": 0.007912996807135642,
-        "total": 3375.84808000247
+        "stt": 0.018856007955037057,
+        "retrieval": 0.3410849894862622,
+        "guardrail": 0.020553998183459044,
+        "generation": 4355.615948006744,
+        "hallucination_check": 0.13425400538835675,
+        "hedge_check": 0.009297000360675156,
+        "total": 4356.157288013492
       }
     },
     {
@@ -656,15 +648,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.3162277936935425,
-      "answer": "Based on the provided context passages, here's a detailed answer to your question:\n\nThe barter system is not explicitly mentioned in the passages, but it can be inferred as a system of exchange where goods or services are traded directly for other goods or services without using a medium of exchange like money. However, the passage does mention \"Barter Exchange\" as one of the topics, but it doesn't provide a clear definition.\n\nThe passage does, however, discuss the limitations of the barter system, specifically mentioning the \"Lack of Double Coincidence of Wants\" as a major problem. This means that for a barter exchange to occur, both the buyer and seller must have something that the other wants, which is a rare occurrence. This limitation makes the barter system impractical for widespread use.\n\nAdditionally, the passage by Carson mentions the intensification of agriculture causing problems like newly developed or created insects and diseases, but this is unrelated to the barter system.",
+      "answer": "Based on the provided context passages, here's a detailed answer to your question:\n\nThe barter system is not explicitly mentioned in the passages, but it can be inferred as a system of exchange where goods or services are traded directly for other goods or services without using a medium of exchange like money. However, the passage does mention \"Barter Exchange\" as one of the topics, but it doesn't provide a clear definition.\n\nThe passage does mention the limitations of \"Barter Exchange,\" which can be interpreted as the problems associated with the barter system. According to the passage, the major limitations of Barter Exchange are:\n\n1. Lack of Double Coincidence of Wants: This means that the barter system can only work when both the buyer and seller have something that the other person wants. For example, if person A wants to exchange goods with person B, both A and B must have something that the other person wants. This double coincidence is very rare, making the barter system impractical.\n\nThe passage does not provide information on what ringworm is or what causes it, as it is mentioned in a separate context passage.",
       "timings": {
-        "stt": 0.007729002390988171,
-        "retrieval": 0.3439919964876026,
-        "guardrail": 0.02568299532867968,
-        "generation": 3632.6525549957296,
-        "hallucination_check": 0.2306240057805553,
-        "hedge_check": 0.03222000668756664,
-        "total": 3633.3020349993603
+        "stt": 0.00789501063991338,
+        "retrieval": 0.3318230010336265,
+        "guardrail": 0.020467996364459395,
+        "generation": 3739.980887999991,
+        "hallucination_check": 0.22917799651622772,
+        "hedge_check": 0.03755299258045852,
+        "total": 3740.617656992981
       }
     },
     {
@@ -681,13 +673,13 @@
       "top_similarity": 0.2601330280303955,
       "answer": "I cannot provide this answer as the model indicated insufficient grounded information to answer from the retrieved context.",
       "timings": {
-        "stt": 0.006984992069192231,
-        "retrieval": 0.36380499659571797,
-        "guardrail": 0.02397398930042982,
-        "generation": 4407.11772198847,
-        "hallucination_check": 0.09429900092072785,
-        "hedge_check": 0.005851994501426816,
-        "total": 4407.62149800139
+        "stt": 0.00711499887984246,
+        "retrieval": 0.3370680060470477,
+        "guardrail": 0.01989598968066275,
+        "generation": 4365.008459993987,
+        "hallucination_check": 0.09017199045047164,
+        "hedge_check": 0.0058449950302019715,
+        "total": 4365.478318009991
       }
     },
     {
@@ -704,13 +696,13 @@
       "top_similarity": 0.6929023265838623,
       "answer": "The study of climate is called climatology, while the study of weather is called meteorology.",
       "timings": {
-        "stt": 0.00756800000090152,
-        "retrieval": 0.3404469898669049,
-        "guardrail": 0.023953005438670516,
-        "generation": 3288.0284639977617,
-        "hallucination_check": 0.08802799857221544,
-        "hedge_check": 0.0077060103649273515,
-        "total": 3288.505703996634
+        "stt": 0.007230002665892243,
+        "retrieval": 0.34451400279067457,
+        "guardrail": 0.018771999748423696,
+        "generation": 1228.625292002107,
+        "hallucination_check": 0.103316007880494,
+        "hedge_check": 0.00960000033956021,
+        "total": 1229.1197909944458
       }
     },
     {
@@ -727,13 +719,13 @@
       "top_similarity": 0.5128776431083679,
       "answer": "I cannot provide this answer as it failed post-generation grounding verification against retrieved context.",
       "timings": {
-        "stt": 0.0068929948611184955,
-        "retrieval": 0.34323398722335696,
-        "guardrail": 0.02715899609029293,
-        "generation": 1648.2469010079512,
-        "hallucination_check": 0.10223800200037658,
+        "stt": 0.007381997420452535,
+        "retrieval": 0.3368139878148213,
+        "guardrail": 0.02109400520566851,
+        "generation": 4390.033528994536,
+        "hallucination_check": 0.10388898954261094,
         "hedge_check": 0.0,
-        "total": 1648.736649993225
+        "total": 4390.51336600096
       }
     },
     {
@@ -750,13 +742,13 @@
       "top_similarity": 0.1624888926744461,
       "answer": "This question is out of domain or lacks strong grounding in the provided dataset. Refusing to guess to prevent hallucination.",
       "timings": {
-        "stt": 0.0071829999797046185,
-        "retrieval": 0.33599000016693026,
-        "guardrail": 1.342215997283347,
+        "stt": 0.007891998393461108,
+        "retrieval": 0.34006699570454657,
+        "guardrail": 1.3454120053211227,
         "generation": 0.0,
         "hallucination_check": 0.0,
         "hedge_check": 0.0,
-        "total": 1.694605001830496
+        "total": 1.701397995930165
       }
     },
     {
@@ -773,13 +765,13 @@
       "top_similarity": 0.365509033203125,
       "answer": "I cannot provide this answer as it failed post-generation grounding verification against retrieved context.",
       "timings": {
-        "stt": 0.007777998689562082,
-        "retrieval": 0.5578290001722053,
-        "guardrail": 0.030248003895394504,
-        "generation": 3395.3834189887857,
-        "hallucination_check": 0.8795339963398874,
+        "stt": 0.008237999281845987,
+        "retrieval": 5.574016002356075,
+        "guardrail": 0.034976008464582264,
+        "generation": 2361.53384600766,
+        "hallucination_check": 0.8944000001065433,
         "hedge_check": 0.0,
-        "total": 3396.8687750020763
+        "total": 2368.0573949968675
       }
     },
     {
@@ -796,13 +788,13 @@
       "top_similarity": 0.4654746949672699,
       "answer": "I cannot provide this answer as it failed post-generation grounding verification against retrieved context.",
       "timings": {
-        "stt": 0.007161012035794556,
-        "retrieval": 0.3446240007178858,
-        "guardrail": 0.02769700950011611,
-        "generation": 3331.2119800102664,
-        "hallucination_check": 0.8570130012230948,
+        "stt": 0.007634997018612921,
+        "retrieval": 0.36842400731984526,
+        "guardrail": 0.03595699672587216,
+        "generation": 4436.359381012153,
+        "hallucination_check": 0.8755140006542206,
         "hedge_check": 0.0,
-        "total": 3332.458303993917
+        "total": 4437.657115995535
       }
     },
     {
@@ -819,13 +811,13 @@
       "top_similarity": 0.33161064982414246,
       "answer": "I cannot provide this answer as it failed post-generation grounding verification against retrieved context.",
       "timings": {
-        "stt": 0.0449920044047758,
-        "retrieval": 0.4318209976190701,
-        "guardrail": 0.02717701136134565,
-        "generation": 3271.9262860046,
-        "hallucination_check": 0.11510000331327319,
+        "stt": 0.007933005690574646,
+        "retrieval": 0.3645630058599636,
+        "guardrail": 0.020975989173166454,
+        "generation": 3454.552581999451,
+        "hallucination_check": 0.12739999510813504,
         "hedge_check": 0.0,
-        "total": 3272.555574993021
+        "total": 3455.083789987839
       }
     }
   ]
