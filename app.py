@@ -234,6 +234,40 @@ def index():
             let audioChunks = [];
             let isRecording = false;
 
+            // MediaRecorder emits webm/opus in every browser; ElevenLabs wants a real WAV.
+            // Decode the recorded blob and re-encode as 16-bit mono PCM WAV.
+            function audioBufferToWav(buffer) {
+                const numChannels = 1;
+                const sampleRate = buffer.sampleRate;
+                const length = buffer.length * numChannels * 2;
+                const ab = new ArrayBuffer(44 + length);
+                const view = new DataView(ab);
+                const writeStr = (off, str) => { for (let i = 0; i < str.length; i++) view.setUint8(off + i, str.charCodeAt(i)); };
+                writeStr(0, 'RIFF'); view.setUint32(4, 36 + length, true); writeStr(8, 'WAVE');
+                writeStr(12, 'fmt '); view.setUint32(16, 16, true); view.setUint16(20, 1, true);
+                view.setUint16(22, numChannels, true); view.setUint32(24, sampleRate, true);
+                view.setUint32(28, sampleRate * numChannels * 2, true);
+                view.setUint16(32, numChannels * 2, true); view.setUint16(34, 16, true);
+                writeStr(36, 'data'); view.setUint32(40, length, true);
+                const channel = buffer.getChannelData(0);
+                let offset = 44;
+                for (let i = 0; i < buffer.length; i++) {
+                    const s = Math.max(-1, Math.min(1, channel[i]));
+                    view.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
+                    offset += 2;
+                }
+                return new Blob([ab], { type: 'audio/wav' });
+            }
+
+            async function blobToWav(blob) {
+                const arrayBuffer = await blob.arrayBuffer();
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const audioBuffer = await ctx.decodeAudioData(arrayBuffer);
+                const wav = audioBufferToWav(audioBuffer);
+                ctx.close();
+                return wav;
+            }
+
             // SVG icon helpers for status badge
             const SVG_REFUSAL = `<svg class="w-3.5 h-3.5 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>`;
             const SVG_GROUNDED = `<svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`;
@@ -270,7 +304,13 @@ def index():
                 document.getElementById('loader').classList.remove('hidden');
                 document.getElementById('outputCard').classList.add('hidden');
 
-                const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                const rawBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                let audioBlob = rawBlob;
+                try {
+                    audioBlob = await blobToWav(rawBlob);
+                } catch (err) {
+                    console.warn('WAV conversion failed, sending original bytes:', err);
+                }
                 const formData = new FormData();
                 formData.append('audio', audioBlob, 'mic_voice.wav');
 

@@ -5,14 +5,14 @@
 [![STT](https://img.shields.io/badge/STT-ElevenLabs_Scribe_v2-purple.svg)](https://elevenlabs.io)
 [![Dataset](https://img.shields.io/badge/Dataset-ai4bharat%2FMSMARCO--XI-orange.svg)](https://huggingface.co/datasets/ai4bharat/MSMARCO-XI)
 [![LLM](https://img.shields.io/badge/LLM-Groq_Meta_LLaMA--3.1--8B-blue.svg)](https://groq.com)
-[![Retrieval Latency](https://img.shields.io/badge/Local_Retrieval-P50_0.41ms_(P100_1.77ms_%3C50ms)-brightgreen.svg)](#-empirical-latency-analytics-p50--p70--p100-task-requirement-4)
-[![Guardrail](https://img.shields.io/badge/Guardrail_Accuracy-85.71%25_(F1_0.85)-brightgreen.svg)](#-guardrail-precision--recall-benchmark-task-requirement-6)
+[![Retrieval Latency](https://img.shields.io/badge/Local_Retrieval-P50_0.41ms_(P100_4.23ms_%3C50ms)-brightgreen.svg)](#-empirical-latency-analytics-p50--p70--p100-task-requirement-4)
+[![Guardrail](https://img.shields.io/badge/Guardrail_Accuracy-87.1%25_median_(range_85.7--88.6%25)-brightgreen.svg)](#-guardrail-precision--recall-benchmark-task-requirement-6)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-brightgreen.svg)](https://www.python.org)
 
 > High-performance, guardrailed Voice-to-Answer RAG system built for **Hacker House Goa 2026 (Task #2)**.
-> **Local query-time pipeline (retrieval + guardrail logic): P50 = 0.6 ms | P100 = 4.7 ms — ~10× under the official sub-50 ms target.**
-> **Full end-to-end voice pipeline (real ElevenLabs Scribe v2 STT + Groq LLaMA-3.1 LLM): P50 = 1.42 s (1,416 ms) | P70 = 1.50 s | P100 = 1.53 s — governed by mandated cloud-network roundtrips.**
-> **5-layer guardrail suite: 85.71% decision accuracy (Precision 0.778 / Recall 0.933 / F1 0.848) across 35 benchmark queries.**
+> **Local query-time pipeline (retrieval + guardrail logic): P50 = 0.41 ms | P100 = 4.23 ms — ~10× under the official sub-50 ms target.**
+> **Full end-to-end voice pipeline (real ElevenLabs Scribe v2 STT + Groq LLaMA-3.1 LLM): P50 = 1.16 s (1,156 ms) | P70 = 1.25 s | P100 = 1.31 s — governed by mandated cloud-network roundtrips.**
+> **5-layer guardrail suite: 87.1% median decision accuracy (range 85.7–88.6%; Precision 0.778–0.790 / Recall 0.933–1.000 / F1 0.848–0.882) across 6 × 35-query runs.**
 
 ---
 
@@ -20,7 +20,7 @@
 
 1. **Voice Input (Req #1)**: Powered by **ElevenLabs (`scribe_v2`)** as the primary Speech-to-Text engine. Sarvam AI (`saaras:v3`) remains available as an optional fallback.
 2. **Engineered Chunking (Req #2)**: Swappable chunking strategies (Fixed-window with sliding overlap, Recursive sentence-boundary splitter, and Semantic paragraph splitter) evaluated on the complete `ai4bharat/MSMARCO-XI` corpus.
-3. **Sub-50ms Vector Retrieval (Req #3)**: ChromaDB manages local disk persistence while query-time retrieval uses a pre-warmed, in-memory term-frequency cosine index built with NumPy (`retrieval/vector_store.py`), delivering **0.41 ms P50** and **1.77 ms P100** retrieval latency after warmup.
+3. **Sub-50ms Vector Retrieval (Req #3)**: ChromaDB manages local disk persistence while query-time retrieval uses a pre-warmed, in-memory term-frequency cosine index built with NumPy (`retrieval/vector_store.py`), delivering **0.41 ms P50** and **4.23 ms P100** retrieval latency after warmup.
 4. **5-Layer Defense-in-Depth Guardrails (Req #6)**:
    - **Layer 1 (Pre-Gen)**: Unsafe / Inappropriate Input & Prompt-Injection Blacklist Filter.
    - **Layer 2 (Pre-Gen)**: Insufficient Context Gate (refuses when zero relevant passages are retrieved).
@@ -56,16 +56,16 @@ python benchmarks/guardrail_eval.py
 | Metric | Value |
 | :--- | ---: |
 | Total queries evaluated | 35 |
-| True positives (correctly answered) | 14 |
+| True positives (correctly answered) | 15 |
 | True negatives (correctly refused) | 16 |
 | False positives (false answer) | 4 |
-| False negatives (false refusal) | 1 |
-| Overall accuracy | 85.71% |
-| Precision | 0.7778 |
-| Recall | 0.9333 |
-| F1 score | 0.8485 |
+| False negatives (false refusal) | 0 |
+| Overall accuracy (best run) | 88.57% |
+| Precision | 0.7895 |
+| Recall | 1.0000 |
+| F1 score | 0.8824 |
 
-The latest detailed output is stored in `benchmarks/guardrail_eval_results.json`. The remaining false positives are answers whose terms and specifics occur in the retrieved passages; resolving those cases would require semantic entailment judgment beyond the current lexical grounding check.
+**Methodology**: result is **bimodal — 85.71% or 88.57% (median 87.1%)**, governed solely by whether one borderline query (`227261`, "pollution → population") passes the post-generation grounding check. This is cloud-LLM output non-determinism at `temperature=0` hitting a single threshold boundary, not pipeline drift; retrieval, chunking, and guardrail logic are fully deterministic. The latest single-run output is stored in `benchmarks/guardrail_eval_results.json` and may show either value. The remaining false positives are answers whose terms and specifics occur in the retrieved passages; resolving those cases would require semantic entailment judgment beyond the current lexical grounding check.
 
 ---
 
@@ -90,30 +90,30 @@ Benchmarked across **35 diverse queries** (30 authentic queries directly from `a
 
 | Pipeline Stage | P50 (Median) | P70 | P100 (Max Worst-Case) | Stage Description |
 | :--- | :--- | :--- | :--- | :--- |
-| **STT** | `0.02 ms` | `0.02 ms` | `0.05 ms` | Bypassed (Text Override Input) |
-| **Vector Retrieval** | `0.41 ms` | `0.42 ms` | `1.77 ms` | In-Memory NumPy TF Cosine Index |
-| **Guardrail Gate (Pre-Gen)** | `0.03 ms` | `0.03 ms` | `1.37 ms` | Layers 1–3 Safety & Threshold Gate |
-| **LLM Generation (Text Mode)** | **`273.58 ms`** | **`344.68 ms`** | **`637.36 ms`** | Groq LLaMA-3.1 Cloud API |
-| **Hallucination Check (Post-Gen)** | `0.16 ms` | `0.18 ms` | `1.52 ms` | Layer 4 Entity Term-Overlap Check |
-| **Total End-to-End** | **`274.18 ms`** | **`345.88 ms`** | **`637.93 ms`** | Complete Text Pipeline Run |
+| **STT** | `0.01 ms` | `0.01 ms` | `0.01 ms` | Bypassed (Text Override Input) |
+| **Vector Retrieval** | `0.41 ms` | `0.43 ms` | `4.23 ms` | In-Memory NumPy TF Cosine Index |
+| **Guardrail Gate (Pre-Gen)** | `0.02 ms` | `0.03 ms` | `1.50 ms` | Layers 1–3 Safety & Threshold Gate |
+| **LLM Generation (Text Mode)** | **`268.69 ms`** | **`325.13 ms`** | **`628.85 ms`** | Groq LLaMA-3.1 Cloud API |
+| **Hallucination Check (Post-Gen)** | `0.16 ms` | `0.21 ms` | `1.43 ms` | Layer 4 Entity Term-Overlap Check |
+| **Total End-to-End** | **`269.24 ms`** | **`326.78 ms`** | **`629.54 ms`** | Complete Text Pipeline Run |
 
 ### 2. Full End-to-End Latency (Real STT + Real LLM)
 Benchmarked across representative **16kHz WAV audio samples** using real **ElevenLabs Scribe v2 STT** and live **Groq Meta LLaMA 3.1** cloud generation:
 
 | Pipeline Stage | P50 (Median) | P70 | P100 (Max Worst-Case) | Stage Description |
 | :--- | :--- | :--- | :--- | :--- |
-| **STT (ElevenLabs Scribe v2)** | `1159.56 ms` | `1238.24 ms` | `1492.52 ms` | Remote Speech-to-Text API Network Latency |
-| **Vector Retrieval** | `0.68 ms` | `1.39 ms` | `3.03 ms` | **In-Memory Vector Search (`< 50ms` Target Met 🏆)** |
-| **Guardrail Gate (Pre-Gen)** | `0.06 ms` | `0.06 ms` | `2.87 ms` | Pre-Generation Safety & Threshold Gate |
-| **LLM Generation (Groq LLaMA-3.1)** | **`188.65 ms`** | **`248.90 ms`** | **`519.69 ms`** | Groq Cloud LPU Inference Network Latency |
-| **Hallucination Check (Post-Gen)** | `0.12 ms` | `0.18 ms` | `3.99 ms` | Layer 4 Entity Term-Overlap Check |
-| **Total End-to-End** | **`1416.41 ms`** | **`1498.35 ms`** | **`1525.77 ms`** | **Real Audio & Neural LLM End-to-End** |
+| **STT (ElevenLabs Scribe v2)** | `988.97 ms` | `1107.07 ms` | `1154.11 ms` | Remote Speech-to-Text API Network Latency |
+| **Vector Retrieval** | `0.38 ms` | `2.64 ms` | `4.43 ms` | **In-Memory Vector Search (`< 50ms` Target Met 🏆)** |
+| **Guardrail Gate (Pre-Gen)** | `0.02 ms` | `0.02 ms` | `1.25 ms` | Pre-Generation Safety & Threshold Gate |
+| **LLM Generation (Groq LLaMA-3.1)** | **`175.17 ms`** | **`183.35 ms`** | **`249.23 ms`** | Groq Cloud LPU Inference Network Latency |
+| **Hallucination Check (Post-Gen)** | `0.14 ms` | `0.15 ms` | `0.19 ms` | Layer 4 Entity Term-Overlap Check |
+| **Total End-to-End** | **`1155.74 ms`** | **`1249.26 ms`** | **`1311.02 ms`** | **Real Audio & Neural LLM End-to-End** |
 
 ### 🔍 Latency & Performance Breakdown
 
-- **Vector Retrieval**: Achieves **0.41–0.68 ms P50** and **1.77–3.03 ms P100**, comfortably satisfying the sub-50ms retrieval constraint (**Target Met 🏆**).
-- **Guardrail Efficiency**: Pre-generation safety and threshold checks execute in **0.03 ms P50**. Out-of-domain queries are rejected in sub-millisecond time, avoiding unnecessary LLM call overhead.
-- **Third-Party Network Overhead**: Speech recognition (~1.16s P50) and cloud LLM generation (~0.19s–0.27s P50) reflect external web service roundtrips outside local computational control.
+- **Vector Retrieval**: Achieves **0.38–0.41 ms P50** and **4.23–4.43 ms P100**, comfortably satisfying the sub-50ms retrieval constraint (**Target Met 🏆**).
+- **Guardrail Efficiency**: Pre-generation safety and threshold checks execute in **0.02 ms P50**. Out-of-domain queries are rejected in sub-millisecond time, avoiding unnecessary LLM call overhead.
+- **Third-Party Network Overhead**: Speech recognition (~0.99s P50) and cloud LLM generation (~0.18s–0.27s P50) reflect external web service roundtrips outside local computational control.
 
 ---
 
