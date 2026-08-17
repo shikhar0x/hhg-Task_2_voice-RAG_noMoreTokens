@@ -33,7 +33,7 @@ def build_fast_vector_index(docs: list[str], metadatas: list[dict]):
     doc_word_counts = []
     
     for doc in docs:
-        words = re.findall(r'\w+', doc.lower())
+        words = re.findall(r'[\u0600-\u0D7F\w]+', doc.lower())
         counts = {}
         for w in words:
             counts[w] = counts.get(w, 0) + 1
@@ -102,8 +102,8 @@ class VectorRetrievalStep(BaseStep):
         if _doc_matrix is None:
             warmup_vector_index()
 
-        # Vectorize query
-        q_words = re.findall(r'\w+', query.lower())
+        # Vectorize query (supports English + 14 Indian languages)
+        q_words = re.findall(r'[\u0600-\u0D7F\w]+', query.lower())
         q_vec = np.zeros(len(_vocab), dtype=np.float32)
         for w in q_words:
             if w in _vocab:

@@ -34,6 +34,7 @@ def parse_msmarco_record(item: dict[str, Any], record_idx: int) -> tuple[list[di
 
     extracted_docs = []
 
+    lang = item.get("target_lang", "default")
     # Process English + Translated (Hindi, Bengali, etc.) passages
     for p_idx, text in enumerate(eng_passages):
         selected = is_selected[p_idx] if p_idx < len(is_selected) else 0
@@ -41,7 +42,7 @@ def parse_msmarco_record(item: dict[str, Any], record_idx: int) -> tuple[list[di
         
         if text and str(text).strip():
             extracted_docs.append({
-                "id": f"msmarco_{query_id}_p{p_idx}_en",
+                "id": f"msmarco_{query_id}_{lang}_p{p_idx}_en",
                 "text": str(text).strip(),
                 "metadata": {
                     "query_id": str(query_id),
@@ -54,14 +55,14 @@ def parse_msmarco_record(item: dict[str, Any], record_idx: int) -> tuple[list[di
 
         if trans_text and str(trans_text).strip():
             extracted_docs.append({
-                "id": f"msmarco_{query_id}_p{p_idx}_indic",
+                "id": f"msmarco_{query_id}_{lang}_p{p_idx}_indic",
                 "text": str(trans_text).strip(),
                 "metadata": {
                     "query_id": str(query_id),
                     "eng_query": eng_query,
                     "indic_query": indic_query,
                     "is_selected": int(selected),
-                    "target_lang": item.get("target_lang", "indic")
+                    "target_lang": lang
                 }
             })
 
@@ -97,13 +98,21 @@ def ingest_msmarco_dataset(
             "validation/hinval.parquet" if split == "validation" else "train/hintrain.parquet",
             "validation/benval.parquet" if split == "validation" else "train/bentrain.parquet"
         ]
+        loaded_splits = []
         for pf in parquet_files:
             logger.info(f"Downloading direct parquet file '{pf}' from HF Hub...")
             local_path = hf_hub_download(repo_id=DATASET_NAME, filename=pf, repo_type="dataset", token=hf_token)
             df = pd.read_parquet(local_path)
             records = df.to_dict(orient="records")
-            ds.extend(records)
+            loaded_splits.append(records)
             logger.info(f"Loaded {len(records)} records from '{pf}'.")
+        
+        # Interleave records across splits for balanced language representation
+        max_len = max(len(s) for s in loaded_splits) if loaded_splits else 0
+        for idx in range(max_len):
+            for s in loaded_splits:
+                if idx < len(s):
+                    ds.append(s[idx])
     except Exception as e:
         logger.warning(f"Direct parquet load failed ({e}), falling back to load_dataset streaming...")
         ds = load_dataset(
