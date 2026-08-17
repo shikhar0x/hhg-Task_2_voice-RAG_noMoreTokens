@@ -24,6 +24,13 @@ class SpeechToTextStep(BaseStep):
     def __init__(self):
         super().__init__()
         self.session = requests.Session()
+        adapter = requests.adapters.HTTPAdapter(pool_connections=10, pool_maxsize=10, max_retries=1)
+        self.session.mount("https://", adapter)
+        try:
+            # Pre-warm TLS connection pool to eliminate first-query connection latency
+            self.session.head("https://api.elevenlabs.io", timeout=1.5)
+        except Exception:
+            pass
 
     @retry_step(max_retries=3, base_delay=1.0, max_delay=6.0)
     def _call_elevenlabs(self, audio_path: str) -> str:

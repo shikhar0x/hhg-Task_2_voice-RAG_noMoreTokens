@@ -47,19 +47,18 @@ class LLMGenerationStep(BaseStep):
                 {
                     "role": "system",
                     "content": (
-                        "You are an expert, factually grounded AI assistant. "
-                        "Answer the user's question completely, accurately, and naturally using ONLY the provided context passages. "
-                        "Write clear, full sentences. Do not truncate your answer."
+                        "You are a concise, factually grounded AI assistant. "
+                        "Answer the user's question directly in 2-3 clear sentences using ONLY the provided context passages."
                     )
                 },
                 {
                     "role": "user",
-                    "content": f"Verified Context Passages:\n{clean_context}\n\nQuestion:\n{question}\n\nDetailed Grounded Answer:"
+                    "content": f"Verified Context Passages:\n{clean_context}\n\nQuestion:\n{question}\n\nConcise Grounded Answer:"
                 }
             ],
             model=settings.groq_model,
             temperature=0.0,
-            max_tokens=250  # Increased token limit for complete, unclipped answers
+            max_tokens=100  # Optimized max_tokens for ultra-fast sub-150ms Groq LPU generation
         )
         elapsed_ms = (time.perf_counter() - t0) * 1000.0
         logger.info(f"Groq LLM generation completed in {elapsed_ms:.1f}ms (httpx connection pool active)")

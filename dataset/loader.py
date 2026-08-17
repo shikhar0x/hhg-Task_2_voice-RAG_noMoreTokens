@@ -71,17 +71,29 @@ def ingest_msmarco_dataset(
     applies engineered multi-strategy chunking, and indexes into ChromaDB.
     """
     hf_token = os.getenv("HF_TOKEN") or settings.hf_token or None
+    if hf_token and ("your_" in hf_token or "here" in hf_token):
+        hf_token = None
     token_status = "Authenticated with HF_TOKEN" if hf_token else "Unauthenticated"
     logger.info(f"Connecting to Hugging Face: {DATASET_NAME} (Split: '{split}', Status: {token_status})...")
     
-    # Stream the official 'default' configuration from Hugging Face Hub
-    ds = load_dataset(
-        DATASET_NAME,
-        "default",
-        split=split,
-        streaming=True,
-        token=hf_token
-    )
+    try:
+        from huggingface_hub import hf_hub_download
+        import pandas as pd
+        parquet_file = "validation/hinval.parquet" if split == "validation" else "train/hintrain.parquet"
+        logger.info(f"Downloading direct parquet file '{parquet_file}' from HF Hub...")
+        local_path = hf_hub_download(repo_id=DATASET_NAME, filename=parquet_file, repo_type="dataset", token=hf_token)
+        df = pd.read_parquet(local_path)
+        ds = df.to_dict(orient="records")
+        logger.info(f"Loaded {len(ds)} records from parquet file.")
+    except Exception as e:
+        logger.warning(f"Direct parquet load failed ({e}), falling back to load_dataset streaming...")
+        ds = load_dataset(
+            DATASET_NAME,
+            "default",
+            split=split,
+            streaming=True,
+            token=hf_token
+        )
 
     chunker = get_chunker(strategy_name)
     col = get_vector_store()

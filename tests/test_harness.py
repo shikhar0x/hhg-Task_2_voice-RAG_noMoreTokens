@@ -54,7 +54,7 @@ def test_retry_step_success_after_retries():
         nonlocal attempts
         attempts += 1
         if attempts < 3:
-            raise ValueError(f"Temporary failure {attempts}")
+            raise RuntimeError(f"Temporary failure {attempts}")
         return "success"
 
     result = succeeds_on_third_try()

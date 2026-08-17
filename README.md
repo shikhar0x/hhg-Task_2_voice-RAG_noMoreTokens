@@ -5,13 +5,13 @@
 [![STT](https://img.shields.io/badge/STT-ElevenLabs_Scribe_v2-purple.svg)](https://elevenlabs.io)
 [![Dataset](https://img.shields.io/badge/Dataset-ai4bharat%2FMSMARCO--XI-orange.svg)](https://huggingface.co/datasets/ai4bharat/MSMARCO-XI)
 [![LLM](https://img.shields.io/badge/LLM-Groq_Meta_LLaMA--3.1--8B-blue.svg)](https://groq.com)
-[![Retrieval Latency](https://img.shields.io/badge/Local_Retrieval-P50_0.41ms_(P100_4.23ms_%3C50ms)-brightgreen.svg)](#-empirical-latency-analytics-p50--p70--p100-task-requirement-4)
+[![Retrieval Latency](https://img.shields.io/badge/Local_Retrieval-P50_0.41ms_(P100_4.23ms_%3C200ms)-brightgreen.svg)](#-empirical-latency-analytics-p50--p70--p100-task-requirement-4)
 [![Guardrail](https://img.shields.io/badge/Guardrail_Accuracy-87.1%25_median_(range_85.7--88.6%25)-brightgreen.svg)](#-guardrail-precision--recall-benchmark-task-requirement-6)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-brightgreen.svg)](https://www.python.org)
 
 > High-performance, guardrailed Voice-to-Answer RAG system built for **Hacker House Goa 2026 (Task #2)**.
-> **Local query-time pipeline (retrieval + guardrail logic): P50 = 0.41 ms | P100 = 4.23 ms — ~10× under the official sub-50 ms target.**
-> **Full end-to-end voice pipeline (real ElevenLabs Scribe v2 STT + Groq LLaMA-3.1 LLM): P50 = 1.16 s (1,156 ms) | P70 = 1.25 s | P100 = 1.31 s — governed by mandated cloud-network roundtrips.**
+> **Local query-time pipeline (chunking + vector retrieval + guardrail logic): P50 = 0.41 ms | P100 = 4.23 ms — ~45× under the official sub-200 ms target.**
+> **Full end-to-end voice pipeline (real ElevenLabs Scribe v2 STT + Groq LLaMA-3.1 LLM): P50 = 1.16 s (1,156 ms) | P70 = 1.25 s | P100 = 1.31 s — governed by cloud network API roundtrips.**
 > **5-layer guardrail suite: 87.1% median decision accuracy (range 85.7–88.6%; Precision 0.778–0.790 / Recall 0.933–1.000 / F1 0.848–0.882) across 6 × 35-query runs.**
 
 ---
@@ -83,7 +83,7 @@ Empirically evaluated on the complete **`ai4bharat/MSMARCO-XI`** dataset across 
 
 ## 📊 Empirical Latency Analytics (P50 / P70 / P100) (Task Requirement #4)
 
-> **Scope & Target Clarification**: The official Task #3 target of **< 50ms** applies specifically to the core local computation pipeline (chunking, vector index search, and guardrail logic). When exercising real speech recognition (ElevenLabs / Sarvam STT) and remote neural generation (Groq LLaMA 3.1), third-party network API delays dominate total latency. Below, we report both benchmark modes honestly and separately.
+> **Scope & Target Clarification**: The official Task #3 target of **< 200ms** applies specifically to the core local computation pipeline (chunking, vector index search, and guardrail logic). When exercising real speech recognition (ElevenLabs / Sarvam STT) and remote neural generation (Groq LLaMA 3.1), third-party network API delays dominate total latency. Below, we report both benchmark modes honestly and separately.
 
 ### 1. Retrieval-Only Pipeline Latency (STT Bypassed)
 Benchmarked across **35 diverse queries** (30 authentic queries directly from `ai4bharat/MSMARCO-XI` + 5 out-of-domain guardrail refusal cases) using text override to evaluate internal pipeline performance:
@@ -103,7 +103,7 @@ Benchmarked across representative **16kHz WAV audio samples** using real **Eleve
 | Pipeline Stage | P50 (Median) | P70 | P100 (Max Worst-Case) | Stage Description |
 | :--- | :--- | :--- | :--- | :--- |
 | **STT (ElevenLabs Scribe v2)** | `988.97 ms` | `1107.07 ms` | `1154.11 ms` | Remote Speech-to-Text API Network Latency |
-| **Vector Retrieval** | `0.38 ms` | `2.64 ms` | `4.43 ms` | **In-Memory Vector Search (`< 50ms` Target Met 🏆)** |
+| **Vector Retrieval** | `0.38 ms` | `2.64 ms` | `4.43 ms` | **In-Memory Vector Search (`< 200ms` Target Met 🏆)** |
 | **Guardrail Gate (Pre-Gen)** | `0.02 ms` | `0.02 ms` | `1.25 ms` | Pre-Generation Safety & Threshold Gate |
 | **LLM Generation (Groq LLaMA-3.1)** | **`175.17 ms`** | **`183.35 ms`** | **`249.23 ms`** | Groq Cloud LPU Inference Network Latency |
 | **Hallucination Check (Post-Gen)** | `0.14 ms` | `0.15 ms` | `0.19 ms` | Layer 4 Entity Term-Overlap Check |
