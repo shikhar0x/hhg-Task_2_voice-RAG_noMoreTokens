@@ -15,7 +15,7 @@ class Settings(BaseSettings):
     metrics_db_path: str = Field(default="./data/metrics.db", validation_alias="METRICS_DB_PATH")
     
     # Calibrated threshold for zero false-negative refusals across MSMARCO-XI corpus
-    similarity_threshold: float = Field(default=0.18, validation_alias="SIMILARITY_THRESHOLD")
+    similarity_threshold: float = Field(default=0.15, validation_alias="SIMILARITY_THRESHOLD")
     default_top_k: int = Field(default=3, validation_alias="DEFAULT_TOP_K")
     log_level: str = Field(default="INFO", validation_alias="LOG_LEVEL")
 

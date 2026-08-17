@@ -63,7 +63,7 @@ class LLMGenerationStep(BaseStep):
                             "role": "system",
                             "content": (
                                 "You are a concise, factually grounded AI assistant. "
-                                "Answer the user's question directly in 2-3 clear sentences using ONLY the provided context passages."
+                                "Answer the user's question directly in 2-3 clear sentences in the SAME language as the user's question (e.g., Bangla for Bangla, Hindi for Hindi, English for English) using ONLY the provided context passages."
                             )
                         },
                         {
