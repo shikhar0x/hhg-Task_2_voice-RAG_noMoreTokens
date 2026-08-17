@@ -34,21 +34,34 @@ def parse_msmarco_record(item: dict[str, Any], record_idx: int) -> tuple[list[di
 
     extracted_docs = []
 
-    # Process English + Translated passages
+    # Process English + Translated (Hindi, Bengali, etc.) passages
     for p_idx, text in enumerate(eng_passages):
         selected = is_selected[p_idx] if p_idx < len(is_selected) else 0
         trans_text = trans_passages[p_idx] if p_idx < len(trans_passages) else ""
         
         if text and str(text).strip():
             extracted_docs.append({
-                "id": f"msmarco_{query_id}_p{p_idx}",
+                "id": f"msmarco_{query_id}_p{p_idx}_en",
                 "text": str(text).strip(),
                 "metadata": {
                     "query_id": str(query_id),
                     "eng_query": eng_query,
                     "indic_query": indic_query,
                     "is_selected": int(selected),
-                    "target_lang": item.get("target_lang", "unknown")
+                    "target_lang": "en"
+                }
+            })
+
+        if trans_text and str(trans_text).strip():
+            extracted_docs.append({
+                "id": f"msmarco_{query_id}_p{p_idx}_indic",
+                "text": str(trans_text).strip(),
+                "metadata": {
+                    "query_id": str(query_id),
+                    "eng_query": eng_query,
+                    "indic_query": indic_query,
+                    "is_selected": int(selected),
+                    "target_lang": item.get("target_lang", "indic")
                 }
             })
 
@@ -79,12 +92,18 @@ def ingest_msmarco_dataset(
     try:
         from huggingface_hub import hf_hub_download
         import pandas as pd
-        parquet_file = "validation/hinval.parquet" if split == "validation" else "train/hintrain.parquet"
-        logger.info(f"Downloading direct parquet file '{parquet_file}' from HF Hub...")
-        local_path = hf_hub_download(repo_id=DATASET_NAME, filename=parquet_file, repo_type="dataset", token=hf_token)
-        df = pd.read_parquet(local_path)
-        ds = df.to_dict(orient="records")
-        logger.info(f"Loaded {len(ds)} records from parquet file.")
+        ds = []
+        parquet_files = [
+            "validation/hinval.parquet" if split == "validation" else "train/hintrain.parquet",
+            "validation/benval.parquet" if split == "validation" else "train/bentrain.parquet"
+        ]
+        for pf in parquet_files:
+            logger.info(f"Downloading direct parquet file '{pf}' from HF Hub...")
+            local_path = hf_hub_download(repo_id=DATASET_NAME, filename=pf, repo_type="dataset", token=hf_token)
+            df = pd.read_parquet(local_path)
+            records = df.to_dict(orient="records")
+            ds.extend(records)
+            logger.info(f"Loaded {len(records)} records from '{pf}'.")
     except Exception as e:
         logger.warning(f"Direct parquet load failed ({e}), falling back to load_dataset streaming...")
         ds = load_dataset(
