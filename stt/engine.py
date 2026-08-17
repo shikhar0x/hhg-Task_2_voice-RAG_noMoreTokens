@@ -34,6 +34,7 @@ class SpeechToTextStep(BaseStep):
 
     @retry_step(max_retries=3, base_delay=1.0, max_delay=6.0)
     def _call_elevenlabs(self, audio_path: str) -> str:
+        load_dotenv(override=True)
         api_key = os.getenv("ELEVENLABS_API_KEY") or settings.elevenlabs_api_key
         if not api_key:
             raise ValueError("ELEVENLABS_API_KEY not configured in .env")

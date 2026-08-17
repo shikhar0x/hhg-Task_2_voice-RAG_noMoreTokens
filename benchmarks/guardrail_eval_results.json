@@ -1,39 +1,81 @@
 {
-  "timestamp": "2026-08-17 11:07:38",
+  "timestamp": "2026-08-17 11:57:55",
   "total_queries": 55,
   "confusion_matrix": {
-    "TP": 21,
-    "TN": 5,
-    "FP": 26,
-    "FN": 3
+    "TP": 15,
+    "TN": 20,
+    "FP": 11,
+    "FN": 9
   },
   "metrics": {
-    "accuracy": 0.4727,
-    "precision": 0.4468,
-    "recall": 0.875,
-    "f1_score": 0.5915
+    "accuracy": 0.6364,
+    "precision": 0.5769,
+    "recall": 0.625,
+    "f1_score": 0.6
   },
   "false_negatives": [
     {
-      "query_id": "126172",
-      "query": "define radical neck",
-      "top_similarity": 0.10910894721746445,
-      "trigger_layer": "Layer 3 (Threshold Gate)",
-      "refusal_reason": "Refusal: Similarity score (0.109) below strict threshold (0.180)."
+      "query_id": "233826",
+      "query": "how fast does an eagle travel",
+      "top_similarity": 0.22019274532794952,
+      "trigger_layer": "Layer 5 (Hedge / Non-Answer)",
+      "refusal_reason": "Refusal: Model indicated insufficient grounded information to answer."
     },
     {
-      "query_id": "1090352",
-      "query": "sty causes",
-      "top_similarity": 0.12309148907661438,
-      "trigger_layer": "Layer 3 (Threshold Gate)",
-      "refusal_reason": "Refusal: Similarity score (0.123) below strict threshold (0.180)."
+      "query_id": "165349",
+      "query": "does delta fly to bangalore",
+      "top_similarity": 0.39901190996170044,
+      "trigger_layer": "Layer 5 (Hedge / Non-Answer)",
+      "refusal_reason": "Refusal: Model indicated insufficient grounded information to answer."
     },
     {
-      "query_id": "116095",
-      "query": "death head units definition",
-      "top_similarity": 0.09491579234600067,
-      "trigger_layer": "Layer 3 (Threshold Gate)",
-      "refusal_reason": "Refusal: Similarity score (0.095) below strict threshold (0.180)."
+      "query_id": "260880",
+      "query": "how long for cantaloupe to mature",
+      "top_similarity": 0.47043752670288086,
+      "trigger_layer": "Layer 5 (Hedge / Non-Answer)",
+      "refusal_reason": "Refusal: Model indicated insufficient grounded information to answer."
+    },
+    {
+      "query_id": "1060361",
+      "query": "what is barter system and its problems",
+      "top_similarity": 0.3162277936935425,
+      "trigger_layer": "Layer 5 (Hedge / Non-Answer)",
+      "refusal_reason": "Refusal: Model indicated insufficient grounded information to answer."
+    },
+    {
+      "query_id": "331047",
+      "query": "how much xbox games cost",
+      "top_similarity": 0.3162277936935425,
+      "trigger_layer": "Layer 5 (Hedge / Non-Answer)",
+      "refusal_reason": "Refusal: Model indicated insufficient grounded information to answer."
+    },
+    {
+      "query_id": "1060359",
+      "query": "what is basal in dna",
+      "top_similarity": 0.3663967251777649,
+      "trigger_layer": "Layer 5 (Hedge / Non-Answer)",
+      "refusal_reason": "Refusal: Model indicated insufficient grounded information to answer."
+    },
+    {
+      "query_id": "267380",
+      "query": "how long should you carb cycle",
+      "top_similarity": 0.28097572922706604,
+      "trigger_layer": "Layer 4 (Post-Gen Grounding)",
+      "refusal_reason": "Refusal: Generated answer failed post-generation grounding check against retrieved context."
+    },
+    {
+      "query_id": "317450",
+      "query": "how much does matt lauer make a year",
+      "top_similarity": 0.3646624684333801,
+      "trigger_layer": "Layer 4 (Post-Gen Grounding)",
+      "refusal_reason": "Refusal: Generated answer failed post-generation grounding check against retrieved context."
+    },
+    {
+      "query_id": "1060348",
+      "query": "what is basic? uni",
+      "top_similarity": 0.38946807384490967,
+      "trigger_layer": "Layer 4 (Post-Gen Grounding)",
+      "refusal_reason": "Refusal: Generated answer failed post-generation grounding check against retrieved context."
     }
   ],
   "detailed_results": [
@@ -49,15 +91,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.4885699152946472,
-      "answer": "A company is incorporated in a specific nation, often within the bounds of a smaller subset of that nation, such as a state or province. The corporation is then governed by the laws of incorporation in that state. A corporation may issue stock, either private or public, or may be classified as a non-stock corporation. If stock is issued, the corporation will usually be governed by its shareholders, either directly or indirectly.\n\n\nA company is incorporated in a specific nation, often within the ",
+      "answer": "A corporation is a company or group of people authorized to act as a single entity (legally a person) and recognized as such in law. It is established by charter or laws of incorporation in a specific nation, often within a state or province.",
       "timings": {
-        "stt": 0.013299984857439995,
-        "retrieval": 10.147800028789788,
-        "guardrail": 0.03739999374374747,
-        "generation": 0.16080000204965472,
-        "hallucination_check": 0.3635000321082771,
-        "hedge_check": 0.03390002530068159,
-        "total": 10.785699996631593
+        "stt": 0.006200047209858894,
+        "retrieval": 1.714100013487041,
+        "guardrail": 0.021799991372972727,
+        "generation": 266.34630002081394,
+        "hallucination_check": 0.17899996601045132,
+        "hedge_check": 0.010800024028867483,
+        "total": 268.2941000093706
       }
     },
     {
@@ -72,15 +114,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.5353033542633057,
-      "answer": "\u201cThe Obligation to Endure\u201d from Silent Springby Rachel Carson. Copyright \u00a9 1962 by Rachel L. Carson.\n\n\n\u201cThe Obligation to Endure\u201d from Silent Springby Rachel Carson. Copyright \u00a9 1962 by Rachel L. Carson.\n\n\nThe Obligation to Endure by Rachel Carson Rachel Carson's essay on The Obligation to Endure, is a very convincing argument about the harmful uses of chemicals, pesticides, herbicides, and fertilizers on the environment.",
+      "answer": "Rachel Carson wrote \"The Obligation to Endure\" to present a convincing argument about the harmful effects of chemicals, pesticides, herbicides, and fertilizers on the environment. Her essay aimed to raise awareness about the devastating consequences of these substances on the ecosystem. This essay is part of her influential book \"Silent Spring\".",
       "timings": {
-        "stt": 0.008800008799880743,
-        "retrieval": 1.0379999876022339,
-        "guardrail": 0.028499984182417393,
-        "generation": 0.027699978090822697,
-        "hallucination_check": 0.13150001177564263,
-        "hedge_check": 0.02889998722821474,
-        "total": 1.2815999798476696
+        "stt": 0.005999987479299307,
+        "retrieval": 1.625099976081401,
+        "guardrail": 0.022599997464567423,
+        "generation": 176.37010000180453,
+        "hallucination_check": 0.09129999671131372,
+        "hedge_check": 0.017200014553964138,
+        "total": 178.15580003662035
       }
     },
     {
@@ -89,21 +131,21 @@
       "query": "chart for foods low in potassium.",
       "ground_truth_answer": "No Answer Present.",
       "expected_action": "REFUSE",
-      "actual_action": "ANSWER",
-      "status": "FP",
-      "refused": false,
-      "refusal_reason": "",
-      "trigger_layer": "N/A",
+      "actual_action": "REFUSE",
+      "status": "TN",
+      "refused": true,
+      "refusal_reason": "Refusal: Model indicated insufficient grounded information to answer.",
+      "trigger_layer": "Layer 5 (Hedge / Non-Answer)",
       "top_similarity": 0.5465943813323975,
-      "answer": "Below is a list of high potassium foods ranked by common serving sizes, for more see the lists of high potassium foods by nutrient density, potassium rich foods, fruits high in potassium, and vegetables high in potassium.\n\n\nBelow is a list of high potassium foods ranked by common serving sizes, for more see the lists of high potassium foods by nutrient density, potassium rich foods, fruits high in potassium, and vegetables high in potassium.\n\n\nAlleviation of High Blood Pressure (Hypertension) - ",
+      "answer": "I cannot provide this answer as the model indicated insufficient grounded information to answer from the retrieved context.",
       "timings": {
-        "stt": 0.010699965059757233,
-        "retrieval": 0.9706999990157783,
-        "guardrail": 0.023200002033263445,
-        "generation": 0.026500027161091566,
-        "hallucination_check": 0.1387999509461224,
-        "hedge_check": 0.0198000343516469,
-        "total": 1.201900013256818
+        "stt": 0.009200011845678091,
+        "retrieval": 1.9682999700307846,
+        "guardrail": 0.026999972760677338,
+        "generation": 141.3777000270784,
+        "hallucination_check": 0.0926000066101551,
+        "hedge_check": 0.009100011084228754,
+        "total": 143.49879999645054
       }
     },
     {
@@ -112,21 +154,21 @@
       "query": "bottom front of a cargo ship",
       "ground_truth_answer": "No Answer Present.",
       "expected_action": "REFUSE",
-      "actual_action": "ANSWER",
-      "status": "FP",
-      "refused": false,
-      "refusal_reason": "",
-      "trigger_layer": "N/A",
+      "actual_action": "REFUSE",
+      "status": "TN",
+      "refused": true,
+      "refusal_reason": "Refusal: Model indicated insufficient grounded information to answer.",
+      "trigger_layer": "Layer 5 (Hedge / Non-Answer)",
       "top_similarity": 0.4040610194206238,
-      "answer": "Amidships ----At or near the midship section of. the ship. Anchor---- A heavy hook-shaped device for. holding a ship at rest in water. The anchor grips. the ocean bottom and is fastened to the ship by a. chain. Angle Clip---- A short piece of angle bar. Angle Collar ----A ring made of angle bar. Anneal ----To soften metal by heating and. allowing it to cool slowly.\n\n\nAmidships ----At or near the midship section of. the ship. Anchor---- A heavy hook-shaped device for. holding a ship at rest in wa",
+      "answer": "I cannot provide this answer as the model indicated insufficient grounded information to answer from the retrieved context.",
       "timings": {
-        "stt": 0.010200019460171461,
-        "retrieval": 1.6494999872520566,
-        "guardrail": 0.027499976567924023,
-        "generation": 0.0315000070258975,
-        "hallucination_check": 0.1824999926611781,
-        "hedge_check": 0.0295999925583601,
-        "total": 1.9460999756120145
+        "stt": 0.00689999433234334,
+        "retrieval": 1.8598000169731677,
+        "guardrail": 0.018200022168457508,
+        "generation": 186.3008000073023,
+        "hallucination_check": 0.17399998614564538,
+        "hedge_check": 0.01610000617802143,
+        "total": 188.38800000958145
       }
     },
     {
@@ -141,15 +183,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.3354101777076721,
-      "answer": "honesty. n, pl-ties. 1. the condition of being honest. 2. sincerity or fairness. 3. virtue or respect.\n\n\nhonesty. n, pl-ties. 1. the condition of being honest. 2. sincerity or fairness. 3. virtue or respect.\n\n\nReport Abuse. 1  Chat or rant, adult content, spam, insulting other members,show more. 2  Harm to minors, violence or threats, harassment or privacy invasion, impersonation or misrepresentation, fraud or phishing, show more. 3  Chat or rant, adult content, spam, insulting other members,sho",
+      "answer": "According to the provided context passages, honesty is defined as the condition of being honest, sincerity or fairness, and virtue or respect. Integrity is not explicitly mentioned, but it is often considered synonymous with honesty, emphasizing the quality of being truthful and having strong moral principles.",
       "timings": {
-        "stt": 0.006999995093792677,
-        "retrieval": 0.9290999732911587,
-        "guardrail": 0.01939997309818864,
-        "generation": 0.020400038920342922,
-        "hallucination_check": 0.11900003300979733,
-        "hedge_check": 0.021299987565726042,
-        "total": 1.1277000303380191
+        "stt": 0.007099995855242014,
+        "retrieval": 1.4923999551683664,
+        "guardrail": 0.0171000137925148,
+        "generation": 188.177399977576,
+        "hallucination_check": 0.14059996465221047,
+        "hedge_check": 0.031200004741549492,
+        "total": 189.8780000046827
       }
     },
     {
@@ -158,21 +200,21 @@
       "query": "what is barometric pressure in lincoln ne now?",
       "ground_truth_answer": "No Answer Present.",
       "expected_action": "REFUSE",
-      "actual_action": "ANSWER",
-      "status": "FP",
-      "refused": false,
-      "refusal_reason": "",
-      "trigger_layer": "N/A",
+      "actual_action": "REFUSE",
+      "status": "TN",
+      "refused": true,
+      "refusal_reason": "Refusal: Model indicated insufficient grounded information to answer.",
+      "trigger_layer": "Layer 5 (Hedge / Non-Answer)",
       "top_similarity": 0.4170288145542145,
-      "answer": "Liukang Xu, Xiaomao Lin, Jim Amen, Dayle McDermitt LI-COR Biosciences, Lincoln NE 68504 USA. Karla Welding. City of Lincoln, Lincoln NE 68517 USA. Impact of Changes in Barometric . Pressure on Landfill Methane Emission\n\n\nLiukang Xu, Xiaomao Lin, Jim Amen, Dayle McDermitt LI-COR Biosciences, Lincoln NE 68504 USA. Karla Welding. City of Lincoln, Lincoln NE 68517 USA. Impact of Changes in Barometric . Pressure on Landfill Methane Emission\n\n\nAtmospheric pressure. Atmospheric pressure, sometimes also",
+      "answer": "I cannot provide this answer as the model indicated insufficient grounded information to answer from the retrieved context.",
       "timings": {
-        "stt": 0.007199996616691351,
-        "retrieval": 1.0402000043541193,
-        "guardrail": 0.043000036384910345,
-        "generation": 0.03320001997053623,
-        "hallucination_check": 0.17799995839595795,
-        "hedge_check": 0.029499991796910763,
-        "total": 1.3470000121742487
+        "stt": 0.005300040356814861,
+        "retrieval": 1.5133999986574054,
+        "guardrail": 0.019899976905435324,
+        "generation": 271.571799996309,
+        "hallucination_check": 0.1097000204026699,
+        "hedge_check": 0.0032999669201672077,
+        "total": 273.2339999638498
       }
     },
     {
@@ -181,21 +223,21 @@
       "query": "struthers city school district state number",
       "ground_truth_answer": "No Answer Present.",
       "expected_action": "REFUSE",
-      "actual_action": "ANSWER",
-      "status": "FP",
-      "refused": false,
-      "refusal_reason": "",
-      "trigger_layer": "N/A",
+      "actual_action": "REFUSE",
+      "status": "TN",
+      "refused": true,
+      "refusal_reason": "Refusal: Model indicated insufficient grounded information to answer.",
+      "trigger_layer": "Layer 5 (Hedge / Non-Answer)",
       "top_similarity": 0.6246097087860107,
-      "answer": "Struthers City School District is located in east Ohio. Struthers City School District has 5.19 square miles of land area and 0.19 square miles of water area. As of 2010-2014, the total Struthers City School District population is 11,533. Struthers City School District median household income is $37,460 in 2010-2014. Struthers City School District median house value is $72,900 in 2010-2014. On average, Struthers City School District is close to the state average in quality.\n\n\nStruthers City Scho",
+      "answer": "I cannot provide this answer as the model indicated insufficient grounded information to answer from the retrieved context.",
       "timings": {
-        "stt": 0.007399998139590025,
-        "retrieval": 0.9935999987646937,
-        "guardrail": 0.020900042727589607,
-        "generation": 0.01910002902150154,
-        "hallucination_check": 0.13000000035390258,
-        "hedge_check": 0.019099970813840628,
-        "total": 1.20160001097247
+        "stt": 0.012399978004395962,
+        "retrieval": 1.7998999683186412,
+        "guardrail": 0.030499999411404133,
+        "generation": 154.27489997819066,
+        "hallucination_check": 0.1387999509461224,
+        "hedge_check": 0.011200027074664831,
+        "total": 156.28430002834648
       }
     },
     {
@@ -210,15 +252,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.46423834562301636,
-      "answer": "medical marijuana research ptsd beginning january 1 2014 the oregon medical marijuana program ommp will add ptsd to the other nine qualifying medical conditions the oregon health authority oha states may allow a person to obtain a medical marijuana card but the questions arises does cannabis really help patients who suffer ptsd here s some evidence people suffering from ptsd might find interesting there are currently medical studies underway designed to study the relationship between cannabis us",
+      "answer": "Research suggests that medical marijuana may help alleviate symptoms of PTSD, as there are ongoing studies examining its effects. Currently, nine states in the US include PTSD as a qualifying condition for medical marijuana, and in three others, doctors have the discretion to recommend it for PTSD.",
       "timings": {
-        "stt": 0.007599999662488699,
-        "retrieval": 0.8320999913848937,
-        "guardrail": 0.10949996067211032,
-        "generation": 0.026900030206888914,
-        "hallucination_check": 0.1965999836102128,
-        "hedge_check": 0.024200009647756815,
-        "total": 1.2385999434627593
+        "stt": 0.007199996616691351,
+        "retrieval": 1.7039999947883189,
+        "guardrail": 0.019899976905435324,
+        "generation": 222.34560002107173,
+        "hallucination_check": 0.1765000051818788,
+        "hedge_check": 0.018700025975704193,
+        "total": 224.2831999901682
       }
     },
     {
@@ -232,16 +274,16 @@
       "refused": false,
       "refusal_reason": "",
       "trigger_layer": "N/A",
-      "top_similarity": 0.2981424033641815,
-      "answer": "Mini Bio (1) Frank Gifford was born on August 16, 1930 in Santa Monica, California, USA as Frank Newton Gifford. He is known for his work on NFL Monday Night Football (1970), Super Bowl XXIX (1995) and 1987 Florida Citrus Bowl (1987). He was married to Kathie Lee Gifford, Astrid Gifford and Maxine Avis Ewart.\n\n\nMini Bio (1) Frank Gifford was born on August 16, 1930 in Santa Monica, California, USA as Frank Newton Gifford. He is known for his work on NFL Monday Night Football (1970), Super Bowl X",
+      "top_similarity": 0.2721655070781708,
+      "answer": "Frank Gifford was married to three women: Kathie Lee Gifford, Astrid Gifford, and Maxine Avis Ewart.",
       "timings": {
-        "stt": 0.008300004992634058,
-        "retrieval": 1.1292000417597592,
-        "guardrail": 0.021400046534836292,
-        "generation": 0.02150004729628563,
-        "hallucination_check": 0.13539998326450586,
-        "hedge_check": 0.023100001271814108,
-        "total": 1.3495000312104821
+        "stt": 0.005999987479299307,
+        "retrieval": 1.5207999967969954,
+        "guardrail": 0.020099978428333998,
+        "generation": 220.5672999843955,
+        "hallucination_check": 0.11639995500445366,
+        "hedge_check": 0.010100018698722124,
+        "total": 222.25260001141578
       }
     },
     {
@@ -256,15 +298,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.21166688203811646,
-      "answer": "The officials would not disclose many details, including what was discussed on the calls, the identity of the Russian intelligence officials who participated, and how many of Mr. Trump\u2019s advisers were talking to the Russians. It is also unclear whether the conversations had anything to do with Mr. Trump himself.\n\n\nThe officials would not disclose many details, including what was discussed on the calls, the identity of the Russian intelligence officials who participated, and how many of Mr. Trump",
+      "answer": "There is no direct information provided about the number of ongoing Trump administration investigations. However, it is mentioned that there are investigations into the Trump campaign, which are being led by three men, all of whom are Republicans.",
       "timings": {
-        "stt": 0.008800008799880743,
-        "retrieval": 1.1187000200152397,
-        "guardrail": 0.029200047720223665,
-        "generation": 0.03090000245720148,
-        "hallucination_check": 0.25340000865980983,
-        "hedge_check": 0.04020001506432891,
-        "total": 1.4948999742045999
+        "stt": 0.006399990525096655,
+        "retrieval": 1.5970999957062304,
+        "guardrail": 0.019900035113096237,
+        "generation": 194.23849997110665,
+        "hallucination_check": 0.10140001541003585,
+        "hedge_check": 0.01179997343569994,
+        "total": 195.98570000380278
       }
     },
     {
@@ -279,15 +321,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.5619924664497375,
-      "answer": "That concludes our how to guide on obtaining three easy to obtain Followers. Be sure and keep watch for our next installment that will detail how to get four more Followers for your Garrison with little to no work! In the meantime, get to work collecting the Followers found above! To read the latest guides, news, and features you can visit our World of Warcraft Game Page.\n\n\nThat concludes our how to guide on obtaining three easy to obtain Followers. Be sure and keep watch for our next installmen",
+      "answer": "The provided context passages do not contain a comprehensive guide to collecting followers on World of Warcraft. However, it mentions a guide on obtaining three easy-to-obtain followers for your Garrison with little to no work, and a next installment detailing how to get four more followers.",
       "timings": {
-        "stt": 0.01190003240481019,
-        "retrieval": 1.880600000731647,
-        "guardrail": 0.029799994081258774,
-        "generation": 0.026899971999228,
-        "hallucination_check": 0.26569998590275645,
-        "hedge_check": 0.029399991035461426,
-        "total": 2.2610999876633286
+        "stt": 0.005199981387704611,
+        "retrieval": 1.6213000053539872,
+        "guardrail": 0.031800009310245514,
+        "generation": 207.46250002412125,
+        "hallucination_check": 0.1846000086516142,
+        "hedge_check": 0.0219999928958714,
+        "total": 209.3435000278987
       }
     },
     {
@@ -296,21 +338,21 @@
       "query": "how long is zales layaway",
       "ground_truth_answer": "No Answer Present.",
       "expected_action": "REFUSE",
-      "actual_action": "ANSWER",
-      "status": "FP",
-      "refused": false,
-      "refusal_reason": "",
-      "trigger_layer": "N/A",
-      "top_similarity": 0.24845199286937714,
-      "answer": "Integrity is about conduct; honesty is about adherence to the facts. The person who without fail submits his timesheet every week, seeking clarification if unsure how to charge some time, is acting with integrity. He is probably also acting with honesty, ensuring that the numbers he reports are correct.\n\n\nIntegrity is about conduct; honesty is about adherence to the facts. The person who without fail submits his timesheet every week, seeking clarification if unsure how to charge some time, is ac",
+      "actual_action": "REFUSE",
+      "status": "TN",
+      "refused": true,
+      "refusal_reason": "Refusal: Generated answer failed post-generation grounding check against retrieved context.",
+      "trigger_layer": "Layer 4 (Post-Gen Grounding)",
+      "top_similarity": 0.30168065428733826,
+      "answer": "I cannot provide this answer as it failed post-generation grounding verification against retrieved context.",
       "timings": {
-        "stt": 0.02400000812485814,
-        "retrieval": 1.6302000149153173,
-        "guardrail": 0.025600020308047533,
-        "generation": 0.025499961338937283,
-        "hallucination_check": 0.15520001761615276,
-        "hedge_check": 0.02239999594166875,
-        "total": 1.9036000012420118
+        "stt": 0.007199996616691351,
+        "retrieval": 1.4480999670922756,
+        "guardrail": 0.0219999928958714,
+        "generation": 114.78429997805506,
+        "hallucination_check": 0.13559998478740454,
+        "hedge_check": 0.0,
+        "total": 116.41270003747195
       }
     },
     {
@@ -325,15 +367,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.3063816428184509,
-      "answer": "Worldwide, population is seven billion. Projections are that population in the United States will reach 400 million by 2050 \u2013 a 33 percent increase in roughly 40 years\u2019 time; the U.S. registered its 300 millionth resident in 2006. With an increase in world population has come an increase in air pollution.\n\n\nWorldwide, population is seven billion. Projections are that population in the United States will reach 400 million by 2050 \u2013 a 33 percent increase in roughly 40 years\u2019 time; the U.S. registe",
+      "answer": "There is no direct relationship mentioned between pollution and an increase in human population. The provided context passages suggest that an increase in world population leads to an increase in air pollution, but not the other way around.",
       "timings": {
-        "stt": 0.016600009985268116,
-        "retrieval": 1.7091999761760235,
-        "guardrail": 0.25790004292503,
-        "generation": 0.08000002708286047,
-        "hallucination_check": 0.3288000007160008,
-        "hedge_check": 0.040300015825778246,
-        "total": 2.467299986165017
+        "stt": 0.008400005754083395,
+        "retrieval": 1.9227999728173018,
+        "guardrail": 0.02870004391297698,
+        "generation": 167.85679996246472,
+        "hallucination_check": 0.19559997599571943,
+        "hedge_check": 0.02069998299703002,
+        "total": 170.04769999766722
       }
     },
     {
@@ -342,21 +384,21 @@
       "query": "how does nhl playoff seeding work",
       "ground_truth_answer": "No Answer Present.",
       "expected_action": "REFUSE",
-      "actual_action": "ANSWER",
-      "status": "FP",
-      "refused": false,
-      "refusal_reason": "",
-      "trigger_layer": "N/A",
+      "actual_action": "REFUSE",
+      "status": "TN",
+      "refused": true,
+      "refusal_reason": "Refusal: Model indicated insufficient grounded information to answer.",
+      "trigger_layer": "Layer 5 (Hedge / Non-Answer)",
       "top_similarity": 0.23904570937156677,
-      "answer": "The NHL has a new playoff format for the 2013-14 season.\n\n\nThe NHL has a new playoff format for the 2013-14 season.\n\n\nHow much does it cost? The price ranges from $50.00 to $98.00 round trip, depending on how far in advance you make the reservation and how full the train is. Contact Amtrak for pricing information; prices are not available through the Heartland Flyer website.",
+      "answer": "I cannot provide this answer as the model indicated insufficient grounded information to answer from the retrieved context.",
       "timings": {
-        "stt": 0.029199989512562752,
-        "retrieval": 1.9679999677464366,
-        "guardrail": 0.03339996328577399,
-        "generation": 0.03200001083314419,
-        "hallucination_check": 0.09899999713525176,
-        "hedge_check": 0.021499989088624716,
-        "total": 2.2051000269129872
+        "stt": 0.009299954399466515,
+        "retrieval": 3.0297000193968415,
+        "guardrail": 0.0363999861292541,
+        "generation": 208.1000999896787,
+        "hallucination_check": 0.0591999851167202,
+        "hedge_check": 0.005199981387704611,
+        "total": 211.25609998125583
       }
     },
     {
@@ -371,15 +413,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.2309401035308838,
-      "answer": "Ringworm infection is caused by a fungus. Fungi (plural of fungus) that cause ringworm live and spread on the outer layer of skin. Ringworm is not caused by a worm or other parasite. Fungi are present everywhere in our environment, including on the human body. They thrive in warm, moist areas, such as locker rooms and swimming pools, and in skin folds.\n\n\nRingworm infection is caused by a fungus. Fungi (plural of fungus) that cause ringworm live and spread on the outer layer of skin. Ringworm is ",
+      "answer": "No, filth does not cause ringworm. Ringworm is caused by a fungus that thrives in warm, moist areas, such as locker rooms and swimming pools, and in skin folds, not by filth.",
       "timings": {
-        "stt": 0.008300004992634058,
-        "retrieval": 1.7321999766863883,
-        "guardrail": 0.024100008886307478,
-        "generation": 0.02220005262643099,
-        "hallucination_check": 0.132500019390136,
-        "hedge_check": 0.02099998528137803,
-        "total": 1.9549999851733446
+        "stt": 0.006199989002197981,
+        "retrieval": 1.591400010511279,
+        "guardrail": 0.016700010746717453,
+        "generation": 142.90639996761456,
+        "hallucination_check": 0.24129997473210096,
+        "hedge_check": 0.02269999822601676,
+        "total": 144.79869999922812
       }
     },
     {
@@ -388,21 +430,21 @@
       "query": "how much does it cost to recement a crown",
       "ground_truth_answer": "No Answer Present.",
       "expected_action": "REFUSE",
-      "actual_action": "ANSWER",
-      "status": "FP",
-      "refused": false,
-      "refusal_reason": "",
-      "trigger_layer": "N/A",
+      "actual_action": "REFUSE",
+      "status": "TN",
+      "refused": true,
+      "refusal_reason": "Refusal: Generated answer failed post-generation grounding check against retrieved context.",
+      "trigger_layer": "Layer 4 (Post-Gen Grounding)",
       "top_similarity": 0.7563755512237549,
-      "answer": "How much does it cost to recement a tooth crown? How much approximately does it cost to recement a crowned tooth in Charlotte, nc?. Yes I had a tooth replaced with a crown about 10 or so years ago in the front and now it is loose Post to Facebook\n\n\nHow much does it cost to recement a tooth crown? How much approximately does it cost to recement a crowned tooth in Charlotte, nc?. Yes I had a tooth replaced with a crown about 10 or so years ago in the front and now it is loose Post to Facebook\n\n\nCr",
+      "answer": "I cannot provide this answer as it failed post-generation grounding verification against retrieved context.",
       "timings": {
-        "stt": 0.009400013368576765,
-        "retrieval": 1.2977999867871404,
-        "guardrail": 0.02559996210038662,
-        "generation": 0.028999987989664078,
-        "hallucination_check": 0.11740002082660794,
-        "hedge_check": 0.02099998528137803,
-        "total": 1.5131999971345067
+        "stt": 0.00689999433234334,
+        "retrieval": 1.504099986050278,
+        "guardrail": 0.023600005079060793,
+        "generation": 260.9490000177175,
+        "hallucination_check": 1.4641000307165086,
+        "hedge_check": 0.0,
+        "total": 263.9638000400737
       }
     },
     {
@@ -417,15 +459,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.5129891633987427,
-      "answer": "Find great deals on eBay for barrel o slime and barrel slime. Shop with confidence.\n\n\nFind great deals on eBay for barrel o slime and barrel slime. Shop with confidence.\n\n\nRelated: barrel slime slime toy slime goo nickelodeon slime science kit slime green slime glow in the dark slime jelly bracelets kids slime glow putty putty oil slime Refine more Format",
+      "answer": "Barrel O Slime appears to be a type of slime product, likely a toy or science kit, available for purchase on eBay. The exact nature of Barrel O Slime is unclear, but it is related to other slime products such as slime toys and science kits. It may be a branded product, possibly associated with Nickelodeon.",
       "timings": {
-        "stt": 0.009300012607127428,
-        "retrieval": 1.2051999801769853,
-        "guardrail": 0.027600035537034273,
-        "generation": 0.026099965907633305,
-        "hallucination_check": 0.12659997446462512,
-        "hedge_check": 0.021799991372972727,
-        "total": 1.4306999510154128
+        "stt": 0.007299997378140688,
+        "retrieval": 1.520699996035546,
+        "guardrail": 0.017599959392100573,
+        "generation": 180.78480003168806,
+        "hallucination_check": 0.1289999927394092,
+        "hedge_check": 0.022300053387880325,
+        "total": 182.49409995041788
       }
     },
     {
@@ -434,21 +476,21 @@
       "query": "how fast does an eagle travel",
       "ground_truth_answer": "30 to 55 mph",
       "expected_action": "ANSWER",
-      "actual_action": "ANSWER",
-      "status": "TP",
-      "refused": false,
-      "refusal_reason": "",
-      "trigger_layer": "N/A",
+      "actual_action": "REFUSE",
+      "status": "FN",
+      "refused": true,
+      "refusal_reason": "Refusal: Model indicated insufficient grounded information to answer.",
+      "trigger_layer": "Layer 5 (Hedge / Non-Answer)",
       "top_similarity": 0.22019274532794952,
-      "answer": "How much does it cost? The price ranges from $50.00 to $98.00 round trip, depending on how far in advance you make the reservation and how full the train is. Contact Amtrak for pricing information; prices are not available through the Heartland Flyer website.\n\n\nHow much does it cost? The price ranges from $50.00 to $98.00 round trip, depending on how far in advance you make the reservation and how full the train is. Contact Amtrak for pricing information; prices are not available through the Hea",
+      "answer": "I cannot provide this answer as the model indicated insufficient grounded information to answer from the retrieved context.",
       "timings": {
-        "stt": 0.014999997802078724,
-        "retrieval": 1.7538999672979116,
-        "guardrail": 0.030099996365606785,
-        "generation": 0.03349996404722333,
-        "hallucination_check": 0.12400001287460327,
-        "hedge_check": 0.020199979189783335,
-        "total": 1.9954000017605722
+        "stt": 0.006200047209858894,
+        "retrieval": 1.5581999905407429,
+        "guardrail": 0.022599997464567423,
+        "generation": 118.74639999587089,
+        "hallucination_check": 0.11780002387240529,
+        "hedge_check": 0.009500014130026102,
+        "total": 120.47510000411421
       }
     },
     {
@@ -463,15 +505,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.6500113010406494,
-      "answer": "Some More Phone Numbers Related To Stubhub Stubhub Telephone toll free customer service number : 1-866-788-2482 Espn Bristol toll free customer service number : +1 (860) 766-2000 Ace Cash Express toll free customer service number : (972) 550-5000 Transit Calgary toll free customer service number : +1 403-262-1000 More about Stubhub StubHub StubHub is an American online marketplace offering their product & services across the world. The company was founded in 2000 by Eric Baker & Jeff Fluhr.\n\n\nSo",
+      "answer": "StubHub's toll-free customer service number is 1-866-788-2482. This number is available for customers to contact StubHub for assistance. It was also mentioned in the passage as StubHub's \"best toll-free number\".",
       "timings": {
-        "stt": 0.009899958968162537,
-        "retrieval": 1.5629999688826501,
-        "guardrail": 0.02589996438473463,
-        "generation": 0.028499984182417393,
-        "hallucination_check": 0.18470000941306353,
-        "hedge_check": 0.020199979189783335,
-        "total": 1.8463999731466174
+        "stt": 0.010200019460171461,
+        "retrieval": 1.4300000038929284,
+        "guardrail": 0.0198000343516469,
+        "generation": 4363.412800012156,
+        "hallucination_check": 0.19160000374540687,
+        "hedge_check": 0.015600002370774746,
+        "total": 4365.094000007957
       }
     },
     {
@@ -488,13 +530,13 @@
       "top_similarity": 0.1632993072271347,
       "answer": "This question is out of domain or lacks strong grounding in the provided dataset. Refusing to guess to prevent hallucination.",
       "timings": {
-        "stt": 0.011700030881911516,
-        "retrieval": 1.6644999850541353,
-        "guardrail": 2.0685999770648777,
+        "stt": 0.006599992047995329,
+        "retrieval": 1.4081000117585063,
+        "guardrail": 1.0655999649316072,
         "generation": 0.0,
         "hallucination_check": 0.0,
         "hedge_check": 0.0,
-        "total": 3.762100008316338
+        "total": 2.489199978299439
       }
     },
     {
@@ -503,21 +545,21 @@
       "query": "first defense nasal filter sales numbers",
       "ground_truth_answer": "No Answer Present.",
       "expected_action": "REFUSE",
-      "actual_action": "ANSWER",
-      "status": "FP",
-      "refused": false,
-      "refusal_reason": "",
-      "trigger_layer": "N/A",
+      "actual_action": "REFUSE",
+      "status": "TN",
+      "refused": true,
+      "refusal_reason": "Refusal: Model indicated insufficient grounded information to answer.",
+      "trigger_layer": "Layer 5 (Hedge / Non-Answer)",
       "top_similarity": 0.28867512941360474,
-      "answer": "Joseph Moore appeared on the second season of Shark Tank, seeking $500,000 for 10 percent of his company that makes nasal air filters, First Defense Nasal Screens.\n\n\nFilter Your Life. Welcome to the First Defense Nasal Screens\u2122 online store. Based on customer feedback, we've put together various packages to better meet your Nasal Screen needs. Please browse our store and enjoy your shopping experience.\n\n\nFilter Your Life. Welcome to the First Defense Nasal Screens\u2122 online store. Based on custome",
+      "answer": "I cannot provide this answer as the model indicated insufficient grounded information to answer from the retrieved context.",
       "timings": {
-        "stt": 0.016900012269616127,
-        "retrieval": 2.1259000059217215,
-        "guardrail": 0.08349999552592635,
-        "generation": 0.07310003275051713,
-        "hallucination_check": 0.36180001916363835,
-        "hedge_check": 0.04810001701116562,
-        "total": 2.7556000277400017
+        "stt": 0.005199981387704611,
+        "retrieval": 1.396199979353696,
+        "guardrail": 0.017600017599761486,
+        "generation": 2299.236799997743,
+        "hallucination_check": 0.08549995254725218,
+        "hedge_check": 0.006599992047995329,
+        "total": 2300.756399985403
       }
     },
     {
@@ -532,15 +574,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.5583533048629761,
-      "answer": "A) Uncheck the icons that you want to have removed from your desktop, and go to step 8. (see screenshot below step 8). Related Tutorials. 1  How to Create a Desktop Icon Settings Shortcut in Windows. 2  How to Prevent or Allow Themes to Change Desktop Icons in Windows 7 and Windows 8.\n\n\nA) Uncheck the icons that you want to have removed from your desktop, and go to step 8. (see screenshot below step 8). Related Tutorials. 1  How to Create a Desktop Icon Settings Shortcut in Windows. 2  How to Pr",
+      "answer": "To get a clear desktop in Windows 8, uncheck the icons you want to remove from your desktop. Then, go to step 8 for further instructions.",
       "timings": {
-        "stt": 0.0192999723367393,
-        "retrieval": 2.487100020516664,
-        "guardrail": 0.052099989261478186,
-        "generation": 0.05530001362785697,
-        "hallucination_check": 0.17880002269521356,
-        "hedge_check": 0.03300001844763756,
-        "total": 2.8572999872267246
+        "stt": 0.00890000956133008,
+        "retrieval": 1.6512000001966953,
+        "guardrail": 0.019200029782950878,
+        "generation": 3321.975599974394,
+        "hallucination_check": 0.16410002717748284,
+        "hedge_check": 0.014999997802078724,
+        "total": 3323.847300023772
       }
     },
     {
@@ -549,21 +591,21 @@
       "query": "does delta fly to bangalore",
       "ground_truth_answer": "Yes",
       "expected_action": "ANSWER",
-      "actual_action": "ANSWER",
-      "status": "TP",
-      "refused": false,
-      "refusal_reason": "",
-      "trigger_layer": "N/A",
+      "actual_action": "REFUSE",
+      "status": "FN",
+      "refused": true,
+      "refusal_reason": "Refusal: Model indicated insufficient grounded information to answer.",
+      "trigger_layer": "Layer 5 (Hedge / Non-Answer)",
       "top_similarity": 0.39901190996170044,
-      "answer": "the first flight from bangalore to paris is at 1 45 am which is delta airline 8471 when does the last flight leave from bangalore the last flight from bangalore to paris is at which is airlineheck out delta bangalore paris flights search for cheap flight tickets and do a booking in a jiffy delta airlines has 6 flights weekly between bangalore and paris\n\n\nthe first flight from bangalore to paris is at 1 45 am which is delta airline 8471 when does the last flight leave from bangalore the last flig",
+      "answer": "I cannot provide this answer as the model indicated insufficient grounded information to answer from the retrieved context.",
       "timings": {
-        "stt": 0.025600020308047533,
-        "retrieval": 1.613199943676591,
-        "guardrail": 0.04550005542114377,
-        "generation": 0.04840001929551363,
-        "hallucination_check": 0.2762000076472759,
-        "hedge_check": 0.029999995604157448,
-        "total": 2.072500006761402
+        "stt": 0.006299989763647318,
+        "retrieval": 1.422800007276237,
+        "guardrail": 0.034400029107928276,
+        "generation": 4346.07250004774,
+        "hallucination_check": 0.13280002167448401,
+        "hedge_check": 0.008200004231184721,
+        "total": 4347.689700021874
       }
     },
     {
@@ -572,21 +614,21 @@
       "query": "how long for cantaloupe to mature",
       "ground_truth_answer": "90 days.",
       "expected_action": "ANSWER",
-      "actual_action": "ANSWER",
-      "status": "TP",
-      "refused": false,
-      "refusal_reason": "",
-      "trigger_layer": "N/A",
+      "actual_action": "REFUSE",
+      "status": "FN",
+      "refused": true,
+      "refusal_reason": "Refusal: Model indicated insufficient grounded information to answer.",
+      "trigger_layer": "Layer 5 (Hedge / Non-Answer)",
       "top_similarity": 0.47043752670288086,
-      "answer": "How to Grow Cantaloupe | Guide to Growing Cantaloupe. Cantaloupe generally refers to any melon with the familiar orange, juicy flesh. In times past, it referred only to those smooth, non-netted varieties native to Europe.\n\n\nHow to Grow Cantaloupe | Guide to Growing Cantaloupe. Cantaloupe generally refers to any melon with the familiar orange, juicy flesh. In times past, it referred only to those smooth, non-netted varieties native to Europe.\n\n\nHow to Grow Honeydew Melons. The flesh of a honeydew",
+      "answer": "I cannot provide this answer as the model indicated insufficient grounded information to answer from the retrieved context.",
       "timings": {
-        "stt": 0.008500006515532732,
-        "retrieval": 1.2601999915204942,
-        "guardrail": 0.03320001997053623,
-        "generation": 0.04060001811012626,
-        "hallucination_check": 0.17720001051202416,
-        "hedge_check": 0.027600035537034273,
-        "total": 1.5615999582223594
+        "stt": 0.006799993570894003,
+        "retrieval": 1.5263999812304974,
+        "guardrail": 0.018000020645558834,
+        "generation": 2430.6931999744847,
+        "hallucination_check": 0.08979998528957367,
+        "hedge_check": 0.008400005754083395,
+        "total": 2432.35309998272
       }
     },
     {
@@ -601,15 +643,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.4722250998020172,
-      "answer": "Test Pipe, Replaces Catalytic Converter (C-ARA664). The test pipe is a bolt-in pipe that replaces the catalytic converter on Minis up to 2000.\n\n\nTest Pipe, Replaces Catalytic Converter (C-ARA664). The test pipe is a bolt-in pipe that replaces the catalytic converter on Minis up to 2000.\n\n\nProduct Description. The test pipe is a bolt-in pipe that replaces the catalytic converter on Minis up to 2000. Order GEX7761 seal separately. The test pipe is a bolt-in pipe that replaces the catalytic convert",
+      "answer": "The cost to replace the catalytic converter with a test pipe on a Mini up to 2000 is not explicitly stated in the provided context passages. However, it is mentioned that a separate seal, GEX7761, needs to be ordered.",
       "timings": {
-        "stt": 0.007099995855242014,
-        "retrieval": 1.406800001859665,
-        "guardrail": 0.03130000550299883,
-        "generation": 0.035999983083456755,
-        "hallucination_check": 0.1498999772593379,
-        "hedge_check": 0.026999972760677338,
-        "total": 1.6754999523982406
+        "stt": 0.006399990525096655,
+        "retrieval": 1.5692999586462975,
+        "guardrail": 0.02099998528137803,
+        "generation": 3345.287600008305,
+        "hallucination_check": 0.07120001828297973,
+        "hedge_check": 0.01090002479031682,
+        "total": 3346.9786000205204
       }
     },
     {
@@ -624,15 +666,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.6674237847328186,
-      "answer": "arbitrary-based on or subject to individual discretion or preference or sometimes impulse or caprice; an arbitrary decision; the arbitrary rule of a dictator; an arbitrary penalty; of arbitrary size and shape; an arbitrary choice; arbitrary division of the group into halves.\n\n\narbitrary-based on or subject to individual discretion or preference or sometimes impulse or caprice; an arbitrary decision; the arbitrary rule of a dictator; an arbitrary penalty; of arbitrary size and shape; an arbitrary",
+      "answer": "The term \"arbitrary\" refers to something that is based on individual discretion or preference, often influenced by impulse or caprice, rather than a fixed rule or standard. It can describe decisions, rules, penalties, sizes, shapes, choices, or divisions that are made without a clear basis or rationale.",
       "timings": {
-        "stt": 0.02600002335384488,
-        "retrieval": 1.8100999877788126,
-        "guardrail": 0.10059995111078024,
-        "generation": 0.07579999510198832,
-        "hallucination_check": 0.21899997955188155,
-        "hedge_check": 0.03950000973418355,
-        "total": 2.307299990206957
+        "stt": 0.01580000389367342,
+        "retrieval": 1.8059000140056014,
+        "guardrail": 0.019300030544400215,
+        "generation": 2393.1899999734014,
+        "hallucination_check": 0.16070000128820539,
+        "hedge_check": 0.02319994382560253,
+        "total": 2395.2335999929346
       }
     },
     {
@@ -641,21 +683,21 @@
       "query": "how is time to degree calculated graduate degrees",
       "ground_truth_answer": "No Answer Present.",
       "expected_action": "REFUSE",
-      "actual_action": "ANSWER",
-      "status": "FP",
-      "refused": false,
-      "refusal_reason": "",
-      "trigger_layer": "N/A",
+      "actual_action": "REFUSE",
+      "status": "TN",
+      "refused": true,
+      "refusal_reason": "Refusal: Model indicated insufficient grounded information to answer.",
+      "trigger_layer": "Layer 5 (Hedge / Non-Answer)",
       "top_similarity": 0.5406205058097839,
-      "answer": "Average Time to Degree Peer Comparisons, 2014-15 Degree Recipients. These reports show average time-to-degree metrics for Undergraduate majors, including elapsed calendar years, credits to degree, and terms enrolled to degree.\n\n\nAverage Time to Degree Peer Comparisons, 2014-15 Degree Recipients. These reports show average time-to-degree metrics for Undergraduate majors, including elapsed calendar years, credits to degree, and terms enrolled to degree.\n\n\nThis analysis examines predictors of time-",
+      "answer": "I cannot provide this answer as the model indicated insufficient grounded information to answer from the retrieved context.",
       "timings": {
-        "stt": 0.018700025975704193,
-        "retrieval": 1.1808000272139907,
-        "guardrail": 0.03260001540184021,
-        "generation": 0.03400002606213093,
-        "hallucination_check": 0.19489997066557407,
-        "hedge_check": 0.028499984182417393,
-        "total": 1.5081999590620399
+        "stt": 0.005699985194951296,
+        "retrieval": 1.4355999883264303,
+        "guardrail": 0.017700018361210823,
+        "generation": 3213.392300007399,
+        "hallucination_check": 0.1297999988310039,
+        "hedge_check": 0.009199953638017178,
+        "total": 3215.0053000077605
       }
     },
     {
@@ -664,21 +706,21 @@
       "query": "what is barter system and its problems",
       "ground_truth_answer": "Barter is a type of trade where goods or services are exchanged for a certain amount of other goods or services; no money is involved in the transaction. And the biggest problem of the barter system in economics is that primitive barter requires those whom you wish to trade with must have something YOU want.",
       "expected_action": "ANSWER",
-      "actual_action": "ANSWER",
-      "status": "TP",
-      "refused": false,
-      "refusal_reason": "",
-      "trigger_layer": "N/A",
+      "actual_action": "REFUSE",
+      "status": "FN",
+      "refused": true,
+      "refusal_reason": "Refusal: Model indicated insufficient grounded information to answer.",
+      "trigger_layer": "Layer 5 (Hedge / Non-Answer)",
       "top_similarity": 0.3162277936935425,
-      "answer": "What is ringworm and what causes it? Ringworm is the common name given to a fungal infection of the superficial layers of the skin, hair and nails. Ringworm infections can occur in humans and in all domesticated species of animals.\n\n\nWhat is ringworm and what causes it? Ringworm is the common name given to a fungal infection of the superficial layers of the skin, hair and nails. Ringworm infections can occur in humans and in all domesticated species of animals.\n\n\nCarson believes that as man trie",
+      "answer": "I cannot provide this answer as the model indicated insufficient grounded information to answer from the retrieved context.",
       "timings": {
-        "stt": 0.01190003240481019,
-        "retrieval": 1.4017000212334096,
-        "guardrail": 0.03539997851476073,
-        "generation": 0.034699973184615374,
-        "hallucination_check": 0.17860002117231488,
-        "hedge_check": 0.02889998722821474,
-        "total": 1.7107999883592129
+        "stt": 0.007399998139590025,
+        "retrieval": 1.6598000074736774,
+        "guardrail": 0.01810002140700817,
+        "generation": 2273.55099999113,
+        "hallucination_check": 0.16679998952895403,
+        "hedge_check": 0.01379998866468668,
+        "total": 2275.4305000416934
       }
     },
     {
@@ -687,21 +729,21 @@
       "query": "did roblox have a power ranger event",
       "ground_truth_answer": "No Answer Present.",
       "expected_action": "REFUSE",
-      "actual_action": "ANSWER",
-      "status": "FP",
-      "refused": false,
-      "refusal_reason": "",
-      "trigger_layer": "N/A",
+      "actual_action": "REFUSE",
+      "status": "TN",
+      "refused": true,
+      "refusal_reason": "Refusal: Model indicated insufficient grounded information to answer.",
+      "trigger_layer": "Layer 5 (Hedge / Non-Answer)",
       "top_similarity": 0.2601330280303955,
-      "answer": "However, Team Up episodes would not become a common practice until 1999's Power Rangers Lost Galaxy's To The Tenth Power and the Power Of Pink, a two part crossover with the Space Rangers of Power Rangers In Space (though there were exceptions).\n\n\nHowever, Team Up episodes would not become a common practice until 1999's Power Rangers Lost Galaxy's To The Tenth Power and the Power Of Pink, a two part crossover with the Space Rangers of Power Rangers In Space (though there were exceptions).\n\n\nThe ",
+      "answer": "I cannot provide this answer as the model indicated insufficient grounded information to answer from the retrieved context.",
       "timings": {
-        "stt": 0.008700008038431406,
-        "retrieval": 1.1903000413440168,
-        "guardrail": 0.023500004317611456,
-        "generation": 0.042300031054764986,
-        "hallucination_check": 0.15380000695586205,
-        "hedge_check": 0.024600012693554163,
-        "total": 1.4560000272467732
+        "stt": 0.016200006939470768,
+        "retrieval": 1.9826000207103789,
+        "guardrail": 0.02340000355616212,
+        "generation": 3294.9395999894477,
+        "hallucination_check": 0.1303000026382506,
+        "hedge_check": 0.009000010322779417,
+        "total": 3297.1160000306554
       }
     },
     {
@@ -716,15 +758,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.6929023265838623,
-      "answer": "Global Warming is often euphemistically referred to as \u201cClimate Change\u201d. Study of climate vs. study of weather. Climatology is the study of climate, scientifically defined as weather conditions averaged over a period of time and is a branch of the atmospheric sciences.\n\n\nGlobal Warming is often euphemistically referred to as \u201cClimate Change\u201d. Study of climate vs. study of weather. Climatology is the study of climate, scientifically defined as weather conditions averaged over a period of time and",
+      "answer": "The study of climate is called climatology. Climatology is a branch of the atmospheric sciences that studies weather conditions averaged over a period of time.",
       "timings": {
-        "stt": 0.02340000355616212,
-        "retrieval": 2.138999989256263,
-        "guardrail": 0.06210000719875097,
-        "generation": 0.09869999485090375,
-        "hallucination_check": 0.19260001135990024,
-        "hedge_check": 0.04429998807609081,
-        "total": 2.5890999822877347
+        "stt": 0.00689999433234334,
+        "retrieval": 1.3924000086262822,
+        "guardrail": 0.0171000137925148,
+        "generation": 2335.335900017526,
+        "hallucination_check": 0.15999999595806003,
+        "hedge_check": 0.01750001683831215,
+        "total": 2336.942200025078
       }
     },
     {
@@ -738,16 +780,16 @@
       "refused": false,
       "refusal_reason": "",
       "trigger_layer": "N/A",
-      "top_similarity": 0.34355899691581726,
-      "answer": "How to Grow Cantaloupe | Guide to Growing Cantaloupe. Cantaloupe generally refers to any melon with the familiar orange, juicy flesh. In times past, it referred only to those smooth, non-netted varieties native to Europe.\n\n\nHow to Grow Cantaloupe | Guide to Growing Cantaloupe. Cantaloupe generally refers to any melon with the familiar orange, juicy flesh. In times past, it referred only to those smooth, non-netted varieties native to Europe.\n\n\nThat concludes our how to guide on obtaining three e",
+      "top_similarity": 0.3880752623081207,
+      "answer": "To make an oil-infused herbal infusion, use the double boiler method by placing herbs and oil in a double boiler, covered with a tightly fitting lid, and bring to a slow simmer. Heat slowly for 1/2 hour to an hour, checking frequently to avoid overheating. The lower the heat and longer the infusion time, the better quality of oil.",
       "timings": {
-        "stt": 0.008400005754083395,
-        "retrieval": 1.2932000099681318,
-        "guardrail": 0.02759997732937336,
-        "generation": 0.027099973522126675,
-        "hallucination_check": 0.1852000132203102,
-        "hedge_check": 0.026899971999228,
-        "total": 1.5826000017113984
+        "stt": 0.005599984433501959,
+        "retrieval": 1.4084999565966427,
+        "guardrail": 0.022799998987466097,
+        "generation": 3448.505899985321,
+        "hallucination_check": 0.17750001279637218,
+        "hedge_check": 0.019400031305849552,
+        "total": 3450.150999997277
       }
     },
     {
@@ -761,16 +803,16 @@
       "refused": false,
       "refusal_reason": "",
       "trigger_layer": "N/A",
-      "top_similarity": 0.5855400562286377,
-      "answer": "2.Drawbacks of Barter System of Exchange. (i) Lack of double coincidence of wants (ii) Lack of common measures of value. (iii) Lack of store of value (iv) Lack of standard for deferred payments. (v) Lack of divisibility. 3. Evolution of Money: Money finds its origin to facilitate the need of exchange.\n\n\n2.Drawbacks of Barter System of Exchange. (i) Lack of double coincidence of wants (ii) Lack of common measures of value. (iii) Lack of store of value (iv) Lack of standard for deferred payments. ",
+      "top_similarity": 0.4500351846218109,
+      "answer": "The sociology of culture is the systematic analysis of culture, which is understood as the ensemble of symbolic codes used by members of a society. It involves the study of culture as it is manifested in society. This field of study examines the values, practices, and beliefs of a society.",
       "timings": {
-        "stt": 0.007800001185387373,
-        "retrieval": 1.0723000159487128,
-        "guardrail": 0.04360004095360637,
-        "generation": 0.030199997127056122,
-        "hallucination_check": 0.1797000295482576,
-        "hedge_check": 0.02759997732937336,
-        "total": 1.3752999948337674
+        "stt": 0.00589998671784997,
+        "retrieval": 1.5036999830044806,
+        "guardrail": 0.023300002794712782,
+        "generation": 3483.7678999756463,
+        "hallucination_check": 0.1620999537408352,
+        "hedge_check": 0.020400038920342922,
+        "total": 3485.49540003296
       }
     },
     {
@@ -779,21 +821,21 @@
       "query": "define radical neck",
       "ground_truth_answer": "It is a surgical procedure that is used to remove cancerous tissues or growths in the head or neck.",
       "expected_action": "ANSWER",
-      "actual_action": "REFUSE",
-      "status": "FN",
-      "refused": true,
-      "refusal_reason": "Refusal: Similarity score (0.109) below strict threshold (0.180).",
-      "trigger_layer": "Layer 3 (Threshold Gate)",
-      "top_similarity": 0.10910894721746445,
-      "answer": "This question is out of domain or lacks strong grounding in the provided dataset. Refusing to guess to prevent hallucination.",
+      "actual_action": "ANSWER",
+      "status": "TP",
+      "refused": false,
+      "refusal_reason": "",
+      "trigger_layer": "N/A",
+      "top_similarity": 0.3665083348751068,
+      "answer": "A radical neck dissection is a major surgical procedure that involves the removal of lymph nodes and other structures in the head and neck area that are likely or proven to be malignant. It is performed to remove cancerous tissues or growths to prevent cancer from spreading. This procedure removes the most tissue in the neck.",
       "timings": {
-        "stt": 0.008600007276982069,
-        "retrieval": 1.1716000153683126,
-        "guardrail": 2.4990999954752624,
-        "generation": 0.0,
-        "hallucination_check": 0.0,
-        "hedge_check": 0.0,
-        "total": 3.696500032674521
+        "stt": 0.006399990525096655,
+        "retrieval": 1.5654999879188836,
+        "guardrail": 0.022299995180219412,
+        "generation": 2403.520699997898,
+        "hallucination_check": 0.17070001922547817,
+        "hedge_check": 0.018700025975704193,
+        "total": 2405.315999989398
       }
     },
     {
@@ -802,21 +844,21 @@
       "query": "half cup how many ounces",
       "ground_truth_answer": "No Answer Present.",
       "expected_action": "REFUSE",
-      "actual_action": "ANSWER",
-      "status": "FP",
-      "refused": false,
-      "refusal_reason": "",
-      "trigger_layer": "N/A",
-      "top_similarity": 0.18463723361492157,
-      "answer": "How much does it cost? The price ranges from $50.00 to $98.00 round trip, depending on how far in advance you make the reservation and how full the train is. Contact Amtrak for pricing information; prices are not available through the Heartland Flyer website.\n\n\nHow much does it cost? The price ranges from $50.00 to $98.00 round trip, depending on how far in advance you make the reservation and how full the train is. Contact Amtrak for pricing information; prices are not available through the Hea",
+      "actual_action": "REFUSE",
+      "status": "TN",
+      "refused": true,
+      "refusal_reason": "Refusal: Generated answer failed post-generation grounding check against retrieved context.",
+      "trigger_layer": "Layer 4 (Post-Gen Grounding)",
+      "top_similarity": 0.26568448543548584,
+      "answer": "I cannot provide this answer as it failed post-generation grounding verification against retrieved context.",
       "timings": {
-        "stt": 0.007499998901039362,
-        "retrieval": 0.9600000339560211,
-        "guardrail": 0.023200002033263445,
-        "generation": 0.027200032491236925,
-        "hallucination_check": 0.22559997159987688,
-        "hedge_check": 0.024200009647756815,
-        "total": 1.2804000289179385
+        "stt": 0.006399990525096655,
+        "retrieval": 1.636300003156066,
+        "guardrail": 0.016799953300505877,
+        "generation": 4403.662200027611,
+        "hallucination_check": 1.3086999533697963,
+        "hedge_check": 0.0,
+        "total": 4406.642100017052
       }
     },
     {
@@ -825,21 +867,21 @@
       "query": "define workday",
       "ground_truth_answer": "No Answer Present.",
       "expected_action": "REFUSE",
-      "actual_action": "REFUSE",
-      "status": "TN",
-      "refused": true,
-      "refusal_reason": "Refusal: Similarity score (0.154) below strict threshold (0.180).",
-      "trigger_layer": "Layer 3 (Threshold Gate)",
-      "top_similarity": 0.15430335700511932,
-      "answer": "This question is out of domain or lacks strong grounding in the provided dataset. Refusing to guess to prevent hallucination.",
+      "actual_action": "ANSWER",
+      "status": "FP",
+      "refused": false,
+      "refusal_reason": "",
+      "trigger_layer": "N/A",
+      "top_similarity": 0.293294221162796,
+      "answer": "Workday is a cloud-based enterprise software that stores data as business objects, similar to database tables or worksheets in Excel, and provides a platform for managing various work-related tasks and integrations with external systems. It offers features such as worklets, integration templates, and services for communication between Workday and external systems. Workday is primarily used for human capital management and enterprise resource planning.",
       "timings": {
-        "stt": 0.012299977242946625,
-        "retrieval": 1.2913999962620437,
-        "guardrail": 2.198799978941679,
-        "generation": 0.0,
-        "hallucination_check": 0.0,
-        "hedge_check": 0.0,
-        "total": 3.522199986036867
+        "stt": 0.007099995855242014,
+        "retrieval": 1.624800032004714,
+        "guardrail": 0.07309997454285622,
+        "generation": 3311.218100017868,
+        "hallucination_check": 0.2049999893642962,
+        "hedge_check": 0.02589996438473463,
+        "total": 3313.167699961923
       }
     },
     {
@@ -848,21 +890,21 @@
       "query": "how much xbox games cost",
       "ground_truth_answer": "$80 to $250",
       "expected_action": "ANSWER",
-      "actual_action": "ANSWER",
-      "status": "TP",
-      "refused": false,
-      "refusal_reason": "",
-      "trigger_layer": "N/A",
-      "top_similarity": 0.35729479789733887,
-      "answer": "How much does it cost to recement a tooth crown? How much approximately does it cost to recement a crowned tooth in Charlotte, nc?. Yes I had a tooth replaced with a crown about 10 or so years ago in the front and now it is loose Post to Facebook\n\n\nHow much does it cost to recement a tooth crown? How much approximately does it cost to recement a crowned tooth in Charlotte, nc?. Yes I had a tooth replaced with a crown about 10 or so years ago in the front and now it is loose Post to Facebook\n\n\nHo",
+      "actual_action": "REFUSE",
+      "status": "FN",
+      "refused": true,
+      "refusal_reason": "Refusal: Model indicated insufficient grounded information to answer.",
+      "trigger_layer": "Layer 5 (Hedge / Non-Answer)",
+      "top_similarity": 0.3162277936935425,
+      "answer": "I cannot provide this answer as the model indicated insufficient grounded information to answer from the retrieved context.",
       "timings": {
-        "stt": 0.015500001609325409,
-        "retrieval": 2.1303999819792807,
-        "guardrail": 0.08189998334273696,
-        "generation": 0.0811999780125916,
-        "hallucination_check": 0.21709996508434415,
-        "hedge_check": 0.037299992982298136,
-        "total": 2.5896999868564308
+        "stt": 0.00689999433234334,
+        "retrieval": 1.3758999994024634,
+        "guardrail": 0.01780001912266016,
+        "generation": 3270.218899997417,
+        "hallucination_check": 0.19150000298395753,
+        "hedge_check": 0.008500006515532732,
+        "total": 3271.8319999985397
       }
     },
     {
@@ -876,16 +918,16 @@
       "refused": false,
       "refusal_reason": "",
       "trigger_layer": "N/A",
-      "top_similarity": 0.3965258002281189,
-      "answer": "Examples of corporation in a Sentence. 1  He works as a consultant for several large corporations. 2  a substantial corporation that showed that he was a sucker for all-you-can-eat buffets.\n\n\nExamples of corporation in a Sentence. 1  He works as a consultant for several large corporations. 2  a substantial corporation that showed that he was a sucker for all-you-can-eat buffets.\n\n\nDermatophytosis, also known as ringworm, is a fungal infection of the skin. Typically it results in a red, itchy, sc",
+      "top_similarity": 0.4927637279033661,
+      "answer": "A signed stipulation can be overturned, but it typically requires a significant change in circumstances or a showing of fraud, duress, or other grounds for invalidation. In the context of family law, courts may consider factors such as a substantial change in the child's needs or a material breach of the stipulation.",
       "timings": {
-        "stt": 0.009000010322779417,
-        "retrieval": 1.1893000337295234,
-        "guardrail": 0.1705000177025795,
-        "generation": 0.03950000973418355,
-        "hallucination_check": 0.15520001761615276,
-        "hedge_check": 0.030700000934302807,
-        "total": 1.6113999881781638
+        "stt": 0.007099995855242014,
+        "retrieval": 1.38519995380193,
+        "guardrail": 0.020299979951232672,
+        "generation": 3409.7750000073574,
+        "hallucination_check": 0.199299945961684,
+        "hedge_check": 0.019400031305849552,
+        "total": 3411.4195000147447
       }
     },
     {
@@ -894,21 +936,21 @@
       "query": "can stress crack on glass pane be remedied",
       "ground_truth_answer": "No Answer Present.",
       "expected_action": "REFUSE",
-      "actual_action": "REFUSE",
-      "status": "TN",
-      "refused": true,
-      "refusal_reason": "Refusal: Similarity score (0.170) below strict threshold (0.180).",
-      "trigger_layer": "Layer 3 (Threshold Gate)",
-      "top_similarity": 0.17038854956626892,
-      "answer": "This question is out of domain or lacks strong grounding in the provided dataset. Refusing to guess to prevent hallucination.",
+      "actual_action": "ANSWER",
+      "status": "FP",
+      "refused": false,
+      "refusal_reason": "",
+      "trigger_layer": "N/A",
+      "top_similarity": 0.38984060287475586,
+      "answer": "Unfortunately, once a glass pane cracks due to thermal stress, it cannot be fully remedied. However, the crack can be sealed or reinforced with a specialized coating or resin to prevent further damage and improve safety.",
       "timings": {
-        "stt": 0.02340000355616212,
-        "retrieval": 2.371800015680492,
-        "guardrail": 3.612399974372238,
-        "generation": 0.0,
-        "hallucination_check": 0.0,
-        "hedge_check": 0.0,
-        "total": 6.048300012480468
+        "stt": 0.005900044925510883,
+        "retrieval": 1.5812000492587686,
+        "guardrail": 0.020300038158893585,
+        "generation": 3379.1833000141196,
+        "hallucination_check": 0.13329996727406979,
+        "hedge_check": 0.014899997040629387,
+        "total": 3380.9505999670364
       }
     },
     {
@@ -917,21 +959,21 @@
       "query": "what is basal in dna",
       "ground_truth_answer": "Bind to cis-acting DNA sequences RNA Polymerase and the group of protein that directly interact with it are called the basal transcription apparatus.",
       "expected_action": "ANSWER",
-      "actual_action": "ANSWER",
-      "status": "TP",
-      "refused": false,
-      "refusal_reason": "",
-      "trigger_layer": "N/A",
-      "top_similarity": 0.42008402943611145,
-      "answer": "hence, a white lie in some cases, is a result of integrity. integrity is the value and morals of a individual in relation or in addition to honesty. honestly is frankness and as the other guy said, adherence to facts.\n\n\nhence, a white lie in some cases, is a result of integrity. integrity is the value and morals of a individual in relation or in addition to honesty. honestly is frankness and as the other guy said, adherence to facts.\n\n\nWhat is ringworm and what causes it? Ringworm is the common ",
+      "actual_action": "REFUSE",
+      "status": "FN",
+      "refused": true,
+      "refusal_reason": "Refusal: Model indicated insufficient grounded information to answer.",
+      "trigger_layer": "Layer 5 (Hedge / Non-Answer)",
+      "top_similarity": 0.3663967251777649,
+      "answer": "I cannot provide this answer as the model indicated insufficient grounded information to answer from the retrieved context.",
       "timings": {
-        "stt": 0.013199984095990658,
-        "retrieval": 1.182100037112832,
-        "guardrail": 0.025900022592395544,
-        "generation": 0.025799963623285294,
-        "hallucination_check": 0.15969999367371202,
-        "hedge_check": 0.04090002039447427,
-        "total": 1.465100038331002
+        "stt": 0.007199996616691351,
+        "retrieval": 2.1151999826543033,
+        "guardrail": 0.023100001271814108,
+        "generation": 2332.5452000135556,
+        "hallucination_check": 0.17950002802535892,
+        "hedge_check": 0.011299969628453255,
+        "total": 2334.8958999849856
       }
     },
     {
@@ -940,21 +982,21 @@
       "query": "how effective is boniva",
       "ground_truth_answer": "No Answer Present.",
       "expected_action": "REFUSE",
-      "actual_action": "ANSWER",
-      "status": "FP",
-      "refused": false,
-      "refusal_reason": "",
-      "trigger_layer": "N/A",
-      "top_similarity": 0.3207501471042633,
-      "answer": "Integrity is about conduct; honesty is about adherence to the facts. The person who without fail submits his timesheet every week, seeking clarification if unsure how to charge some time, is acting with integrity. He is probably also acting with honesty, ensuring that the numbers he reports are correct.\n\n\nIntegrity is about conduct; honesty is about adherence to the facts. The person who without fail submits his timesheet every week, seeking clarification if unsure how to charge some time, is ac",
+      "actual_action": "REFUSE",
+      "status": "TN",
+      "refused": true,
+      "refusal_reason": "Refusal: Generated answer failed post-generation grounding check against retrieved context.",
+      "trigger_layer": "Layer 4 (Post-Gen Grounding)",
+      "top_similarity": 0.3372892439365387,
+      "answer": "I cannot provide this answer as it failed post-generation grounding verification against retrieved context.",
       "timings": {
-        "stt": 0.012300035450607538,
-        "retrieval": 1.3119999784976244,
-        "guardrail": 0.03700004890561104,
-        "generation": 0.03860000288113952,
-        "hallucination_check": 0.19829999655485153,
-        "hedge_check": 0.035999983083456755,
-        "total": 1.6556999762542546
+        "stt": 0.006699992809444666,
+        "retrieval": 1.8461999716237187,
+        "guardrail": 0.022899999748915434,
+        "generation": 3372.8523000027053,
+        "hallucination_check": 0.11570000788196921,
+        "hedge_check": 0.0,
+        "total": 3374.8555000056513
       }
     },
     {
@@ -963,21 +1005,21 @@
       "query": "how long should you carb cycle",
       "ground_truth_answer": "Two and eight weeks",
       "expected_action": "ANSWER",
-      "actual_action": "ANSWER",
-      "status": "TP",
-      "refused": false,
-      "refusal_reason": "",
-      "trigger_layer": "N/A",
-      "top_similarity": 0.26923078298568726,
-      "answer": "Figure how many kWh you need to generate each hour. From the map above you can see that if you live in a yellow area that you'll get 5 to 6 hours of peak sun per day on average. We'll call that 5 hours/day to be conservative. Since you need to generate 29.6 kwH/day, you need a 29.6 kWh / 5 hours = 5.92 kWp system.\n\n\nFigure how many kWh you need to generate each hour. From the map above you can see that if you live in a yellow area that you'll get 5 to 6 hours of peak sun per day on average. We'l",
+      "actual_action": "REFUSE",
+      "status": "FN",
+      "refused": true,
+      "refusal_reason": "Refusal: Generated answer failed post-generation grounding check against retrieved context.",
+      "trigger_layer": "Layer 4 (Post-Gen Grounding)",
+      "top_similarity": 0.28097572922706604,
+      "answer": "I cannot provide this answer as it failed post-generation grounding verification against retrieved context.",
       "timings": {
-        "stt": 0.018300022929906845,
-        "retrieval": 1.2784999562427402,
-        "guardrail": 0.02559996210038662,
-        "generation": 0.026300025638192892,
-        "hallucination_check": 0.1762000028975308,
-        "hedge_check": 0.026499968953430653,
-        "total": 1.5666999970562756
+        "stt": 0.00689999433234334,
+        "retrieval": 1.3880000333301723,
+        "guardrail": 0.01810002140700817,
+        "generation": 3324.0692999679595,
+        "hallucination_check": 0.11470000026747584,
+        "hedge_check": 0.0,
+        "total": 3325.6065999739803
       }
     },
     {
@@ -986,21 +1028,21 @@
       "query": "sty causes",
       "ground_truth_answer": "Styes are caused by infections of the oil glands in the eyelid, or staphylococcus bacteria.",
       "expected_action": "ANSWER",
-      "actual_action": "REFUSE",
-      "status": "FN",
-      "refused": true,
-      "refusal_reason": "Refusal: Similarity score (0.123) below strict threshold (0.180).",
-      "trigger_layer": "Layer 3 (Threshold Gate)",
-      "top_similarity": 0.12309148907661438,
-      "answer": "This question is out of domain or lacks strong grounding in the provided dataset. Refusing to guess to prevent hallucination.",
+      "actual_action": "ANSWER",
+      "status": "TP",
+      "refused": false,
+      "refusal_reason": "",
+      "trigger_layer": "N/A",
+      "top_similarity": 0.226455420255661,
+      "answer": "A sty is caused by staphylococcal bacteria, which is commonly found in the nose and can be transferred to the eye through rubbing. This bacterium causes a blocked gland to form a bump on the eyelid.",
       "timings": {
-        "stt": 0.009999959729611874,
-        "retrieval": 1.4021999668329954,
-        "guardrail": 2.0072999759577215,
-        "generation": 0.0,
-        "hallucination_check": 0.0,
-        "hedge_check": 0.0,
-        "total": 3.4357000258751214
+        "stt": 0.00909995287656784,
+        "retrieval": 1.4651999808847904,
+        "guardrail": 0.015600002370774746,
+        "generation": 2288.9645000104792,
+        "hallucination_check": 0.1556000206619501,
+        "hedge_check": 0.015400000847876072,
+        "total": 2290.6387000111863
       }
     },
     {
@@ -1014,16 +1056,16 @@
       "refused": false,
       "refusal_reason": "",
       "trigger_layer": "N/A",
-      "top_similarity": 0.2702949345111847,
-      "answer": "By institutional control, the median time to earn a degree was 55 months for 2008 bachelor's degree recipients graduating from public institutions, 45 months for graduates of private nonprofit institutions, and 103 months for graduates of private for-profit institutions.\n\n\nBy institutional control, the median time to earn a degree was 55 months for 2008 bachelor's degree recipients graduating from public institutions, 45 months for graduates of private nonprofit institutions, and 103 months for ",
+      "top_similarity": 0.2948839068412781,
+      "answer": "The highest official recorded temperature in Redding, CA was 118F on July 20, 1988. However, some people in town recorded as high as 122F that same day. This 122F reading is not officially recognized as the highest temperature.",
       "timings": {
-        "stt": 0.028499984182417393,
-        "retrieval": 1.8289000145159662,
-        "guardrail": 0.03390002530068159,
-        "generation": 0.031000003218650818,
-        "hallucination_check": 0.16729999333620071,
-        "hedge_check": 0.02670002868399024,
-        "total": 2.1433000219985843
+        "stt": 0.005999987479299307,
+        "retrieval": 1.4011000166647136,
+        "guardrail": 0.021799991372972727,
+        "generation": 4424.48119999608,
+        "hallucination_check": 0.10880001354962587,
+        "hedge_check": 0.010899966582655907,
+        "total": 4426.039699988905
       }
     },
     {
@@ -1032,21 +1074,21 @@
       "query": "court of two sisters brunch price",
       "ground_truth_answer": "No Answer Present.",
       "expected_action": "REFUSE",
-      "actual_action": "ANSWER",
-      "status": "FP",
-      "refused": false,
-      "refusal_reason": "",
-      "trigger_layer": "N/A",
-      "top_similarity": 0.41403934359550476,
-      "answer": "2.Drawbacks of Barter System of Exchange. (i) Lack of double coincidence of wants (ii) Lack of common measures of value. (iii) Lack of store of value (iv) Lack of standard for deferred payments. (v) Lack of divisibility. 3. Evolution of Money: Money finds its origin to facilitate the need of exchange.\n\n\n2.Drawbacks of Barter System of Exchange. (i) Lack of double coincidence of wants (ii) Lack of common measures of value. (iii) Lack of store of value (iv) Lack of standard for deferred payments. ",
+      "actual_action": "REFUSE",
+      "status": "TN",
+      "refused": true,
+      "refusal_reason": "Refusal: Model indicated insufficient grounded information to answer.",
+      "trigger_layer": "Layer 5 (Hedge / Non-Answer)",
+      "top_similarity": 0.8375256657600403,
+      "answer": "I cannot provide this answer as the model indicated insufficient grounded information to answer from the retrieved context.",
       "timings": {
-        "stt": 0.009399955160915852,
-        "retrieval": 1.5064000035636127,
-        "guardrail": 0.03940000897273421,
-        "generation": 0.04339998122304678,
-        "hallucination_check": 0.19989995053038,
-        "hedge_check": 0.02900004619732499,
-        "total": 1.845699967816472
+        "stt": 0.005599984433501959,
+        "retrieval": 1.6237999661825597,
+        "guardrail": 0.017400016076862812,
+        "generation": 2300.770299974829,
+        "hallucination_check": 0.1362999901175499,
+        "hedge_check": 0.012999982573091984,
+        "total": 2302.5784000055864
       }
     },
     {
@@ -1055,21 +1097,21 @@
       "query": "how much does matt lauer make a year",
       "ground_truth_answer": "$20 million",
       "expected_action": "ANSWER",
-      "actual_action": "ANSWER",
-      "status": "TP",
-      "refused": false,
-      "refusal_reason": "",
-      "trigger_layer": "N/A",
-      "top_similarity": 0.4210759401321411,
-      "answer": "How much does it cost to recement a tooth crown? How much approximately does it cost to recement a crowned tooth in Charlotte, nc?. Yes I had a tooth replaced with a crown about 10 or so years ago in the front and now it is loose Post to Facebook\n\n\nHow much does it cost to recement a tooth crown? How much approximately does it cost to recement a crowned tooth in Charlotte, nc?. Yes I had a tooth replaced with a crown about 10 or so years ago in the front and now it is loose Post to Facebook\n\n\nHo",
+      "actual_action": "REFUSE",
+      "status": "FN",
+      "refused": true,
+      "refusal_reason": "Refusal: Generated answer failed post-generation grounding check against retrieved context.",
+      "trigger_layer": "Layer 4 (Post-Gen Grounding)",
+      "top_similarity": 0.3646624684333801,
+      "answer": "I cannot provide this answer as it failed post-generation grounding verification against retrieved context.",
       "timings": {
-        "stt": 0.009000010322779417,
-        "retrieval": 1.2807000312022865,
-        "guardrail": 0.025900022592395544,
-        "generation": 0.023300002794712782,
-        "hallucination_check": 0.16520003555342555,
-        "hedge_check": 0.023800006601959467,
-        "total": 1.545200007967651
+        "stt": 0.00790000194683671,
+        "retrieval": 1.5016000252217054,
+        "guardrail": 0.018200022168457508,
+        "generation": 2317.650799988769,
+        "hallucination_check": 1.857800001744181,
+        "hedge_check": 0.0,
+        "total": 2321.0498999687843
       }
     },
     {
@@ -1081,18 +1123,18 @@
       "actual_action": "REFUSE",
       "status": "TN",
       "refused": true,
-      "refusal_reason": "Refusal: Similarity score (0.061) below strict threshold (0.180).",
-      "trigger_layer": "Layer 3 (Threshold Gate)",
-      "top_similarity": 0.06142950803041458,
-      "answer": "This question is out of domain or lacks strong grounding in the provided dataset. Refusing to guess to prevent hallucination.",
+      "refusal_reason": "Refusal: Generated answer failed post-generation grounding check against retrieved context.",
+      "trigger_layer": "Layer 4 (Post-Gen Grounding)",
+      "top_similarity": 0.4697761535644531,
+      "answer": "I cannot provide this answer as it failed post-generation grounding verification against retrieved context.",
       "timings": {
-        "stt": 0.025799963623285294,
-        "retrieval": 2.1573000121861696,
-        "guardrail": 3.7527999957092106,
-        "generation": 0.0,
-        "hallucination_check": 0.0,
+        "stt": 0.007199996616691351,
+        "retrieval": 1.635399996303022,
+        "guardrail": 0.01880002673715353,
+        "generation": 3374.8973999754526,
+        "hallucination_check": 1.8600999610498548,
         "hedge_check": 0.0,
-        "total": 5.963900010101497
+        "total": 3378.43189999694
       }
     },
     {
@@ -1106,16 +1148,16 @@
       "refused": false,
       "refusal_reason": "",
       "trigger_layer": "N/A",
-      "top_similarity": 0.4435327649116516,
-      "answer": "How to Grow Cantaloupe | Guide to Growing Cantaloupe. Cantaloupe generally refers to any melon with the familiar orange, juicy flesh. In times past, it referred only to those smooth, non-netted varieties native to Europe.\n\n\nHow to Grow Cantaloupe | Guide to Growing Cantaloupe. Cantaloupe generally refers to any melon with the familiar orange, juicy flesh. In times past, it referred only to those smooth, non-netted varieties native to Europe.\n\n\nThat concludes our how to guide on obtaining three e",
+      "top_similarity": 0.3755338191986084,
+      "answer": "To print an Excel sheet, drag select the desired cells and choose File > Print Area > Set Print Area from the menu. Alternatively, you can click File > Print Preview to see the print layout and make adjustments before printing.",
       "timings": {
-        "stt": 0.022599997464567423,
-        "retrieval": 2.0111000048927963,
-        "guardrail": 0.06049999501556158,
-        "generation": 0.07899996126070619,
-        "hallucination_check": 0.2639999729581177,
-        "hedge_check": 0.04020001506432891,
-        "total": 2.5062999920919538
+        "stt": 0.009599956683814526,
+        "retrieval": 1.6983000095933676,
+        "guardrail": 0.01829996472224593,
+        "generation": 5472.381600004155,
+        "hallucination_check": 0.20509999012574553,
+        "hedge_check": 0.018899969290941954,
+        "total": 5474.350099975709
       }
     },
     {
@@ -1124,21 +1166,21 @@
       "query": "death head units definition",
       "ground_truth_answer": "Death's Head unit which eventually made up the guards of all the concentration camps. On their caps, they wore a silver emblem of a skull, the same emblem that was worn by the Waffen-SS.The death's head was supposed to signify that they were loyal to the death, not that they were murderers.",
       "expected_action": "ANSWER",
-      "actual_action": "REFUSE",
-      "status": "FN",
-      "refused": true,
-      "refusal_reason": "Refusal: Similarity score (0.095) below strict threshold (0.180).",
-      "trigger_layer": "Layer 3 (Threshold Gate)",
-      "top_similarity": 0.09491579234600067,
-      "answer": "This question is out of domain or lacks strong grounding in the provided dataset. Refusing to guess to prevent hallucination.",
+      "actual_action": "ANSWER",
+      "status": "TP",
+      "refused": false,
+      "refusal_reason": "",
+      "trigger_layer": "N/A",
+      "top_similarity": 0.22742941975593567,
+      "answer": "The Death's Head unit, also known as the SS-Totenkopfverbaende, was an elite unit within the SS that made up the guards of all concentration camps. They wore a silver emblem of a skull on their caps, symbolizing loyalty to death, not murder. This unit was part of the Waffen-SS and was considered an elite within the elite structure of the SS.",
       "timings": {
-        "stt": 0.013199984095990658,
-        "retrieval": 1.4288999955169857,
-        "guardrail": 2.400800003670156,
-        "generation": 0.0,
-        "hallucination_check": 0.0,
-        "hedge_check": 0.0,
-        "total": 3.860299999359995
+        "stt": 0.00790000194683671,
+        "retrieval": 1.5931999660097063,
+        "guardrail": 0.021899992134422064,
+        "generation": 4380.363599979319,
+        "hallucination_check": 0.15330000314861536,
+        "hedge_check": 0.014699995517730713,
+        "total": 4382.16660002945
       }
     },
     {
@@ -1152,16 +1194,16 @@
       "refused": false,
       "refusal_reason": "",
       "trigger_layer": "N/A",
-      "top_similarity": 0.4942416250705719,
-      "answer": "by senior editor johnna rizzo marijuana and the veterans affairs hospital system s relationship is complicated on the one hand 23 states plus the district of columbia say marijuana is legal for sanctioned medical use and veterans are clamoring for it for their post combat symptoms on the other marijuana is classified a schedule i drug the same as heroin under the aegis of the government the va system and by extension the veterans who use it has been stuck in the middle experts say as many as 20 ",
+      "top_similarity": 0.5715476274490356,
+      "answer": "No, corn meal and corn flour are not the same. Corn flour is a finer grind of corn meal, typically used for baked goods like corn bread.",
       "timings": {
-        "stt": 0.007999944500625134,
-        "retrieval": 1.129699987359345,
-        "guardrail": 0.029499991796910763,
-        "generation": 0.02929999027401209,
-        "hallucination_check": 0.25919999461621046,
-        "hedge_check": 0.027699978090822697,
-        "total": 1.4964999863877892
+        "stt": 0.006099988240748644,
+        "retrieval": 1.6951999859884381,
+        "guardrail": 0.03809999907389283,
+        "generation": 4452.2591000422835,
+        "hallucination_check": 0.10960001964122057,
+        "hedge_check": 0.008200004231184721,
+        "total": 4454.129900026601
       }
     },
     {
@@ -1170,21 +1212,21 @@
       "query": "what is basic? uni",
       "ground_truth_answer": "BASIC is a family of general-purpose, high-level programming languages whose design philosophy emphasizes ease of use.",
       "expected_action": "ANSWER",
-      "actual_action": "ANSWER",
-      "status": "TP",
-      "refused": false,
-      "refusal_reason": "",
-      "trigger_layer": "N/A",
-      "top_similarity": 0.3009646236896515,
-      "answer": "What is the study of the atmosphere the process is that produce weather and climate? Meteorology is the the study of weather. Climatology is the study of larger trends in weather patterns.\n\n\nWhat is the study of the atmosphere the process is that produce weather and climate? Meteorology is the the study of weather. Climatology is the study of larger trends in weather patterns.\n\n\npart of the problem is that ptsd is unique among medical marijuana conditions since it is a psychiatric disorder not a",
+      "actual_action": "REFUSE",
+      "status": "FN",
+      "refused": true,
+      "refusal_reason": "Refusal: Generated answer failed post-generation grounding check against retrieved context.",
+      "trigger_layer": "Layer 4 (Post-Gen Grounding)",
+      "top_similarity": 0.38946807384490967,
+      "answer": "I cannot provide this answer as it failed post-generation grounding verification against retrieved context.",
       "timings": {
-        "stt": 0.008000002708286047,
-        "retrieval": 1.1053999769501388,
-        "guardrail": 0.019600032828748226,
-        "generation": 0.019300030544400215,
-        "hallucination_check": 0.16519997734576464,
-        "hedge_check": 0.021899992134422064,
-        "total": 1.3506999821402133
+        "stt": 0.00589998671784997,
+        "retrieval": 1.664099982008338,
+        "guardrail": 0.02570002106949687,
+        "generation": 2352.8827999834903,
+        "hallucination_check": 0.11800002539530396,
+        "hedge_check": 0.0,
+        "total": 2354.707500024233
       }
     },
     {
@@ -1193,21 +1235,21 @@
       "query": "What is the recipe for baking a chocolate lava cake?",
       "ground_truth_answer": "No Answer Present.",
       "expected_action": "REFUSE",
-      "actual_action": "ANSWER",
-      "status": "FP",
-      "refused": false,
-      "refusal_reason": "",
-      "trigger_layer": "N/A",
-      "top_similarity": 0.5128776431083679,
-      "answer": "What is the study of the atmosphere the process is that produce weather and climate? Meteorology is the the study of weather. Climatology is the study of larger trends in weather patterns.\n\n\nWhat is the study of the atmosphere the process is that produce weather and climate? Meteorology is the the study of weather. Climatology is the study of larger trends in weather patterns.\n\n\npart of the problem is that ptsd is unique among medical marijuana conditions since it is a psychiatric disorder not a",
+      "actual_action": "REFUSE",
+      "status": "TN",
+      "refused": true,
+      "refusal_reason": "Refusal: Generated answer failed post-generation grounding check against retrieved context.",
+      "trigger_layer": "Layer 4 (Post-Gen Grounding)",
+      "top_similarity": 0.47781848907470703,
+      "answer": "I cannot provide this answer as it failed post-generation grounding verification against retrieved context.",
       "timings": {
-        "stt": 0.009600014891475439,
-        "retrieval": 1.3285999884828925,
-        "guardrail": 0.05370000144466758,
-        "generation": 0.03790005575865507,
-        "hallucination_check": 0.19799999427050352,
-        "hedge_check": 0.029399991035461426,
-        "total": 1.6765999607741833
+        "stt": 0.006699992809444666,
+        "retrieval": 1.4347999822348356,
+        "guardrail": 0.018700025975704193,
+        "generation": 2252.7244999655522,
+        "hallucination_check": 0.08739996701478958,
+        "hedge_check": 0.0,
+        "total": 2254.282899957616
       }
     },
     {
@@ -1219,18 +1261,18 @@
       "actual_action": "REFUSE",
       "status": "TN",
       "refused": true,
-      "refusal_reason": "Refusal: Similarity score (0.162) below strict threshold (0.180).",
+      "refusal_reason": "Refusal: Similarity score (0.150) below strict threshold (0.180).",
       "trigger_layer": "Layer 3 (Threshold Gate)",
-      "top_similarity": 0.1624888926744461,
+      "top_similarity": 0.15043550729751587,
       "answer": "This question is out of domain or lacks strong grounding in the provided dataset. Refusing to guess to prevent hallucination.",
       "timings": {
-        "stt": 0.009300012607127428,
-        "retrieval": 1.187700021546334,
-        "guardrail": 2.4497999693267047,
+        "stt": 0.007399998139590025,
+        "retrieval": 1.5326999709941447,
+        "guardrail": 1.0722000151872635,
         "generation": 0.0,
         "hallucination_check": 0.0,
         "hedge_check": 0.0,
-        "total": 3.661000053398311
+        "total": 2.6217999984510243
       }
     },
     {
@@ -1239,21 +1281,21 @@
       "query": "What was the closing stock price of Apple on August 12, 1998?",
       "ground_truth_answer": "No Answer Present.",
       "expected_action": "REFUSE",
-      "actual_action": "ANSWER",
-      "status": "FP",
-      "refused": false,
-      "refusal_reason": "",
-      "trigger_layer": "N/A",
+      "actual_action": "REFUSE",
+      "status": "TN",
+      "refused": true,
+      "refusal_reason": "Refusal: Generated answer failed post-generation grounding check against retrieved context.",
+      "trigger_layer": "Layer 4 (Post-Gen Grounding)",
       "top_similarity": 0.365509033203125,
-      "answer": "On December 7, 2012, when the ROBLOX Mobile app on the Apple App Store was updated, ROBLOX received criticism for instead of having support for the iPod and iPhone that are of the 4th generation and beyond, they decided to only have support for the 4th generation of iPhones and the iPod 5.\n\n\nOn December 7, 2012, when the ROBLOX Mobile app on the Apple App Store was updated, ROBLOX received criticism for instead of having support for the iPod and iPhone that are of the 4th generation and beyond, ",
+      "answer": "I cannot provide this answer as it failed post-generation grounding verification against retrieved context.",
       "timings": {
-        "stt": 0.019599974621087313,
-        "retrieval": 1.9178000511601567,
-        "guardrail": 0.05760003114119172,
-        "generation": 0.06839999696239829,
-        "hallucination_check": 0.2335000317543745,
-        "hedge_check": 0.03860000288113952,
-        "total": 2.3651999654248357
+        "stt": 0.005399982910603285,
+        "retrieval": 1.5783000271767378,
+        "guardrail": 0.02400000812485814,
+        "generation": 3233.63979998976,
+        "hallucination_check": 1.2835999950766563,
+        "hedge_check": 0.0,
+        "total": 3236.541800026316
       }
     },
     {
@@ -1262,21 +1304,21 @@
       "query": "Who won the FIFA World Cup in 1930 in Uruguay?",
       "ground_truth_answer": "No Answer Present.",
       "expected_action": "REFUSE",
-      "actual_action": "ANSWER",
-      "status": "FP",
-      "refused": false,
-      "refusal_reason": "",
-      "trigger_layer": "N/A",
+      "actual_action": "REFUSE",
+      "status": "TN",
+      "refused": true,
+      "refusal_reason": "Refusal: Generated answer failed post-generation grounding check against retrieved context.",
+      "trigger_layer": "Layer 4 (Post-Gen Grounding)",
       "top_similarity": 0.4654746949672699,
-      "answer": "Projections are that population in the United States will reach 400 million by 2050 \u2013 a 33 percent increase in roughly 40 years\u2019 time; the U.S. registered its 300 millionth resident in 2006. With an increase in world population has come an increase in air pollution.\n\n\nProjections are that population in the United States will reach 400 million by 2050 \u2013 a 33 percent increase in roughly 40 years\u2019 time; the U.S. registered its 300 millionth resident in 2006. With an increase in world population has",
+      "answer": "I cannot provide this answer as it failed post-generation grounding verification against retrieved context.",
       "timings": {
-        "stt": 0.020299979951232672,
-        "retrieval": 2.2256000083871186,
-        "guardrail": 0.08020002860575914,
-        "generation": 0.10599999222904444,
-        "hallucination_check": 0.2930000191554427,
-        "hedge_check": 0.04449998959898949,
-        "total": 2.805100055411458
+        "stt": 0.006999995093792677,
+        "retrieval": 1.4147000038065016,
+        "guardrail": 0.020599982235580683,
+        "generation": 3243.7876000185497,
+        "hallucination_check": 1.421599998138845,
+        "hedge_check": 0.0,
+        "total": 3246.66329997126
       }
     },
     {
@@ -1285,21 +1327,21 @@
       "query": "How do I build a nuclear fusion reactor at home?",
       "ground_truth_answer": "No Answer Present.",
       "expected_action": "REFUSE",
-      "actual_action": "ANSWER",
-      "status": "FP",
-      "refused": false,
-      "refusal_reason": "",
-      "trigger_layer": "N/A",
+      "actual_action": "REFUSE",
+      "status": "TN",
+      "refused": true,
+      "refusal_reason": "Refusal: Generated answer failed post-generation grounding check against retrieved context.",
+      "trigger_layer": "Layer 4 (Post-Gen Grounding)",
       "top_similarity": 0.33161064982414246,
-      "answer": "StubHub - the phone number is clearly a sham. i received a the phone number is clearly a sham. i received a receipt for 2700$ worth of tickets i never ordered and i've never ordered anything from stub hub. they can't be reached to discuss the matter. very bad business.\n\n\nStubHub - the phone number is clearly a sham. i received a the phone number is clearly a sham. i received a receipt for 2700$ worth of tickets i never ordered and i've never ordered anything from stub hub. they can't be reached ",
+      "answer": "I cannot provide this answer as it failed post-generation grounding verification against retrieved context.",
       "timings": {
-        "stt": 0.012300035450607538,
-        "retrieval": 1.2636000174097717,
-        "guardrail": 0.043300038669258356,
-        "generation": 0.0369000481441617,
-        "hallucination_check": 0.17030001617968082,
-        "hedge_check": 0.029199989512562752,
-        "total": 1.5727999852970243
+        "stt": 0.008499948307871819,
+        "retrieval": 2.4719000211916864,
+        "guardrail": 0.03190001007169485,
+        "generation": 3441.77989999298,
+        "hallucination_check": 0.15789997996762395,
+        "hedge_check": 0.0,
+        "total": 3444.4648000062443
       }
     }
   ]
