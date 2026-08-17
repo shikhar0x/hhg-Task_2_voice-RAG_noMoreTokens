@@ -1,19 +1,41 @@
 {
-  "timestamp": "2026-08-17 01:26:28",
-  "total_queries": 35,
+  "timestamp": "2026-08-17 11:07:38",
+  "total_queries": 55,
   "confusion_matrix": {
-    "TP": 12,
-    "TN": 2,
-    "FP": 21,
-    "FN": 0
+    "TP": 21,
+    "TN": 5,
+    "FP": 26,
+    "FN": 3
   },
   "metrics": {
-    "accuracy": 0.4,
-    "precision": 0.3636,
-    "recall": 1.0,
-    "f1_score": 0.5333
+    "accuracy": 0.4727,
+    "precision": 0.4468,
+    "recall": 0.875,
+    "f1_score": 0.5915
   },
-  "false_negatives": [],
+  "false_negatives": [
+    {
+      "query_id": "126172",
+      "query": "define radical neck",
+      "top_similarity": 0.10910894721746445,
+      "trigger_layer": "Layer 3 (Threshold Gate)",
+      "refusal_reason": "Refusal: Similarity score (0.109) below strict threshold (0.180)."
+    },
+    {
+      "query_id": "1090352",
+      "query": "sty causes",
+      "top_similarity": 0.12309148907661438,
+      "trigger_layer": "Layer 3 (Threshold Gate)",
+      "refusal_reason": "Refusal: Similarity score (0.123) below strict threshold (0.180)."
+    },
+    {
+      "query_id": "116095",
+      "query": "death head units definition",
+      "top_similarity": 0.09491579234600067,
+      "trigger_layer": "Layer 3 (Threshold Gate)",
+      "refusal_reason": "Refusal: Similarity score (0.095) below strict threshold (0.180)."
+    }
+  ],
   "detailed_results": [
     {
       "index": 1,
@@ -27,15 +49,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.4885699152946472,
-      "answer": "A company is incorporated in a specific nation, often within the bounds of a smaller subset of that nation, such as a state or province. The corporation is then governed by the laws of incorporation in that state. A corporation may issue stock, either private or public, or may be classified as a non-stock corporation. If stock is issued, the corporation will usually be governed by its shareholders, either directly or indirectly.\n\n\nMcDonald's Corporation is one of the most recognizable corporatio",
+      "answer": "A company is incorporated in a specific nation, often within the bounds of a smaller subset of that nation, such as a state or province. The corporation is then governed by the laws of incorporation in that state. A corporation may issue stock, either private or public, or may be classified as a non-stock corporation. If stock is issued, the corporation will usually be governed by its shareholders, either directly or indirectly.\n\n\nA company is incorporated in a specific nation, often within the ",
       "timings": {
-        "stt": 0.006500049494206905,
-        "retrieval": 0.5973000079393387,
-        "guardrail": 0.017700018361210823,
-        "generation": 0.07120001828297973,
-        "hallucination_check": 0.1841000048443675,
-        "hedge_check": 0.016000005416572094,
-        "total": 0.9065999765880406
+        "stt": 0.013299984857439995,
+        "retrieval": 10.147800028789788,
+        "guardrail": 0.03739999374374747,
+        "generation": 0.16080000204965472,
+        "hallucination_check": 0.3635000321082771,
+        "hedge_check": 0.03390002530068159,
+        "total": 10.785699996631593
       }
     },
     {
@@ -50,15 +72,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.5353033542633057,
-      "answer": "\u201cThe Obligation to Endure\u201d from Silent Springby Rachel Carson. Copyright \u00a9 1962 by Rachel L. Carson.\n\n\nThe Obligation to Endure by Rachel Carson Rachel Carson's essay on The Obligation to Endure, is a very convincing argument about the harmful uses of chemicals, pesticides, herbicides, and fertilizers on the environment.\n\n\nIn, \u201cSilent Spring\u201d an excerpt from Rachel Carson\u2019s, \u201cThe Obligation to Endure,\u201d Carson suggests that the pesticides and insecticides we have are harmful to more than just the",
+      "answer": "\u201cThe Obligation to Endure\u201d from Silent Springby Rachel Carson. Copyright \u00a9 1962 by Rachel L. Carson.\n\n\n\u201cThe Obligation to Endure\u201d from Silent Springby Rachel Carson. Copyright \u00a9 1962 by Rachel L. Carson.\n\n\nThe Obligation to Endure by Rachel Carson Rachel Carson's essay on The Obligation to Endure, is a very convincing argument about the harmful uses of chemicals, pesticides, herbicides, and fertilizers on the environment.",
       "timings": {
-        "stt": 0.009100011084228754,
-        "retrieval": 0.5631999811157584,
-        "guardrail": 0.021099986042827368,
-        "generation": 0.019099970813840628,
-        "hallucination_check": 0.10110001312568784,
-        "hedge_check": 0.019899976905435324,
-        "total": 0.7495000027120113
+        "stt": 0.008800008799880743,
+        "retrieval": 1.0379999876022339,
+        "guardrail": 0.028499984182417393,
+        "generation": 0.027699978090822697,
+        "hallucination_check": 0.13150001177564263,
+        "hedge_check": 0.02889998722821474,
+        "total": 1.2815999798476696
       }
     },
     {
@@ -73,15 +95,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.5465943813323975,
-      "answer": "Below is a list of high potassium foods ranked by common serving sizes, for more see the lists of high potassium foods by nutrient density, potassium rich foods, fruits high in potassium, and vegetables high in potassium.\n\n\nAlleviation of High Blood Pressure (Hypertension) - Studies show that a diet high in potassium, especially potassium from fruits and vegetables, lowers blood pressure. This is especially true if the increase in potassium foods is not accompanied by an increase in high sodium ",
+      "answer": "Below is a list of high potassium foods ranked by common serving sizes, for more see the lists of high potassium foods by nutrient density, potassium rich foods, fruits high in potassium, and vegetables high in potassium.\n\n\nBelow is a list of high potassium foods ranked by common serving sizes, for more see the lists of high potassium foods by nutrient density, potassium rich foods, fruits high in potassium, and vegetables high in potassium.\n\n\nAlleviation of High Blood Pressure (Hypertension) - ",
       "timings": {
-        "stt": 0.005700043402612209,
-        "retrieval": 0.39930001366883516,
-        "guardrail": 0.014399993233382702,
-        "generation": 0.016000005416572094,
-        "hallucination_check": 0.09879999561235309,
-        "hedge_check": 0.015400000847876072,
-        "total": 0.55720005184412
+        "stt": 0.010699965059757233,
+        "retrieval": 0.9706999990157783,
+        "guardrail": 0.023200002033263445,
+        "generation": 0.026500027161091566,
+        "hallucination_check": 0.1387999509461224,
+        "hedge_check": 0.0198000343516469,
+        "total": 1.201900013256818
       }
     },
     {
@@ -96,15 +118,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.4040610194206238,
-      "answer": "Amidships ----At or near the midship section of. the ship. Anchor---- A heavy hook-shaped device for. holding a ship at rest in water. The anchor grips. the ocean bottom and is fastened to the ship by a. chain. Angle Clip---- A short piece of angle bar. Angle Collar ----A ring made of angle bar. Anneal ----To soften metal by heating and. allowing it to cool slowly.\n\n\nSmithsonian divers explore the hull of a massive cargo ship for biological invasions of organisms that hitch a ride on the hull of",
+      "answer": "Amidships ----At or near the midship section of. the ship. Anchor---- A heavy hook-shaped device for. holding a ship at rest in water. The anchor grips. the ocean bottom and is fastened to the ship by a. chain. Angle Clip---- A short piece of angle bar. Angle Collar ----A ring made of angle bar. Anneal ----To soften metal by heating and. allowing it to cool slowly.\n\n\nAmidships ----At or near the midship section of. the ship. Anchor---- A heavy hook-shaped device for. holding a ship at rest in wa",
       "timings": {
-        "stt": 0.006600050255656242,
-        "retrieval": 0.3803000436164439,
-        "guardrail": 0.014499993994832039,
-        "generation": 0.01610000617802143,
-        "hallucination_check": 0.10040000779554248,
-        "hedge_check": 0.015700003132224083,
-        "total": 0.5418999935500324
+        "stt": 0.010200019460171461,
+        "retrieval": 1.6494999872520566,
+        "guardrail": 0.027499976567924023,
+        "generation": 0.0315000070258975,
+        "hallucination_check": 0.1824999926611781,
+        "hedge_check": 0.0295999925583601,
+        "total": 1.9460999756120145
       }
     },
     {
@@ -119,15 +141,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.3354101777076721,
-      "answer": "honesty. n, pl-ties. 1. the condition of being honest. 2. sincerity or fairness. 3. virtue or respect.\n\n\nReport Abuse. 1  Chat or rant, adult content, spam, insulting other members,show more. 2  Harm to minors, violence or threats, harassment or privacy invasion, impersonation or misrepresentation, fraud or phishing, show more. 3  Chat or rant, adult content, spam, insulting other members,show more.\n\n\nThe term arbitrary describes a course of action or a decision that is not based on reason or ju",
+      "answer": "honesty. n, pl-ties. 1. the condition of being honest. 2. sincerity or fairness. 3. virtue or respect.\n\n\nhonesty. n, pl-ties. 1. the condition of being honest. 2. sincerity or fairness. 3. virtue or respect.\n\n\nReport Abuse. 1  Chat or rant, adult content, spam, insulting other members,show more. 2  Harm to minors, violence or threats, harassment or privacy invasion, impersonation or misrepresentation, fraud or phishing, show more. 3  Chat or rant, adult content, spam, insulting other members,sho",
       "timings": {
-        "stt": 0.006399990525096655,
-        "retrieval": 0.34199998481199145,
-        "guardrail": 0.01610000617802143,
-        "generation": 0.017799960914999247,
-        "hallucination_check": 0.12809998588636518,
-        "hedge_check": 0.023200002033263445,
-        "total": 0.5425999988801777
+        "stt": 0.006999995093792677,
+        "retrieval": 0.9290999732911587,
+        "guardrail": 0.01939997309818864,
+        "generation": 0.020400038920342922,
+        "hallucination_check": 0.11900003300979733,
+        "hedge_check": 0.021299987565726042,
+        "total": 1.1277000303380191
       }
     },
     {
@@ -142,15 +164,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.4170288145542145,
-      "answer": "Liukang Xu, Xiaomao Lin, Jim Amen, Dayle McDermitt LI-COR Biosciences, Lincoln NE 68504 USA. Karla Welding. City of Lincoln, Lincoln NE 68517 USA. Impact of Changes in Barometric . Pressure on Landfill Methane Emission\n\n\nAtmospheric pressure. Atmospheric pressure, sometimes also called barometric pressure, is the pressure within the atmosphere of Earth (or that of another planet). In most circumstances atmospheric pressure is closely approximated by the hydrostatic pressure caused by the weight ",
+      "answer": "Liukang Xu, Xiaomao Lin, Jim Amen, Dayle McDermitt LI-COR Biosciences, Lincoln NE 68504 USA. Karla Welding. City of Lincoln, Lincoln NE 68517 USA. Impact of Changes in Barometric . Pressure on Landfill Methane Emission\n\n\nLiukang Xu, Xiaomao Lin, Jim Amen, Dayle McDermitt LI-COR Biosciences, Lincoln NE 68504 USA. Karla Welding. City of Lincoln, Lincoln NE 68517 USA. Impact of Changes in Barometric . Pressure on Landfill Methane Emission\n\n\nAtmospheric pressure. Atmospheric pressure, sometimes also",
       "timings": {
-        "stt": 0.005700043402612209,
-        "retrieval": 0.3877000417560339,
-        "guardrail": 0.024600012693554163,
-        "generation": 0.024100008886307478,
-        "hallucination_check": 0.1281999866478145,
-        "hedge_check": 0.018499966245144606,
-        "total": 0.5981999565847218
+        "stt": 0.007199996616691351,
+        "retrieval": 1.0402000043541193,
+        "guardrail": 0.043000036384910345,
+        "generation": 0.03320001997053623,
+        "hallucination_check": 0.17799995839595795,
+        "hedge_check": 0.029499991796910763,
+        "total": 1.3470000121742487
       }
     },
     {
@@ -165,15 +187,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.6246097087860107,
-      "answer": "Struthers City School District is located in east Ohio. Struthers City School District has 5.19 square miles of land area and 0.19 square miles of water area. As of 2010-2014, the total Struthers City School District population is 11,533. Struthers City School District median household income is $37,460 in 2010-2014. Struthers City School District median house value is $72,900 in 2010-2014. On average, Struthers City School District is close to the state average in quality.\n\n\nStruthers High Scho",
+      "answer": "Struthers City School District is located in east Ohio. Struthers City School District has 5.19 square miles of land area and 0.19 square miles of water area. As of 2010-2014, the total Struthers City School District population is 11,533. Struthers City School District median household income is $37,460 in 2010-2014. Struthers City School District median house value is $72,900 in 2010-2014. On average, Struthers City School District is close to the state average in quality.\n\n\nStruthers City Scho",
       "timings": {
-        "stt": 0.03550003748387098,
-        "retrieval": 0.5650999955832958,
-        "guardrail": 0.02859998494386673,
-        "generation": 0.028099981136620045,
-        "hallucination_check": 0.16380002489313483,
-        "hedge_check": 0.03389996709302068,
-        "total": 0.8693999843671918
+        "stt": 0.007399998139590025,
+        "retrieval": 0.9935999987646937,
+        "guardrail": 0.020900042727589607,
+        "generation": 0.01910002902150154,
+        "hallucination_check": 0.13000000035390258,
+        "hedge_check": 0.019099970813840628,
+        "total": 1.20160001097247
       }
     },
     {
@@ -190,13 +212,13 @@
       "top_similarity": 0.46423834562301636,
       "answer": "medical marijuana research ptsd beginning january 1 2014 the oregon medical marijuana program ommp will add ptsd to the other nine qualifying medical conditions the oregon health authority oha states may allow a person to obtain a medical marijuana card but the questions arises does cannabis really help patients who suffer ptsd here s some evidence people suffering from ptsd might find interesting there are currently medical studies underway designed to study the relationship between cannabis us",
       "timings": {
-        "stt": 0.005599984433501959,
-        "retrieval": 0.3643999807536602,
-        "guardrail": 0.016200006939470768,
-        "generation": 0.01839996548369527,
-        "hallucination_check": 0.13070000568404794,
-        "hedge_check": 0.018400023691356182,
-        "total": 0.5607000202871859
+        "stt": 0.007599999662488699,
+        "retrieval": 0.8320999913848937,
+        "guardrail": 0.10949996067211032,
+        "generation": 0.026900030206888914,
+        "hallucination_check": 0.1965999836102128,
+        "hedge_check": 0.024200009647756815,
+        "total": 1.2385999434627593
       }
     },
     {
@@ -211,15 +233,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.2981424033641815,
-      "answer": "Mini Bio (1) Frank Gifford was born on August 16, 1930 in Santa Monica, California, USA as Frank Newton Gifford. He is known for his work on NFL Monday Night Football (1970), Super Bowl XXIX (1995) and 1987 Florida Citrus Bowl (1987). He was married to Kathie Lee Gifford, Astrid Gifford and Maxine Avis Ewart.\n\n\n6' 1 (1.85 m) Frank Gifford was born on August 16, 1930 in Santa Monica, California, USA as Frank Newton Gifford. He is known for his work on NFL Monday Night Football (1970), Super Bowl ",
+      "answer": "Mini Bio (1) Frank Gifford was born on August 16, 1930 in Santa Monica, California, USA as Frank Newton Gifford. He is known for his work on NFL Monday Night Football (1970), Super Bowl XXIX (1995) and 1987 Florida Citrus Bowl (1987). He was married to Kathie Lee Gifford, Astrid Gifford and Maxine Avis Ewart.\n\n\nMini Bio (1) Frank Gifford was born on August 16, 1930 in Santa Monica, California, USA as Frank Newton Gifford. He is known for his work on NFL Monday Night Football (1970), Super Bowl X",
       "timings": {
-        "stt": 0.007099995855242014,
-        "retrieval": 0.415499962400645,
-        "guardrail": 0.015700003132224083,
-        "generation": 0.021499989088624716,
-        "hallucination_check": 0.11510000331327319,
-        "hedge_check": 0.017200014553964138,
-        "total": 0.6010000361129642
+        "stt": 0.008300004992634058,
+        "retrieval": 1.1292000417597592,
+        "guardrail": 0.021400046534836292,
+        "generation": 0.02150004729628563,
+        "hallucination_check": 0.13539998326450586,
+        "hedge_check": 0.023100001271814108,
+        "total": 1.3495000312104821
       }
     },
     {
@@ -234,15 +256,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.21166688203811646,
-      "answer": "The officials would not disclose many details, including what was discussed on the calls, the identity of the Russian intelligence officials who participated, and how many of Mr. Trump\u2019s advisers were talking to the Russians. It is also unclear whether the conversations had anything to do with Mr. Trump himself.\n\n\nThe need for an independent investigation. As it stands, all three men in charge of the investigations into the Trump campaign are Republicans, and two of the three are vociferous Trum",
+      "answer": "The officials would not disclose many details, including what was discussed on the calls, the identity of the Russian intelligence officials who participated, and how many of Mr. Trump\u2019s advisers were talking to the Russians. It is also unclear whether the conversations had anything to do with Mr. Trump himself.\n\n\nThe officials would not disclose many details, including what was discussed on the calls, the identity of the Russian intelligence officials who participated, and how many of Mr. Trump",
       "timings": {
-        "stt": 0.005199981387704611,
-        "retrieval": 0.29910000739619136,
-        "guardrail": 0.01479999627918005,
-        "generation": 0.021099986042827368,
-        "hallucination_check": 0.12389995390549302,
-        "hedge_check": 0.02050003968179226,
-        "total": 0.4917000187560916
+        "stt": 0.008800008799880743,
+        "retrieval": 1.1187000200152397,
+        "guardrail": 0.029200047720223665,
+        "generation": 0.03090000245720148,
+        "hallucination_check": 0.25340000865980983,
+        "hedge_check": 0.04020001506432891,
+        "total": 1.4948999742045999
       }
     },
     {
@@ -257,15 +279,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.5619924664497375,
-      "answer": "That concludes our how to guide on obtaining three easy to obtain Followers. Be sure and keep watch for our next installment that will detail how to get four more Followers for your Garrison with little to no work! In the meantime, get to work collecting the Followers found above! To read the latest guides, news, and features you can visit our World of Warcraft Game Page.\n\n\nBelow you will find three Followers that live up to that very idea. These Followers are so easy to obtain that you'll find ",
+      "answer": "That concludes our how to guide on obtaining three easy to obtain Followers. Be sure and keep watch for our next installment that will detail how to get four more Followers for your Garrison with little to no work! In the meantime, get to work collecting the Followers found above! To read the latest guides, news, and features you can visit our World of Warcraft Game Page.\n\n\nThat concludes our how to guide on obtaining three easy to obtain Followers. Be sure and keep watch for our next installmen",
       "timings": {
-        "stt": 0.006399990525096655,
-        "retrieval": 0.3744999994523823,
-        "guardrail": 0.01599994720891118,
-        "generation": 0.016900012269616127,
-        "hallucination_check": 0.11879997327923775,
-        "hedge_check": 0.017300015315413475,
-        "total": 0.5584000027738512
+        "stt": 0.01190003240481019,
+        "retrieval": 1.880600000731647,
+        "guardrail": 0.029799994081258774,
+        "generation": 0.026899971999228,
+        "hallucination_check": 0.26569998590275645,
+        "hedge_check": 0.029399991035461426,
+        "total": 2.2610999876633286
       }
     },
     {
@@ -280,15 +302,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.24845199286937714,
-      "answer": "Integrity is about conduct; honesty is about adherence to the facts. The person who without fail submits his timesheet every week, seeking clarification if unsure how to charge some time, is acting with integrity. He is probably also acting with honesty, ensuring that the numbers he reports are correct.\n\n\npart of the problem is that ptsd is unique among medical marijuana conditions since it is a psychiatric disorder not a physical ailment one of the issues with ptsd with medical marijuana is it ",
+      "answer": "Integrity is about conduct; honesty is about adherence to the facts. The person who without fail submits his timesheet every week, seeking clarification if unsure how to charge some time, is acting with integrity. He is probably also acting with honesty, ensuring that the numbers he reports are correct.\n\n\nIntegrity is about conduct; honesty is about adherence to the facts. The person who without fail submits his timesheet every week, seeking clarification if unsure how to charge some time, is ac",
       "timings": {
-        "stt": 0.008000002708286047,
-        "retrieval": 0.4658999969251454,
-        "guardrail": 0.015700003132224083,
-        "generation": 0.01729995710775256,
-        "hallucination_check": 0.1275999820791185,
-        "hedge_check": 0.01750001683831215,
-        "total": 0.6623999797739089
+        "stt": 0.02400000812485814,
+        "retrieval": 1.6302000149153173,
+        "guardrail": 0.025600020308047533,
+        "generation": 0.025499961338937283,
+        "hallucination_check": 0.15520001761615276,
+        "hedge_check": 0.02239999594166875,
+        "total": 1.9036000012420118
       }
     },
     {
@@ -303,15 +325,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.3063816428184509,
-      "answer": "Worldwide, population is seven billion. Projections are that population in the United States will reach 400 million by 2050 \u2013 a 33 percent increase in roughly 40 years\u2019 time; the U.S. registered its 300 millionth resident in 2006. With an increase in world population has come an increase in air pollution.\n\n\nProjections are that population in the United States will reach 400 million by 2050 \u2013 a 33 percent increase in roughly 40 years\u2019 time; the U.S. registered its 300 millionth resident in 2006. ",
+      "answer": "Worldwide, population is seven billion. Projections are that population in the United States will reach 400 million by 2050 \u2013 a 33 percent increase in roughly 40 years\u2019 time; the U.S. registered its 300 millionth resident in 2006. With an increase in world population has come an increase in air pollution.\n\n\nWorldwide, population is seven billion. Projections are that population in the United States will reach 400 million by 2050 \u2013 a 33 percent increase in roughly 40 years\u2019 time; the U.S. registe",
       "timings": {
-        "stt": 0.009300012607127428,
-        "retrieval": 0.34929998219013214,
-        "guardrail": 0.02039998071268201,
-        "generation": 0.018599967006593943,
-        "hallucination_check": 0.10890001431107521,
-        "hedge_check": 0.020499981474131346,
-        "total": 0.534399994648993
+        "stt": 0.016600009985268116,
+        "retrieval": 1.7091999761760235,
+        "guardrail": 0.25790004292503,
+        "generation": 0.08000002708286047,
+        "hallucination_check": 0.3288000007160008,
+        "hedge_check": 0.040300015825778246,
+        "total": 2.467299986165017
       }
     },
     {
@@ -326,15 +348,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.23904570937156677,
-      "answer": "The NHL has a new playoff format for the 2013-14 season.\n\n\nHow much does it cost? The price ranges from $50.00 to $98.00 round trip, depending on how far in advance you make the reservation and how full the train is. Contact Amtrak for pricing information; prices are not available through the Heartland Flyer website.\n\n\nHow much does it cost to recement a tooth crown? How much approximately does it cost to recement a crowned tooth in Charlotte, nc?. Yes I had a tooth replaced with a crown about 1",
+      "answer": "The NHL has a new playoff format for the 2013-14 season.\n\n\nThe NHL has a new playoff format for the 2013-14 season.\n\n\nHow much does it cost? The price ranges from $50.00 to $98.00 round trip, depending on how far in advance you make the reservation and how full the train is. Contact Amtrak for pricing information; prices are not available through the Heartland Flyer website.",
       "timings": {
-        "stt": 0.007399998139590025,
-        "retrieval": 0.5080999690108001,
-        "guardrail": 0.0192999723367393,
-        "generation": 0.02400000812485814,
-        "hallucination_check": 0.09649997809901834,
-        "hedge_check": 0.022099993657320738,
-        "total": 0.6870999932289124
+        "stt": 0.029199989512562752,
+        "retrieval": 1.9679999677464366,
+        "guardrail": 0.03339996328577399,
+        "generation": 0.03200001083314419,
+        "hallucination_check": 0.09899999713525176,
+        "hedge_check": 0.021499989088624716,
+        "total": 2.2051000269129872
       }
     },
     {
@@ -349,15 +371,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.2309401035308838,
-      "answer": "Ringworm infection is caused by a fungus. Fungi (plural of fungus) that cause ringworm live and spread on the outer layer of skin. Ringworm is not caused by a worm or other parasite. Fungi are present everywhere in our environment, including on the human body. They thrive in warm, moist areas, such as locker rooms and swimming pools, and in skin folds.\n\n\nWhat is ringworm and what causes it? Ringworm is the common name given to a fungal infection of the superficial layers of the skin, hair and na",
+      "answer": "Ringworm infection is caused by a fungus. Fungi (plural of fungus) that cause ringworm live and spread on the outer layer of skin. Ringworm is not caused by a worm or other parasite. Fungi are present everywhere in our environment, including on the human body. They thrive in warm, moist areas, such as locker rooms and swimming pools, and in skin folds.\n\n\nRingworm infection is caused by a fungus. Fungi (plural of fungus) that cause ringworm live and spread on the outer layer of skin. Ringworm is ",
       "timings": {
-        "stt": 0.006800051778554916,
-        "retrieval": 0.4480000352486968,
-        "guardrail": 0.014400051441043615,
-        "generation": 0.014699995517730713,
-        "hallucination_check": 0.10679999832063913,
-        "hedge_check": 0.017900019884109497,
-        "total": 0.616899982560426
+        "stt": 0.008300004992634058,
+        "retrieval": 1.7321999766863883,
+        "guardrail": 0.024100008886307478,
+        "generation": 0.02220005262643099,
+        "hallucination_check": 0.132500019390136,
+        "hedge_check": 0.02099998528137803,
+        "total": 1.9549999851733446
       }
     },
     {
@@ -372,15 +394,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.7563755512237549,
-      "answer": "How much does it cost to recement a tooth crown? How much approximately does it cost to recement a crowned tooth in Charlotte, nc?. Yes I had a tooth replaced with a crown about 10 or so years ago in the front and now it is loose Post to Facebook\n\n\nCrowns cost from $500-$3,000 a tooth, depending on materials, complexity, location, and the dentist`s training a beautiful porcelain crown on a front tooth will generally cost much more than a basic crown on a back tooth.its cost is $950 to over $2000",
+      "answer": "How much does it cost to recement a tooth crown? How much approximately does it cost to recement a crowned tooth in Charlotte, nc?. Yes I had a tooth replaced with a crown about 10 or so years ago in the front and now it is loose Post to Facebook\n\n\nHow much does it cost to recement a tooth crown? How much approximately does it cost to recement a crowned tooth in Charlotte, nc?. Yes I had a tooth replaced with a crown about 10 or so years ago in the front and now it is loose Post to Facebook\n\n\nCr",
       "timings": {
-        "stt": 0.006299989763647318,
-        "retrieval": 0.37830002838745713,
-        "guardrail": 0.014499993994832039,
-        "generation": 0.014999997802078724,
-        "hallucination_check": 0.11160003487020731,
-        "hedge_check": 0.017799960914999247,
-        "total": 0.5514000076800585
+        "stt": 0.009400013368576765,
+        "retrieval": 1.2977999867871404,
+        "guardrail": 0.02559996210038662,
+        "generation": 0.028999987989664078,
+        "hallucination_check": 0.11740002082660794,
+        "hedge_check": 0.02099998528137803,
+        "total": 1.5131999971345067
       }
     },
     {
@@ -395,15 +417,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.5129891633987427,
-      "answer": "Find great deals on eBay for barrel o slime and barrel slime. Shop with confidence.\n\n\nRelated: barrel slime slime toy slime goo nickelodeon slime science kit slime green slime glow in the dark slime jelly bracelets kids slime glow putty putty oil slime Refine more Format\n\n\nBarrel O Slime 24 pcs Asst Colors Putty Goo Gag Prank Fun Party Favors Joke Toys",
+      "answer": "Find great deals on eBay for barrel o slime and barrel slime. Shop with confidence.\n\n\nFind great deals on eBay for barrel o slime and barrel slime. Shop with confidence.\n\n\nRelated: barrel slime slime toy slime goo nickelodeon slime science kit slime green slime glow in the dark slime jelly bracelets kids slime glow putty putty oil slime Refine more Format",
       "timings": {
-        "stt": 0.006999995093792677,
-        "retrieval": 0.3703999682329595,
-        "guardrail": 0.013999990187585354,
-        "generation": 0.01309998333454132,
-        "hallucination_check": 0.08239998714998364,
-        "hedge_check": 0.013300043065100908,
-        "total": 0.5080000264570117
+        "stt": 0.009300012607127428,
+        "retrieval": 1.2051999801769853,
+        "guardrail": 0.027600035537034273,
+        "generation": 0.026099965907633305,
+        "hallucination_check": 0.12659997446462512,
+        "hedge_check": 0.021799991372972727,
+        "total": 1.4306999510154128
       }
     },
     {
@@ -418,15 +440,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.22019274532794952,
-      "answer": "How much does it cost? The price ranges from $50.00 to $98.00 round trip, depending on how far in advance you make the reservation and how full the train is. Contact Amtrak for pricing information; prices are not available through the Heartland Flyer website.\n\n\nHow much does it cost to recement a tooth crown? How much approximately does it cost to recement a crowned tooth in Charlotte, nc?. Yes I had a tooth replaced with a crown about 10 or so years ago in the front and now it is loose Post to ",
+      "answer": "How much does it cost? The price ranges from $50.00 to $98.00 round trip, depending on how far in advance you make the reservation and how full the train is. Contact Amtrak for pricing information; prices are not available through the Heartland Flyer website.\n\n\nHow much does it cost? The price ranges from $50.00 to $98.00 round trip, depending on how far in advance you make the reservation and how full the train is. Contact Amtrak for pricing information; prices are not available through the Hea",
       "timings": {
-        "stt": 0.007399998139590025,
-        "retrieval": 0.3774000215344131,
-        "guardrail": 0.015900004655122757,
-        "generation": 0.01850002445280552,
-        "hallucination_check": 0.11659995652735233,
-        "hedge_check": 0.020400038920342922,
-        "total": 0.5657000001519918
+        "stt": 0.014999997802078724,
+        "retrieval": 1.7538999672979116,
+        "guardrail": 0.030099996365606785,
+        "generation": 0.03349996404722333,
+        "hallucination_check": 0.12400001287460327,
+        "hedge_check": 0.020199979189783335,
+        "total": 1.9954000017605722
       }
     },
     {
@@ -441,15 +463,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.6500113010406494,
-      "answer": "Some More Phone Numbers Related To Stubhub Stubhub Telephone toll free customer service number : 1-866-788-2482 Espn Bristol toll free customer service number : +1 (860) 766-2000 Ace Cash Express toll free customer service number : (972) 550-5000 Transit Calgary toll free customer service number : +1 403-262-1000 More about Stubhub StubHub StubHub is an American online marketplace offering their product & services across the world. The company was founded in 2000 by Eric Baker & Jeff Fluhr.\n\n\nSt",
+      "answer": "Some More Phone Numbers Related To Stubhub Stubhub Telephone toll free customer service number : 1-866-788-2482 Espn Bristol toll free customer service number : +1 (860) 766-2000 Ace Cash Express toll free customer service number : (972) 550-5000 Transit Calgary toll free customer service number : +1 403-262-1000 More about Stubhub StubHub StubHub is an American online marketplace offering their product & services across the world. The company was founded in 2000 by Eric Baker & Jeff Fluhr.\n\n\nSo",
       "timings": {
-        "stt": 0.006199989002197981,
-        "retrieval": 0.39599998854100704,
-        "guardrail": 0.014999997802078724,
-        "generation": 0.023800006601959467,
-        "hallucination_check": 0.12419995618984103,
-        "hedge_check": 0.015500001609325409,
-        "total": 0.5898000090382993
+        "stt": 0.009899958968162537,
+        "retrieval": 1.5629999688826501,
+        "guardrail": 0.02589996438473463,
+        "generation": 0.028499984182417393,
+        "hallucination_check": 0.18470000941306353,
+        "hedge_check": 0.020199979189783335,
+        "total": 1.8463999731466174
       }
     },
     {
@@ -466,13 +488,13 @@
       "top_similarity": 0.1632993072271347,
       "answer": "This question is out of domain or lacks strong grounding in the provided dataset. Refusing to guess to prevent hallucination.",
       "timings": {
-        "stt": 0.006299989763647318,
-        "retrieval": 0.3678999491967261,
-        "guardrail": 1.3411000254563987,
+        "stt": 0.011700030881911516,
+        "retrieval": 1.6644999850541353,
+        "guardrail": 2.0685999770648777,
         "generation": 0.0,
         "hallucination_check": 0.0,
         "hedge_check": 0.0,
-        "total": 1.7238999716937542
+        "total": 3.762100008316338
       }
     },
     {
@@ -487,15 +509,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.28867512941360474,
-      "answer": "Joseph Moore appeared on the second season of Shark Tank, seeking $500,000 for 10 percent of his company that makes nasal air filters, First Defense Nasal Screens.\n\n\nFilter Your Life. Welcome to the First Defense Nasal Screens\u2122 online store. Based on customer feedback, we've put together various packages to better meet your Nasal Screen needs. Please browse our store and enjoy your shopping experience.\n\n\nThis is our largest size you can order online. You receive a 3 (three) month supply or 84 se",
+      "answer": "Joseph Moore appeared on the second season of Shark Tank, seeking $500,000 for 10 percent of his company that makes nasal air filters, First Defense Nasal Screens.\n\n\nFilter Your Life. Welcome to the First Defense Nasal Screens\u2122 online store. Based on customer feedback, we've put together various packages to better meet your Nasal Screen needs. Please browse our store and enjoy your shopping experience.\n\n\nFilter Your Life. Welcome to the First Defense Nasal Screens\u2122 online store. Based on custome",
       "timings": {
-        "stt": 0.00689999433234334,
-        "retrieval": 0.36400003591552377,
-        "guardrail": 0.019099970813840628,
-        "generation": 0.02069998299703002,
-        "hallucination_check": 0.14100002590566874,
-        "hedge_check": 0.021599989850074053,
-        "total": 0.5827000131830573
+        "stt": 0.016900012269616127,
+        "retrieval": 2.1259000059217215,
+        "guardrail": 0.08349999552592635,
+        "generation": 0.07310003275051713,
+        "hallucination_check": 0.36180001916363835,
+        "hedge_check": 0.04810001701116562,
+        "total": 2.7556000277400017
       }
     },
     {
@@ -510,15 +532,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.5583533048629761,
-      "answer": "A) Uncheck the icons that you want to have removed from your desktop, and go to step 8. (see screenshot below step 8). Related Tutorials. 1  How to Create a Desktop Icon Settings Shortcut in Windows. 2  How to Prevent or Allow Themes to Change Desktop Icons in Windows 7 and Windows 8.\n\n\nTo Add a Default Desktop Icon A) Check the icons that you want to have added on your desktop, and go to step 8. (see screenshot below step 8) 7. To Remove a Default Desktop Icon A) Uncheck the icons that you want",
+      "answer": "A) Uncheck the icons that you want to have removed from your desktop, and go to step 8. (see screenshot below step 8). Related Tutorials. 1  How to Create a Desktop Icon Settings Shortcut in Windows. 2  How to Prevent or Allow Themes to Change Desktop Icons in Windows 7 and Windows 8.\n\n\nA) Uncheck the icons that you want to have removed from your desktop, and go to step 8. (see screenshot below step 8). Related Tutorials. 1  How to Create a Desktop Icon Settings Shortcut in Windows. 2  How to Pr",
       "timings": {
-        "stt": 0.006400048732757568,
-        "retrieval": 0.5227000219747424,
-        "guardrail": 0.035400036722421646,
-        "generation": 0.032800016924738884,
-        "hallucination_check": 0.19409996457397938,
-        "hedge_check": 0.026200024876743555,
-        "total": 0.8323999936692417
+        "stt": 0.0192999723367393,
+        "retrieval": 2.487100020516664,
+        "guardrail": 0.052099989261478186,
+        "generation": 0.05530001362785697,
+        "hallucination_check": 0.17880002269521356,
+        "hedge_check": 0.03300001844763756,
+        "total": 2.8572999872267246
       }
     },
     {
@@ -533,15 +555,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.39901190996170044,
-      "answer": "the first flight from bangalore to paris is at 1 45 am which is delta airline 8471 when does the last flight leave from bangalore the last flight from bangalore to paris is at which is airlineheck out delta bangalore paris flights search for cheap flight tickets and do a booking in a jiffy delta airlines has 6 flights weekly between bangalore and paris\n\n\nbook delta bangalore paris flight air tickets be it travel booking or travel information cleartrip com makes it as easy as pie check out delta ",
+      "answer": "the first flight from bangalore to paris is at 1 45 am which is delta airline 8471 when does the last flight leave from bangalore the last flight from bangalore to paris is at which is airlineheck out delta bangalore paris flights search for cheap flight tickets and do a booking in a jiffy delta airlines has 6 flights weekly between bangalore and paris\n\n\nthe first flight from bangalore to paris is at 1 45 am which is delta airline 8471 when does the last flight leave from bangalore the last flig",
       "timings": {
-        "stt": 0.00589998671784997,
-        "retrieval": 0.36810000892728567,
-        "guardrail": 0.016199948731809855,
-        "generation": 0.03840000135824084,
-        "hallucination_check": 0.16840000171214342,
-        "hedge_check": 0.016700010746717453,
-        "total": 0.6237000343389809
+        "stt": 0.025600020308047533,
+        "retrieval": 1.613199943676591,
+        "guardrail": 0.04550005542114377,
+        "generation": 0.04840001929551363,
+        "hallucination_check": 0.2762000076472759,
+        "hedge_check": 0.029999995604157448,
+        "total": 2.072500006761402
       }
     },
     {
@@ -556,15 +578,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.47043752670288086,
-      "answer": "How to Grow Cantaloupe | Guide to Growing Cantaloupe. Cantaloupe generally refers to any melon with the familiar orange, juicy flesh. In times past, it referred only to those smooth, non-netted varieties native to Europe.\n\n\nHow to Grow Honeydew Melons. The flesh of a honeydew is creamy pale to very light green, and is a great fruit to grow for anyone who doesn\u2019t want to maintain an orchard. For cooler areas with shorter growing seasons, you can try growing Earlidew melons. They mature in 80 days",
+      "answer": "How to Grow Cantaloupe | Guide to Growing Cantaloupe. Cantaloupe generally refers to any melon with the familiar orange, juicy flesh. In times past, it referred only to those smooth, non-netted varieties native to Europe.\n\n\nHow to Grow Cantaloupe | Guide to Growing Cantaloupe. Cantaloupe generally refers to any melon with the familiar orange, juicy flesh. In times past, it referred only to those smooth, non-netted varieties native to Europe.\n\n\nHow to Grow Honeydew Melons. The flesh of a honeydew",
       "timings": {
-        "stt": 0.006399990525096655,
-        "retrieval": 0.4200999974273145,
-        "guardrail": 0.03349996404722333,
-        "generation": 0.036299985367804766,
-        "hallucination_check": 0.2012000186368823,
-        "hedge_check": 0.022599997464567423,
-        "total": 0.7317999843508005
+        "stt": 0.008500006515532732,
+        "retrieval": 1.2601999915204942,
+        "guardrail": 0.03320001997053623,
+        "generation": 0.04060001811012626,
+        "hallucination_check": 0.17720001051202416,
+        "hedge_check": 0.027600035537034273,
+        "total": 1.5615999582223594
       }
     },
     {
@@ -579,15 +601,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.4722250998020172,
-      "answer": "Test Pipe, Replaces Catalytic Converter (C-ARA664). The test pipe is a bolt-in pipe that replaces the catalytic converter on Minis up to 2000.\n\n\nProduct Description. The test pipe is a bolt-in pipe that replaces the catalytic converter on Minis up to 2000. Order GEX7761 seal separately. The test pipe is a bolt-in pipe that replaces the catalytic converter on Minis up to 2000. Order GEX7761 seal separately. 1  Exhaust.\n\n\nThis is a step-by-step video where I will teach you how to D.I.Y. replace yo",
+      "answer": "Test Pipe, Replaces Catalytic Converter (C-ARA664). The test pipe is a bolt-in pipe that replaces the catalytic converter on Minis up to 2000.\n\n\nTest Pipe, Replaces Catalytic Converter (C-ARA664). The test pipe is a bolt-in pipe that replaces the catalytic converter on Minis up to 2000.\n\n\nProduct Description. The test pipe is a bolt-in pipe that replaces the catalytic converter on Minis up to 2000. Order GEX7761 seal separately. The test pipe is a bolt-in pipe that replaces the catalytic convert",
       "timings": {
-        "stt": 0.006299989763647318,
-        "retrieval": 0.3494999837130308,
-        "guardrail": 0.015099998563528061,
-        "generation": 0.015400000847876072,
-        "hallucination_check": 0.10830000974237919,
-        "hedge_check": 0.01629994949325919,
-        "total": 0.5214999546296895
+        "stt": 0.007099995855242014,
+        "retrieval": 1.406800001859665,
+        "guardrail": 0.03130000550299883,
+        "generation": 0.035999983083456755,
+        "hallucination_check": 0.1498999772593379,
+        "hedge_check": 0.026999972760677338,
+        "total": 1.6754999523982406
       }
     },
     {
@@ -602,15 +624,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.6674237847328186,
-      "answer": "arbitrary-based on or subject to individual discretion or preference or sometimes impulse or caprice; an arbitrary decision; the arbitrary rule of a dictator; an arbitrary penalty; of arbitrary size and shape; an arbitrary choice; arbitrary division of the group into halves.\n\n\n1. arbitrary-based on or subject to individual discretion or preference or sometimes impulse or caprice; an arbitrary decision; the arbitrary rule of a dictator; an arbitrary penalty; of arbitrary size and shape; an arbitr",
+      "answer": "arbitrary-based on or subject to individual discretion or preference or sometimes impulse or caprice; an arbitrary decision; the arbitrary rule of a dictator; an arbitrary penalty; of arbitrary size and shape; an arbitrary choice; arbitrary division of the group into halves.\n\n\narbitrary-based on or subject to individual discretion or preference or sometimes impulse or caprice; an arbitrary decision; the arbitrary rule of a dictator; an arbitrary penalty; of arbitrary size and shape; an arbitrary",
       "timings": {
-        "stt": 0.006200047209858894,
-        "retrieval": 0.33599999733269215,
-        "guardrail": 0.01279998105019331,
-        "generation": 0.01610000617802143,
-        "hallucination_check": 0.0914999982342124,
-        "hedge_check": 0.018000020645558834,
-        "total": 0.4884999943897128
+        "stt": 0.02600002335384488,
+        "retrieval": 1.8100999877788126,
+        "guardrail": 0.10059995111078024,
+        "generation": 0.07579999510198832,
+        "hallucination_check": 0.21899997955188155,
+        "hedge_check": 0.03950000973418355,
+        "total": 2.307299990206957
       }
     },
     {
@@ -625,15 +647,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.5406205058097839,
-      "answer": "Average Time to Degree Peer Comparisons, 2014-15 Degree Recipients. These reports show average time-to-degree metrics for Undergraduate majors, including elapsed calendar years, credits to degree, and terms enrolled to degree.\n\n\nThis analysis examines predictors of time-to-degree for bachelors degree recipients and includes information by school/college. This analysis is part of a larger project coordinated by the Vice Provost for Teaching and Learning around reducing time-to-degree and improvin",
+      "answer": "Average Time to Degree Peer Comparisons, 2014-15 Degree Recipients. These reports show average time-to-degree metrics for Undergraduate majors, including elapsed calendar years, credits to degree, and terms enrolled to degree.\n\n\nAverage Time to Degree Peer Comparisons, 2014-15 Degree Recipients. These reports show average time-to-degree metrics for Undergraduate majors, including elapsed calendar years, credits to degree, and terms enrolled to degree.\n\n\nThis analysis examines predictors of time-",
       "timings": {
-        "stt": 0.005999987479299307,
-        "retrieval": 0.32729998929426074,
-        "guardrail": 0.017700018361210823,
-        "generation": 0.016400008462369442,
-        "hallucination_check": 0.2683000057004392,
-        "hedge_check": 0.02099998528137803,
-        "total": 0.6670000148005784
+        "stt": 0.018700025975704193,
+        "retrieval": 1.1808000272139907,
+        "guardrail": 0.03260001540184021,
+        "generation": 0.03400002606213093,
+        "hallucination_check": 0.19489997066557407,
+        "hedge_check": 0.028499984182417393,
+        "total": 1.5081999590620399
       }
     },
     {
@@ -648,15 +670,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.3162277936935425,
-      "answer": "What is ringworm and what causes it? Ringworm is the common name given to a fungal infection of the superficial layers of the skin, hair and nails. Ringworm infections can occur in humans and in all domesticated species of animals.\n\n\nCarson believes that as man tries to eliminate unwanted insects and weeds, however he is actually causing more problems by polluting the environment with, for example, DDT and harming living things. Carson adds that the intensification of agriculture is causing othe",
+      "answer": "What is ringworm and what causes it? Ringworm is the common name given to a fungal infection of the superficial layers of the skin, hair and nails. Ringworm infections can occur in humans and in all domesticated species of animals.\n\n\nWhat is ringworm and what causes it? Ringworm is the common name given to a fungal infection of the superficial layers of the skin, hair and nails. Ringworm infections can occur in humans and in all domesticated species of animals.\n\n\nCarson believes that as man trie",
       "timings": {
-        "stt": 0.005700043402612209,
-        "retrieval": 0.34550001146271825,
-        "guardrail": 0.015199999324977398,
-        "generation": 0.017000013031065464,
-        "hallucination_check": 0.1306000049225986,
-        "hedge_check": 0.01910002902150154,
-        "total": 0.5437999498099089
+        "stt": 0.01190003240481019,
+        "retrieval": 1.4017000212334096,
+        "guardrail": 0.03539997851476073,
+        "generation": 0.034699973184615374,
+        "hallucination_check": 0.17860002117231488,
+        "hedge_check": 0.02889998722821474,
+        "total": 1.7107999883592129
       }
     },
     {
@@ -671,15 +693,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.2601330280303955,
-      "answer": "However, Team Up episodes would not become a common practice until 1999's Power Rangers Lost Galaxy's To The Tenth Power and the Power Of Pink, a two part crossover with the Space Rangers of Power Rangers In Space (though there were exceptions).\n\n\nThe 14-minute 'bootleg' film stars a scar-faced and robotic-limbed James Van Der Beek as a traitorous former Red Ranger, interrogating the last surviving member of the of the Power Rangers after the rest of the team have been brutally murdered.\n\n\nExamp",
+      "answer": "However, Team Up episodes would not become a common practice until 1999's Power Rangers Lost Galaxy's To The Tenth Power and the Power Of Pink, a two part crossover with the Space Rangers of Power Rangers In Space (though there were exceptions).\n\n\nHowever, Team Up episodes would not become a common practice until 1999's Power Rangers Lost Galaxy's To The Tenth Power and the Power Of Pink, a two part crossover with the Space Rangers of Power Rangers In Space (though there were exceptions).\n\n\nThe ",
       "timings": {
-        "stt": 0.016499951016157866,
-        "retrieval": 0.9627999970689416,
-        "guardrail": 0.027499976567924023,
-        "generation": 0.02239999594166875,
-        "hallucination_check": 0.11909997556358576,
-        "hedge_check": 0.0171000137925148,
-        "total": 1.1805000249296427
+        "stt": 0.008700008038431406,
+        "retrieval": 1.1903000413440168,
+        "guardrail": 0.023500004317611456,
+        "generation": 0.042300031054764986,
+        "hallucination_check": 0.15380000695586205,
+        "hedge_check": 0.024600012693554163,
+        "total": 1.4560000272467732
       }
     },
     {
@@ -694,19 +716,479 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.6929023265838623,
-      "answer": "Global Warming is often euphemistically referred to as \u201cClimate Change\u201d. Study of climate vs. study of weather. Climatology is the study of climate, scientifically defined as weather conditions averaged over a period of time and is a branch of the atmospheric sciences.\n\n\nThe study of weather and climate is called meteorology.\n\n\nStudy of climate vs. study of weather Climatology is the study of climate, scientifically defined as weather conditions averaged over a period of time and is a branch of ",
+      "answer": "Global Warming is often euphemistically referred to as \u201cClimate Change\u201d. Study of climate vs. study of weather. Climatology is the study of climate, scientifically defined as weather conditions averaged over a period of time and is a branch of the atmospheric sciences.\n\n\nGlobal Warming is often euphemistically referred to as \u201cClimate Change\u201d. Study of climate vs. study of weather. Climatology is the study of climate, scientifically defined as weather conditions averaged over a period of time and",
       "timings": {
-        "stt": 0.006299989763647318,
-        "retrieval": 0.33879996044561267,
-        "guardrail": 0.018899969290941954,
-        "generation": 0.020300038158893585,
-        "hallucination_check": 0.1156999496743083,
-        "hedge_check": 0.021400046534836292,
-        "total": 0.5304000223986804
+        "stt": 0.02340000355616212,
+        "retrieval": 2.138999989256263,
+        "guardrail": 0.06210000719875097,
+        "generation": 0.09869999485090375,
+        "hallucination_check": 0.19260001135990024,
+        "hedge_check": 0.04429998807609081,
+        "total": 2.5890999822877347
       }
     },
     {
       "index": 31,
+      "query_id": "368321",
+      "query": "how to make an oil infused herbal infusion",
+      "ground_truth_answer": "No Answer Present.",
+      "expected_action": "REFUSE",
+      "actual_action": "ANSWER",
+      "status": "FP",
+      "refused": false,
+      "refusal_reason": "",
+      "trigger_layer": "N/A",
+      "top_similarity": 0.34355899691581726,
+      "answer": "How to Grow Cantaloupe | Guide to Growing Cantaloupe. Cantaloupe generally refers to any melon with the familiar orange, juicy flesh. In times past, it referred only to those smooth, non-netted varieties native to Europe.\n\n\nHow to Grow Cantaloupe | Guide to Growing Cantaloupe. Cantaloupe generally refers to any melon with the familiar orange, juicy flesh. In times past, it referred only to those smooth, non-netted varieties native to Europe.\n\n\nThat concludes our how to guide on obtaining three e",
+      "timings": {
+        "stt": 0.008400005754083395,
+        "retrieval": 1.2932000099681318,
+        "guardrail": 0.02759997732937336,
+        "generation": 0.027099973522126675,
+        "hallucination_check": 0.1852000132203102,
+        "hedge_check": 0.026899971999228,
+        "total": 1.5826000017113984
+      }
+    },
+    {
+      "index": 32,
+      "query_id": "113570",
+      "query": "culture of sociology definition",
+      "ground_truth_answer": "The systematic analysis of culture, usually understood as the ensemble of symbolic codes used by a members of a society, as it is manifested in the society.",
+      "expected_action": "ANSWER",
+      "actual_action": "ANSWER",
+      "status": "TP",
+      "refused": false,
+      "refusal_reason": "",
+      "trigger_layer": "N/A",
+      "top_similarity": 0.5855400562286377,
+      "answer": "2.Drawbacks of Barter System of Exchange. (i) Lack of double coincidence of wants (ii) Lack of common measures of value. (iii) Lack of store of value (iv) Lack of standard for deferred payments. (v) Lack of divisibility. 3. Evolution of Money: Money finds its origin to facilitate the need of exchange.\n\n\n2.Drawbacks of Barter System of Exchange. (i) Lack of double coincidence of wants (ii) Lack of common measures of value. (iii) Lack of store of value (iv) Lack of standard for deferred payments. ",
+      "timings": {
+        "stt": 0.007800001185387373,
+        "retrieval": 1.0723000159487128,
+        "guardrail": 0.04360004095360637,
+        "generation": 0.030199997127056122,
+        "hallucination_check": 0.1797000295482576,
+        "hedge_check": 0.02759997732937336,
+        "total": 1.3752999948337674
+      }
+    },
+    {
+      "index": 33,
+      "query_id": "126172",
+      "query": "define radical neck",
+      "ground_truth_answer": "It is a surgical procedure that is used to remove cancerous tissues or growths in the head or neck.",
+      "expected_action": "ANSWER",
+      "actual_action": "REFUSE",
+      "status": "FN",
+      "refused": true,
+      "refusal_reason": "Refusal: Similarity score (0.109) below strict threshold (0.180).",
+      "trigger_layer": "Layer 3 (Threshold Gate)",
+      "top_similarity": 0.10910894721746445,
+      "answer": "This question is out of domain or lacks strong grounding in the provided dataset. Refusing to guess to prevent hallucination.",
+      "timings": {
+        "stt": 0.008600007276982069,
+        "retrieval": 1.1716000153683126,
+        "guardrail": 2.4990999954752624,
+        "generation": 0.0,
+        "hallucination_check": 0.0,
+        "hedge_check": 0.0,
+        "total": 3.696500032674521
+      }
+    },
+    {
+      "index": 34,
+      "query_id": "198064",
+      "query": "half cup how many ounces",
+      "ground_truth_answer": "No Answer Present.",
+      "expected_action": "REFUSE",
+      "actual_action": "ANSWER",
+      "status": "FP",
+      "refused": false,
+      "refusal_reason": "",
+      "trigger_layer": "N/A",
+      "top_similarity": 0.18463723361492157,
+      "answer": "How much does it cost? The price ranges from $50.00 to $98.00 round trip, depending on how far in advance you make the reservation and how full the train is. Contact Amtrak for pricing information; prices are not available through the Heartland Flyer website.\n\n\nHow much does it cost? The price ranges from $50.00 to $98.00 round trip, depending on how far in advance you make the reservation and how full the train is. Contact Amtrak for pricing information; prices are not available through the Hea",
+      "timings": {
+        "stt": 0.007499998901039362,
+        "retrieval": 0.9600000339560211,
+        "guardrail": 0.023200002033263445,
+        "generation": 0.027200032491236925,
+        "hallucination_check": 0.22559997159987688,
+        "hedge_check": 0.024200009647756815,
+        "total": 1.2804000289179385
+      }
+    },
+    {
+      "index": 35,
+      "query_id": "129220",
+      "query": "define workday",
+      "ground_truth_answer": "No Answer Present.",
+      "expected_action": "REFUSE",
+      "actual_action": "REFUSE",
+      "status": "TN",
+      "refused": true,
+      "refusal_reason": "Refusal: Similarity score (0.154) below strict threshold (0.180).",
+      "trigger_layer": "Layer 3 (Threshold Gate)",
+      "top_similarity": 0.15430335700511932,
+      "answer": "This question is out of domain or lacks strong grounding in the provided dataset. Refusing to guess to prevent hallucination.",
+      "timings": {
+        "stt": 0.012299977242946625,
+        "retrieval": 1.2913999962620437,
+        "guardrail": 2.198799978941679,
+        "generation": 0.0,
+        "hallucination_check": 0.0,
+        "hedge_check": 0.0,
+        "total": 3.522199986036867
+      }
+    },
+    {
+      "index": 36,
+      "query_id": "331047",
+      "query": "how much xbox games cost",
+      "ground_truth_answer": "$80 to $250",
+      "expected_action": "ANSWER",
+      "actual_action": "ANSWER",
+      "status": "TP",
+      "refused": false,
+      "refusal_reason": "",
+      "trigger_layer": "N/A",
+      "top_similarity": 0.35729479789733887,
+      "answer": "How much does it cost to recement a tooth crown? How much approximately does it cost to recement a crowned tooth in Charlotte, nc?. Yes I had a tooth replaced with a crown about 10 or so years ago in the front and now it is loose Post to Facebook\n\n\nHow much does it cost to recement a tooth crown? How much approximately does it cost to recement a crowned tooth in Charlotte, nc?. Yes I had a tooth replaced with a crown about 10 or so years ago in the front and now it is loose Post to Facebook\n\n\nHo",
+      "timings": {
+        "stt": 0.015500001609325409,
+        "retrieval": 2.1303999819792807,
+        "guardrail": 0.08189998334273696,
+        "generation": 0.0811999780125916,
+        "hallucination_check": 0.21709996508434415,
+        "hedge_check": 0.037299992982298136,
+        "total": 2.5896999868564308
+      }
+    },
+    {
+      "index": 37,
+      "query_id": "63220",
+      "query": "can a signed stipulation be overturned",
+      "ground_truth_answer": "No Answer Present.",
+      "expected_action": "REFUSE",
+      "actual_action": "ANSWER",
+      "status": "FP",
+      "refused": false,
+      "refusal_reason": "",
+      "trigger_layer": "N/A",
+      "top_similarity": 0.3965258002281189,
+      "answer": "Examples of corporation in a Sentence. 1  He works as a consultant for several large corporations. 2  a substantial corporation that showed that he was a sucker for all-you-can-eat buffets.\n\n\nExamples of corporation in a Sentence. 1  He works as a consultant for several large corporations. 2  a substantial corporation that showed that he was a sucker for all-you-can-eat buffets.\n\n\nDermatophytosis, also known as ringworm, is a fungal infection of the skin. Typically it results in a red, itchy, sc",
+      "timings": {
+        "stt": 0.009000010322779417,
+        "retrieval": 1.1893000337295234,
+        "guardrail": 0.1705000177025795,
+        "generation": 0.03950000973418355,
+        "hallucination_check": 0.15520001761615276,
+        "hedge_check": 0.030700000934302807,
+        "total": 1.6113999881781638
+      }
+    },
+    {
+      "index": 38,
+      "query_id": "74039",
+      "query": "can stress crack on glass pane be remedied",
+      "ground_truth_answer": "No Answer Present.",
+      "expected_action": "REFUSE",
+      "actual_action": "REFUSE",
+      "status": "TN",
+      "refused": true,
+      "refusal_reason": "Refusal: Similarity score (0.170) below strict threshold (0.180).",
+      "trigger_layer": "Layer 3 (Threshold Gate)",
+      "top_similarity": 0.17038854956626892,
+      "answer": "This question is out of domain or lacks strong grounding in the provided dataset. Refusing to guess to prevent hallucination.",
+      "timings": {
+        "stt": 0.02340000355616212,
+        "retrieval": 2.371800015680492,
+        "guardrail": 3.612399974372238,
+        "generation": 0.0,
+        "hallucination_check": 0.0,
+        "hedge_check": 0.0,
+        "total": 6.048300012480468
+      }
+    },
+    {
+      "index": 39,
+      "query_id": "1060359",
+      "query": "what is basal in dna",
+      "ground_truth_answer": "Bind to cis-acting DNA sequences RNA Polymerase and the group of protein that directly interact with it are called the basal transcription apparatus.",
+      "expected_action": "ANSWER",
+      "actual_action": "ANSWER",
+      "status": "TP",
+      "refused": false,
+      "refusal_reason": "",
+      "trigger_layer": "N/A",
+      "top_similarity": 0.42008402943611145,
+      "answer": "hence, a white lie in some cases, is a result of integrity. integrity is the value and morals of a individual in relation or in addition to honesty. honestly is frankness and as the other guy said, adherence to facts.\n\n\nhence, a white lie in some cases, is a result of integrity. integrity is the value and morals of a individual in relation or in addition to honesty. honestly is frankness and as the other guy said, adherence to facts.\n\n\nWhat is ringworm and what causes it? Ringworm is the common ",
+      "timings": {
+        "stt": 0.013199984095990658,
+        "retrieval": 1.182100037112832,
+        "guardrail": 0.025900022592395544,
+        "generation": 0.025799963623285294,
+        "hallucination_check": 0.15969999367371202,
+        "hedge_check": 0.04090002039447427,
+        "total": 1.465100038331002
+      }
+    },
+    {
+      "index": 40,
+      "query_id": "229231",
+      "query": "how effective is boniva",
+      "ground_truth_answer": "No Answer Present.",
+      "expected_action": "REFUSE",
+      "actual_action": "ANSWER",
+      "status": "FP",
+      "refused": false,
+      "refusal_reason": "",
+      "trigger_layer": "N/A",
+      "top_similarity": 0.3207501471042633,
+      "answer": "Integrity is about conduct; honesty is about adherence to the facts. The person who without fail submits his timesheet every week, seeking clarification if unsure how to charge some time, is acting with integrity. He is probably also acting with honesty, ensuring that the numbers he reports are correct.\n\n\nIntegrity is about conduct; honesty is about adherence to the facts. The person who without fail submits his timesheet every week, seeking clarification if unsure how to charge some time, is ac",
+      "timings": {
+        "stt": 0.012300035450607538,
+        "retrieval": 1.3119999784976244,
+        "guardrail": 0.03700004890561104,
+        "generation": 0.03860000288113952,
+        "hallucination_check": 0.19829999655485153,
+        "hedge_check": 0.035999983083456755,
+        "total": 1.6556999762542546
+      }
+    },
+    {
+      "index": 41,
+      "query_id": "267380",
+      "query": "how long should you carb cycle",
+      "ground_truth_answer": "Two and eight weeks",
+      "expected_action": "ANSWER",
+      "actual_action": "ANSWER",
+      "status": "TP",
+      "refused": false,
+      "refusal_reason": "",
+      "trigger_layer": "N/A",
+      "top_similarity": 0.26923078298568726,
+      "answer": "Figure how many kWh you need to generate each hour. From the map above you can see that if you live in a yellow area that you'll get 5 to 6 hours of peak sun per day on average. We'll call that 5 hours/day to be conservative. Since you need to generate 29.6 kwH/day, you need a 29.6 kWh / 5 hours = 5.92 kWp system.\n\n\nFigure how many kWh you need to generate each hour. From the map above you can see that if you live in a yellow area that you'll get 5 to 6 hours of peak sun per day on average. We'l",
+      "timings": {
+        "stt": 0.018300022929906845,
+        "retrieval": 1.2784999562427402,
+        "guardrail": 0.02559996210038662,
+        "generation": 0.026300025638192892,
+        "hallucination_check": 0.1762000028975308,
+        "hedge_check": 0.026499968953430653,
+        "total": 1.5666999970562756
+      }
+    },
+    {
+      "index": 42,
+      "query_id": "1090352",
+      "query": "sty causes",
+      "ground_truth_answer": "Styes are caused by infections of the oil glands in the eyelid, or staphylococcus bacteria.",
+      "expected_action": "ANSWER",
+      "actual_action": "REFUSE",
+      "status": "FN",
+      "refused": true,
+      "refusal_reason": "Refusal: Similarity score (0.123) below strict threshold (0.180).",
+      "trigger_layer": "Layer 3 (Threshold Gate)",
+      "top_similarity": 0.12309148907661438,
+      "answer": "This question is out of domain or lacks strong grounding in the provided dataset. Refusing to guess to prevent hallucination.",
+      "timings": {
+        "stt": 0.009999959729611874,
+        "retrieval": 1.4021999668329954,
+        "guardrail": 2.0072999759577215,
+        "generation": 0.0,
+        "hallucination_check": 0.0,
+        "hedge_check": 0.0,
+        "total": 3.4357000258751214
+      }
+    },
+    {
+      "index": 43,
+      "query_id": "202891",
+      "query": "highest record temperature for redding ca",
+      "ground_truth_answer": "118 F",
+      "expected_action": "ANSWER",
+      "actual_action": "ANSWER",
+      "status": "TP",
+      "refused": false,
+      "refusal_reason": "",
+      "trigger_layer": "N/A",
+      "top_similarity": 0.2702949345111847,
+      "answer": "By institutional control, the median time to earn a degree was 55 months for 2008 bachelor's degree recipients graduating from public institutions, 45 months for graduates of private nonprofit institutions, and 103 months for graduates of private for-profit institutions.\n\n\nBy institutional control, the median time to earn a degree was 55 months for 2008 bachelor's degree recipients graduating from public institutions, 45 months for graduates of private nonprofit institutions, and 103 months for ",
+      "timings": {
+        "stt": 0.028499984182417393,
+        "retrieval": 1.8289000145159662,
+        "guardrail": 0.03390002530068159,
+        "generation": 0.031000003218650818,
+        "hallucination_check": 0.16729999333620071,
+        "hedge_check": 0.02670002868399024,
+        "total": 2.1433000219985843
+      }
+    },
+    {
+      "index": 44,
+      "query_id": "112025",
+      "query": "court of two sisters brunch price",
+      "ground_truth_answer": "No Answer Present.",
+      "expected_action": "REFUSE",
+      "actual_action": "ANSWER",
+      "status": "FP",
+      "refused": false,
+      "refusal_reason": "",
+      "trigger_layer": "N/A",
+      "top_similarity": 0.41403934359550476,
+      "answer": "2.Drawbacks of Barter System of Exchange. (i) Lack of double coincidence of wants (ii) Lack of common measures of value. (iii) Lack of store of value (iv) Lack of standard for deferred payments. (v) Lack of divisibility. 3. Evolution of Money: Money finds its origin to facilitate the need of exchange.\n\n\n2.Drawbacks of Barter System of Exchange. (i) Lack of double coincidence of wants (ii) Lack of common measures of value. (iii) Lack of store of value (iv) Lack of standard for deferred payments. ",
+      "timings": {
+        "stt": 0.009399955160915852,
+        "retrieval": 1.5064000035636127,
+        "guardrail": 0.03940000897273421,
+        "generation": 0.04339998122304678,
+        "hallucination_check": 0.19989995053038,
+        "hedge_check": 0.02900004619732499,
+        "total": 1.845699967816472
+      }
+    },
+    {
+      "index": 45,
+      "query_id": "317450",
+      "query": "how much does matt lauer make a year",
+      "ground_truth_answer": "$20 million",
+      "expected_action": "ANSWER",
+      "actual_action": "ANSWER",
+      "status": "TP",
+      "refused": false,
+      "refusal_reason": "",
+      "trigger_layer": "N/A",
+      "top_similarity": 0.4210759401321411,
+      "answer": "How much does it cost to recement a tooth crown? How much approximately does it cost to recement a crowned tooth in Charlotte, nc?. Yes I had a tooth replaced with a crown about 10 or so years ago in the front and now it is loose Post to Facebook\n\n\nHow much does it cost to recement a tooth crown? How much approximately does it cost to recement a crowned tooth in Charlotte, nc?. Yes I had a tooth replaced with a crown about 10 or so years ago in the front and now it is loose Post to Facebook\n\n\nHo",
+      "timings": {
+        "stt": 0.009000010322779417,
+        "retrieval": 1.2807000312022865,
+        "guardrail": 0.025900022592395544,
+        "generation": 0.023300002794712782,
+        "hallucination_check": 0.16520003555342555,
+        "hedge_check": 0.023800006601959467,
+        "total": 1.545200007967651
+      }
+    },
+    {
+      "index": 46,
+      "query_id": "58871",
+      "query": "california domestic violence leave laws",
+      "ground_truth_answer": "No Answer Present.",
+      "expected_action": "REFUSE",
+      "actual_action": "REFUSE",
+      "status": "TN",
+      "refused": true,
+      "refusal_reason": "Refusal: Similarity score (0.061) below strict threshold (0.180).",
+      "trigger_layer": "Layer 3 (Threshold Gate)",
+      "top_similarity": 0.06142950803041458,
+      "answer": "This question is out of domain or lacks strong grounding in the provided dataset. Refusing to guess to prevent hallucination.",
+      "timings": {
+        "stt": 0.025799963623285294,
+        "retrieval": 2.1573000121861696,
+        "guardrail": 3.7527999957092106,
+        "generation": 0.0,
+        "hallucination_check": 0.0,
+        "hedge_check": 0.0,
+        "total": 5.963900010101497
+      }
+    },
+    {
+      "index": 47,
+      "query_id": "373460",
+      "query": "how to print an excel sheet",
+      "ground_truth_answer": "Step 1. Go into Print form of Microsoft Excel by clicking on FILE tab in the Ribbon bar. Step 2. Then do left mouse click on Print in the FILE menu. Step 3. On the Print form, you can see that our excel sheet spread on three pages. Click on Page Setup. Step 4. The Page Setup dialog will show up. Click on Page tab and look at Scaling section. There is one option named Fit to, Click to select that option.",
+      "expected_action": "ANSWER",
+      "actual_action": "ANSWER",
+      "status": "TP",
+      "refused": false,
+      "refusal_reason": "",
+      "trigger_layer": "N/A",
+      "top_similarity": 0.4435327649116516,
+      "answer": "How to Grow Cantaloupe | Guide to Growing Cantaloupe. Cantaloupe generally refers to any melon with the familiar orange, juicy flesh. In times past, it referred only to those smooth, non-netted varieties native to Europe.\n\n\nHow to Grow Cantaloupe | Guide to Growing Cantaloupe. Cantaloupe generally refers to any melon with the familiar orange, juicy flesh. In times past, it referred only to those smooth, non-netted varieties native to Europe.\n\n\nThat concludes our how to guide on obtaining three e",
+      "timings": {
+        "stt": 0.022599997464567423,
+        "retrieval": 2.0111000048927963,
+        "guardrail": 0.06049999501556158,
+        "generation": 0.07899996126070619,
+        "hallucination_check": 0.2639999729581177,
+        "hedge_check": 0.04020001506432891,
+        "total": 2.5062999920919538
+      }
+    },
+    {
+      "index": 48,
+      "query_id": "116095",
+      "query": "death head units definition",
+      "ground_truth_answer": "Death's Head unit which eventually made up the guards of all the concentration camps. On their caps, they wore a silver emblem of a skull, the same emblem that was worn by the Waffen-SS.The death's head was supposed to signify that they were loyal to the death, not that they were murderers.",
+      "expected_action": "ANSWER",
+      "actual_action": "REFUSE",
+      "status": "FN",
+      "refused": true,
+      "refusal_reason": "Refusal: Similarity score (0.095) below strict threshold (0.180).",
+      "trigger_layer": "Layer 3 (Threshold Gate)",
+      "top_similarity": 0.09491579234600067,
+      "answer": "This question is out of domain or lacks strong grounding in the provided dataset. Refusing to guess to prevent hallucination.",
+      "timings": {
+        "stt": 0.013199984095990658,
+        "retrieval": 1.4288999955169857,
+        "guardrail": 2.400800003670156,
+        "generation": 0.0,
+        "hallucination_check": 0.0,
+        "hedge_check": 0.0,
+        "total": 3.860299999359995
+      }
+    },
+    {
+      "index": 49,
+      "query_id": "21860",
+      "query": "are corn meal and corn flour the same",
+      "ground_truth_answer": "Yes, Corn flour and corn meal are the same.",
+      "expected_action": "ANSWER",
+      "actual_action": "ANSWER",
+      "status": "TP",
+      "refused": false,
+      "refusal_reason": "",
+      "trigger_layer": "N/A",
+      "top_similarity": 0.4942416250705719,
+      "answer": "by senior editor johnna rizzo marijuana and the veterans affairs hospital system s relationship is complicated on the one hand 23 states plus the district of columbia say marijuana is legal for sanctioned medical use and veterans are clamoring for it for their post combat symptoms on the other marijuana is classified a schedule i drug the same as heroin under the aegis of the government the va system and by extension the veterans who use it has been stuck in the middle experts say as many as 20 ",
+      "timings": {
+        "stt": 0.007999944500625134,
+        "retrieval": 1.129699987359345,
+        "guardrail": 0.029499991796910763,
+        "generation": 0.02929999027401209,
+        "hallucination_check": 0.25919999461621046,
+        "hedge_check": 0.027699978090822697,
+        "total": 1.4964999863877892
+      }
+    },
+    {
+      "index": 50,
+      "query_id": "1060348",
+      "query": "what is basic? uni",
+      "ground_truth_answer": "BASIC is a family of general-purpose, high-level programming languages whose design philosophy emphasizes ease of use.",
+      "expected_action": "ANSWER",
+      "actual_action": "ANSWER",
+      "status": "TP",
+      "refused": false,
+      "refusal_reason": "",
+      "trigger_layer": "N/A",
+      "top_similarity": 0.3009646236896515,
+      "answer": "What is the study of the atmosphere the process is that produce weather and climate? Meteorology is the the study of weather. Climatology is the study of larger trends in weather patterns.\n\n\nWhat is the study of the atmosphere the process is that produce weather and climate? Meteorology is the the study of weather. Climatology is the study of larger trends in weather patterns.\n\n\npart of the problem is that ptsd is unique among medical marijuana conditions since it is a psychiatric disorder not a",
+      "timings": {
+        "stt": 0.008000002708286047,
+        "retrieval": 1.1053999769501388,
+        "guardrail": 0.019600032828748226,
+        "generation": 0.019300030544400215,
+        "hallucination_check": 0.16519997734576464,
+        "hedge_check": 0.021899992134422064,
+        "total": 1.3506999821402133
+      }
+    },
+    {
+      "index": 51,
       "query_id": "OOD_01",
       "query": "What is the recipe for baking a chocolate lava cake?",
       "ground_truth_answer": "No Answer Present.",
@@ -717,19 +1199,19 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.5128776431083679,
-      "answer": "What is the study of the atmosphere the process is that produce weather and climate? Meteorology is the the study of weather. Climatology is the study of larger trends in weather patterns.\n\n\npart of the problem is that ptsd is unique among medical marijuana conditions since it is a psychiatric disorder not a physical ailment one of the issues with ptsd with medical marijuana is it is the first mental condition to be considered says john evans founder of the organization vets 4 freedoms\n\n\nFor the",
+      "answer": "What is the study of the atmosphere the process is that produce weather and climate? Meteorology is the the study of weather. Climatology is the study of larger trends in weather patterns.\n\n\nWhat is the study of the atmosphere the process is that produce weather and climate? Meteorology is the the study of weather. Climatology is the study of larger trends in weather patterns.\n\n\npart of the problem is that ptsd is unique among medical marijuana conditions since it is a psychiatric disorder not a",
       "timings": {
-        "stt": 0.006200047209858894,
-        "retrieval": 0.36800000816583633,
-        "guardrail": 0.020899984519928694,
-        "generation": 0.016900012269616127,
-        "hallucination_check": 0.10149995796382427,
-        "hedge_check": 0.017900019884109497,
-        "total": 0.5403999821282923
+        "stt": 0.009600014891475439,
+        "retrieval": 1.3285999884828925,
+        "guardrail": 0.05370000144466758,
+        "generation": 0.03790005575865507,
+        "hallucination_check": 0.19799999427050352,
+        "hedge_check": 0.029399991035461426,
+        "total": 1.6765999607741833
       }
     },
     {
-      "index": 32,
+      "index": 52,
       "query_id": "OOD_02",
       "query": "How do quantum computers factor 2048-bit RSA keys using Shor's algorithm?",
       "ground_truth_answer": "No Answer Present.",
@@ -742,17 +1224,17 @@
       "top_similarity": 0.1624888926744461,
       "answer": "This question is out of domain or lacks strong grounding in the provided dataset. Refusing to guess to prevent hallucination.",
       "timings": {
-        "stt": 0.010700023267418146,
-        "retrieval": 0.5548999761231244,
-        "guardrail": 1.1587999761104584,
+        "stt": 0.009300012607127428,
+        "retrieval": 1.187700021546334,
+        "guardrail": 2.4497999693267047,
         "generation": 0.0,
         "hallucination_check": 0.0,
         "hedge_check": 0.0,
-        "total": 1.7374000162817538
+        "total": 3.661000053398311
       }
     },
     {
-      "index": 33,
+      "index": 53,
       "query_id": "OOD_03",
       "query": "What was the closing stock price of Apple on August 12, 1998?",
       "ground_truth_answer": "No Answer Present.",
@@ -763,19 +1245,19 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.365509033203125,
-      "answer": "On December 7, 2012, when the ROBLOX Mobile app on the Apple App Store was updated, ROBLOX received criticism for instead of having support for the iPod and iPhone that are of the 4th generation and beyond, they decided to only have support for the 4th generation of iPhones and the iPod 5.\n\n\nEnjoy our great fares on flights to Bangalore, India (BLR). Discover the magic of India starting your trip in Bangalore, the fourth city of the country with over 6 million inhabitants.The district of Bangalo",
+      "answer": "On December 7, 2012, when the ROBLOX Mobile app on the Apple App Store was updated, ROBLOX received criticism for instead of having support for the iPod and iPhone that are of the 4th generation and beyond, they decided to only have support for the 4th generation of iPhones and the iPod 5.\n\n\nOn December 7, 2012, when the ROBLOX Mobile app on the Apple App Store was updated, ROBLOX received criticism for instead of having support for the iPod and iPhone that are of the 4th generation and beyond, ",
       "timings": {
-        "stt": 0.005499983672052622,
-        "retrieval": 0.35500002559274435,
-        "guardrail": 0.023999949917197227,
-        "generation": 0.020600040443241596,
-        "hallucination_check": 0.1694000093266368,
-        "hedge_check": 0.022299995180219412,
-        "total": 0.6040000007487833
+        "stt": 0.019599974621087313,
+        "retrieval": 1.9178000511601567,
+        "guardrail": 0.05760003114119172,
+        "generation": 0.06839999696239829,
+        "hallucination_check": 0.2335000317543745,
+        "hedge_check": 0.03860000288113952,
+        "total": 2.3651999654248357
       }
     },
     {
-      "index": 34,
+      "index": 54,
       "query_id": "OOD_04",
       "query": "Who won the FIFA World Cup in 1930 in Uruguay?",
       "ground_truth_answer": "No Answer Present.",
@@ -786,19 +1268,19 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.4654746949672699,
-      "answer": "Projections are that population in the United States will reach 400 million by 2050 \u2013 a 33 percent increase in roughly 40 years\u2019 time; the U.S. registered its 300 millionth resident in 2006. With an increase in world population has come an increase in air pollution.\n\n\nWorldwide, population is seven billion. Projections are that population in the United States will reach 400 million by 2050 \u2013 a 33 percent increase in roughly 40 years\u2019 time; the U.S. registered its 300 millionth resident in 2006. ",
+      "answer": "Projections are that population in the United States will reach 400 million by 2050 \u2013 a 33 percent increase in roughly 40 years\u2019 time; the U.S. registered its 300 millionth resident in 2006. With an increase in world population has come an increase in air pollution.\n\n\nProjections are that population in the United States will reach 400 million by 2050 \u2013 a 33 percent increase in roughly 40 years\u2019 time; the U.S. registered its 300 millionth resident in 2006. With an increase in world population has",
       "timings": {
-        "stt": 0.006599992047995329,
-        "retrieval": 0.43000001460313797,
-        "guardrail": 0.024399952962994576,
-        "generation": 0.021199986804276705,
-        "hallucination_check": 0.16410002717748284,
-        "hedge_check": 0.026399968191981316,
-        "total": 0.6817999528720975
+        "stt": 0.020299979951232672,
+        "retrieval": 2.2256000083871186,
+        "guardrail": 0.08020002860575914,
+        "generation": 0.10599999222904444,
+        "hallucination_check": 0.2930000191554427,
+        "hedge_check": 0.04449998959898949,
+        "total": 2.805100055411458
       }
     },
     {
-      "index": 35,
+      "index": 55,
       "query_id": "OOD_05",
       "query": "How do I build a nuclear fusion reactor at home?",
       "ground_truth_answer": "No Answer Present.",
@@ -809,15 +1291,15 @@
       "refusal_reason": "",
       "trigger_layer": "N/A",
       "top_similarity": 0.33161064982414246,
-      "answer": "StubHub - the phone number is clearly a sham. i received a the phone number is clearly a sham. i received a receipt for 2700$ worth of tickets i never ordered and i've never ordered anything from stub hub. they can't be reached to discuss the matter. very bad business.\n\n\nHow much does it cost to recement a tooth crown? How much approximately does it cost to recement a crowned tooth in Charlotte, nc?. Yes I had a tooth replaced with a crown about 10 or so years ago in the front and now it is loos",
+      "answer": "StubHub - the phone number is clearly a sham. i received a the phone number is clearly a sham. i received a receipt for 2700$ worth of tickets i never ordered and i've never ordered anything from stub hub. they can't be reached to discuss the matter. very bad business.\n\n\nStubHub - the phone number is clearly a sham. i received a the phone number is clearly a sham. i received a receipt for 2700$ worth of tickets i never ordered and i've never ordered anything from stub hub. they can't be reached ",
       "timings": {
-        "stt": 0.005100038833916187,
-        "retrieval": 0.43219997314736247,
-        "guardrail": 0.024699955247342587,
-        "generation": 0.024200009647756815,
-        "hallucination_check": 0.12440001592040062,
-        "hedge_check": 0.019599974621087313,
-        "total": 0.6387999746948481
+        "stt": 0.012300035450607538,
+        "retrieval": 1.2636000174097717,
+        "guardrail": 0.043300038669258356,
+        "generation": 0.0369000481441617,
+        "hallucination_check": 0.17030001617968082,
+        "hedge_check": 0.029199989512562752,
+        "total": 1.5727999852970243
       }
     }
   ]

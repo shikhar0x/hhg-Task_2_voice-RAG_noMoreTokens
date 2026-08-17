@@ -178,5 +178,125 @@
     "eng_query": "study of climate weather",
     "indic_query": "जलवायु मौसम का अध्ययन",
     "ground_truth_answer": "Weather is the day-to-day state of the atmosphere in a region and its short-term variations, whereas climate is defined as statistical weather information that describes the variation of weather at a given place for a specified interval."
+  },
+  {
+    "query_id": "368321",
+    "eng_query": "how to make an oil infused herbal infusion",
+    "indic_query": "तेल मिश्रित जड़ी-बूटी का संक्षेपण कैसे बनाएं",
+    "ground_truth_answer": "No Answer Present."
+  },
+  {
+    "query_id": "113570",
+    "eng_query": "culture of sociology definition",
+    "indic_query": "समाजशास्त्र की परिभाषा की संस्कृति",
+    "ground_truth_answer": "The systematic analysis of culture, usually understood as the ensemble of symbolic codes used by a members of a society, as it is manifested in the society."
+  },
+  {
+    "query_id": "126172",
+    "eng_query": "define radical neck",
+    "indic_query": "मूलगामी गर्दन को परिभाषित करें",
+    "ground_truth_answer": "It is a surgical procedure that is used to remove cancerous tissues or growths in the head or neck."
+  },
+  {
+    "query_id": "198064",
+    "eng_query": "half cup how many ounces",
+    "indic_query": "आधा कप में कितने औंस होते हैं",
+    "ground_truth_answer": "No Answer Present."
+  },
+  {
+    "query_id": "129220",
+    "eng_query": "define workday",
+    "indic_query": "कार्यदिवस को परिभाषित करें।",
+    "ground_truth_answer": "No Answer Present."
+  },
+  {
+    "query_id": "331047",
+    "eng_query": "how much xbox games cost",
+    "indic_query": "कितने खर्च होते हैं यू.एस.एक्स. गेम्स?",
+    "ground_truth_answer": "$80 to $250"
+  },
+  {
+    "query_id": "63220",
+    "eng_query": "can a signed stipulation be overturned",
+    "indic_query": "क्या एक हस्ताक्षरित विनिर्णय को रद्द किया जा सकता है?",
+    "ground_truth_answer": "No Answer Present."
+  },
+  {
+    "query_id": "74039",
+    "eng_query": "can stress crack on glass pane be remedied",
+    "indic_query": "कांच के पैनल पर आ रहे तनाव का समाधान किया जा सकता है",
+    "ground_truth_answer": "No Answer Present."
+  },
+  {
+    "query_id": "1060359",
+    "eng_query": "what is basal in dna",
+    "indic_query": "आधारभूत क्या है जीने में?",
+    "ground_truth_answer": "Bind to cis-acting DNA sequences RNA Polymerase and the group of protein that directly interact with it are called the basal transcription apparatus."
+  },
+  {
+    "query_id": "229231",
+    "eng_query": "how effective is boniva",
+    "indic_query": "बोनिवा कितना प्रभावी है",
+    "ground_truth_answer": "No Answer Present."
+  },
+  {
+    "query_id": "267380",
+    "eng_query": "how long should you carb cycle",
+    "indic_query": "आपको कितने समय तक कार्ब चक्र लगाना चाहिए",
+    "ground_truth_answer": "Two and eight weeks"
+  },
+  {
+    "query_id": "1090352",
+    "eng_query": "sty causes",
+    "indic_query": "स्टाई कारण होता है",
+    "ground_truth_answer": "Styes are caused by infections of the oil glands in the eyelid, or staphylococcus bacteria."
+  },
+  {
+    "query_id": "202891",
+    "eng_query": "highest record temperature for redding ca",
+    "indic_query": "रेडिंग का उच्चतम रिकॉर्ड तापमान",
+    "ground_truth_answer": "118 F"
+  },
+  {
+    "query_id": "112025",
+    "eng_query": "court of two sisters brunch price",
+    "indic_query": "दो बहनों के ब्रंच की कीमत",
+    "ground_truth_answer": "No Answer Present."
+  },
+  {
+    "query_id": "317450",
+    "eng_query": "how much does matt lauer make a year",
+    "indic_query": "मैट लॉयर एक साल में कितना कमाता है",
+    "ground_truth_answer": "$20 million"
+  },
+  {
+    "query_id": "58871",
+    "eng_query": "california domestic violence leave laws",
+    "indic_query": "कैलिफोर्निया के घरेलू हिंसा के कानून",
+    "ground_truth_answer": "No Answer Present."
+  },
+  {
+    "query_id": "373460",
+    "eng_query": "how to print an excel sheet",
+    "indic_query": "एक 'एक्सेल शीट' कैसे प्रिंट करें",
+    "ground_truth_answer": "Step 1. Go into Print form of Microsoft Excel by clicking on FILE tab in the Ribbon bar. Step 2. Then do left mouse click on Print in the FILE menu. Step 3. On the Print form, you can see that our excel sheet spread on three pages. Click on Page Setup. Step 4. The Page Setup dialog will show up. Click on Page tab and look at Scaling section. There is one option named Fit to, Click to select that option."
+  },
+  {
+    "query_id": "116095",
+    "eng_query": "death head units definition",
+    "indic_query": "डेथ हेड यूनिट्स की परिभाषा",
+    "ground_truth_answer": "Death's Head unit which eventually made up the guards of all the concentration camps. On their caps, they wore a silver emblem of a skull, the same emblem that was worn by the Waffen-SS.The death's head was supposed to signify that they were loyal to the death, not that they were murderers."
+  },
+  {
+    "query_id": "21860",
+    "eng_query": "are corn meal and corn flour the same",
+    "indic_query": "मक्का का भोजन और मक्का का आटा एक जैसा ही है।",
+    "ground_truth_answer": "Yes, Corn flour and corn meal are the same."
+  },
+  {
+    "query_id": "1060348",
+    "eng_query": "what is basic? uni",
+    "indic_query": "क्या बुनियादी है?",
+    "ground_truth_answer": "BASIC is a family of general-purpose, high-level programming languages whose design philosophy emphasizes ease of use."
   }
 ]
