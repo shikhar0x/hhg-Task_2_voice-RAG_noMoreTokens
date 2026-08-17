@@ -121,6 +121,35 @@ def _get_chroma_client():
 def get_vector_store():
     return _get_chroma_client().get_or_create_collection("msmarco_corpus")
 
+def translate_to_english_if_needed(text: str) -> str:
+    """Translates Indic/non-English query text to English for vector index lookup."""
+    if not text:
+        return text
+    # Check if string contains non-ASCII characters (e.g. Devanagari \u0600-\u0D7F)
+    if any(ord(c) > 127 for c in text):
+        try:
+            import os
+            from groq import Groq
+            from config.settings import settings
+            api_key = os.getenv("GROQ_API_KEY") or settings.groq_api_key
+            if api_key:
+                client = Groq(api_key=api_key)
+                res = client.chat.completions.create(
+                    messages=[
+                        {"role": "system", "content": "Translate the input question to English accurately. Output ONLY the translated English string."},
+                        {"role": "user", "content": text}
+                    ],
+                    model=settings.groq_model or "groq/compound-mini",
+                    max_tokens=50
+                )
+                translated = res.choices[0].message.content.strip()
+                if translated:
+                    logger.info(f"Multilingual translation: '{text}' -> '{translated}'")
+                    return translated
+        except Exception as e:
+            logger.warning(f"Query translation fallback note: {e}")
+    return text
+
 class VectorRetrievalStep(BaseStep):
     """Sub-5ms TF-IDF Vector Retrieval Step."""
     name = "retrieval_vector"
@@ -139,8 +168,10 @@ class VectorRetrievalStep(BaseStep):
         if _doc_matrix is None:
             warmup_vector_index()
 
+        search_query = translate_to_english_if_needed(query)
+
         # Vectorize query using TF-IDF (supports English + 14 Indian languages)
-        q_words = re.findall(r'[\u0600-\u0D7F\w]+', query.lower())
+        q_words = re.findall(r'[\u0600-\u0D7F\w]+', search_query.lower())
         q_counts = {}
         for w in q_words:
             q_counts[w] = q_counts.get(w, 0) + 1

@@ -93,8 +93,11 @@ class GroundingGuardrailStep(BaseStep):
             return False
 
         # --- (1) Numeric fabrication: every number in the answer must be grounded ---
-        ans_nums = set(re.findall(r'\b\d[\d,.\-]*\b', answer.lower()))
-        ctx_nums = set(re.findall(r'\b\d[\d,.\-]*\b', context.lower()))
+        INDIC_DIGITS_TRANS = str.maketrans("०१२३४५६७८९০১২৩৪৫৬৭৮৯٠١٢٣٤٥٦٧٨٩", "012345678901234567890123456789")
+        norm_ans = answer.translate(INDIC_DIGITS_TRANS)
+        norm_ctx = context.translate(INDIC_DIGITS_TRANS)
+        ans_nums = set(re.findall(r'\d+', norm_ans))
+        ctx_nums = set(re.findall(r'\d+', norm_ctx))
         if ans_nums - ctx_nums:
             logger.info(
                 f"Guardrail Layer 4: numeric fabrication detected "
@@ -102,9 +105,14 @@ class GroundingGuardrailStep(BaseStep):
             )
             return False
 
-        # --- (2) Stemmed lexical overlap (supports English + 14 Indian languages) ---
-        ans_raw = set(re.findall(r'[\u0600-\u0D7F\w]{3,}', answer.lower())) - _STOPWORDS
-        ctx_raw = set(re.findall(r'[\u0600-\u0D7F\w]{3,}', context.lower()))
+        # --- (2) Stemmed lexical overlap (supports English + Hindi / Indic answers) ---
+        check_ans = answer
+        if any(ord(c) > 127 for c in answer):
+            from retrieval.vector_store import translate_to_english_if_needed
+            check_ans = translate_to_english_if_needed(answer)
+
+        ans_raw = set(re.findall(r'\b[a-zA-Z]{3,}\b', check_ans.lower())) - _STOPWORDS
+        ctx_raw = set(re.findall(r'\b[a-zA-Z]{3,}\b', context.lower()))
 
         if not ans_raw:
             return True
