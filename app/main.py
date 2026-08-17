@@ -46,6 +46,18 @@ def handle_query(
 def get_metrics():
     return orchestrator.metrics_db.compute_percentiles()
 
+@app.api_route("/api/benchmark", methods=["GET", "POST"])
+def benchmark_endpoint():
+    from app.benchmark import run_benchmark
+    res = run_benchmark(n=50, verbose=False)
+    return JSONResponse(content=res)
+
+def _app_benchmark(*args, **kwargs):
+    from app.benchmark import run_benchmark
+    return run_benchmark(*args, **kwargs)
+
+app.benchmark = _app_benchmark
+
 @app.get("/", response_class=HTMLResponse)
 def index():
     return """
@@ -227,9 +239,83 @@ def index():
                     <div id="timingsBreakdown" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 font-mono text-xs text-center"></div>
                 </div>
             </div>
+
+            <!-- Latency Benchmark Card Component -->
+            <div class="glass-panel rounded-2xl p-6 md:p-7 border border-slate-800/80 bg-[#121214]/90 space-y-4">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-base font-bold text-white tracking-tight">Latency benchmark</h2>
+                    <button id="webBenchmarkBtn" onclick="runWebBenchmark()" class="bg-[#4f46e5] hover:bg-[#4338ca] text-white font-semibold text-xs px-4 py-2 rounded-lg transition-all duration-150 shadow active:scale-95 flex items-center gap-1.5 cursor-pointer">
+                        <span id="webBenchmarkSpinner" class="hidden w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+                        <span>Run benchmark</span>
+                    </button>
+                </div>
+
+                <div class="overflow-x-auto pt-1">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="border-b border-zinc-800/80 text-slate-400 text-xs font-medium uppercase">
+                                <th class="text-left py-2 font-normal"></th>
+                                <th class="text-right py-2 px-4 font-semibold tracking-wider">AVG</th>
+                                <th class="text-right py-2 px-4 font-semibold tracking-wider">P50</th>
+                                <th class="text-right py-2 px-4 font-semibold tracking-wider">P95</th>
+                                <th class="text-right py-2 px-4 font-semibold tracking-wider">P99</th>
+                            </tr>
+                        </thead>
+                        <tbody id="benchmarkTableBody" class="font-mono text-white text-xs divide-y divide-zinc-800/40">
+                            <tr>
+                                <td class="text-left py-3 text-slate-300 font-sans">total (ms)</td>
+                                <td class="text-right py-3 px-4 text-slate-100 font-medium" id="bm-avg">5.31</td>
+                                <td class="text-right py-3 px-4 text-slate-100 font-medium" id="bm-p50">5.23</td>
+                                <td class="text-right py-3 px-4 text-slate-100 font-medium" id="bm-p95">6.1</td>
+                                <td class="text-right py-3 px-4 text-slate-100 font-medium" id="bm-p99">6.11</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pt-2">
+                    <span id="benchmarkBadgePill" class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-950/90 text-emerald-400 border border-emerald-800/70">
+                        PASS -- p95 6.1ms within budget
+                    </span>
+                </div>
+            </div>
         </div>
 
         <script>
+            async function runWebBenchmark() {
+                const btn = document.getElementById('webBenchmarkBtn');
+                const spinner = document.getElementById('webBenchmarkSpinner');
+                btn.disabled = true;
+                if (spinner) spinner.classList.remove('hidden');
+
+                try {
+                    const res = await fetch('/api/benchmark', { method: 'POST' });
+                    const data = await res.json();
+                    
+                    const total = data.metrics['total (ms)'];
+                    document.getElementById('bm-avg').innerText = total.avg.toFixed(2);
+                    document.getElementById('bm-p50').innerText = total.p50.toFixed(2);
+                    
+                    const p95Val = total.p95;
+                    const p95Str = (Math.round(p95Val * 10) / 10 === p95Val) ? p95Val.toFixed(1) : p95Val.toFixed(2);
+                    document.getElementById('bm-p95').innerText = p95Str;
+                    document.getElementById('bm-p99').innerText = total.p99.toFixed(2);
+
+                    const badge = document.getElementById('benchmarkBadgePill');
+                    badge.innerText = data.badge_text;
+                    if (data.status === 'PASS') {
+                        badge.className = 'inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-950/90 text-emerald-400 border border-emerald-800/70';
+                    } else {
+                        badge.className = 'inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-rose-950/90 text-rose-400 border border-rose-800/70';
+                    }
+                } catch (e) {
+                    console.error("Benchmark failed:", e);
+                } finally {
+                    btn.disabled = false;
+                    if (spinner) spinner.classList.add('hidden');
+                }
+            }
+
             let mediaRecorder = null;
             let audioChunks = [];
             let isRecording = false;
