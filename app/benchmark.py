@@ -70,9 +70,9 @@ def run_benchmark(n: int = 50, verbose: bool = True) -> dict:
     # Format p95 string cleanly (e.g. 6.1 instead of 6.10 if single decimal)
     p95_str = f"{p95_total:.1f}" if round(p95_total, 1) == p95_total else f"{p95_total:.2f}"
     if is_pass:
-        badge_text = f"PASS -- p95 {p95_str}ms within budget"
+        badge_text = f"PASS -- p95 | {p95_str}ms within budget"
     else:
-        badge_text = f"FAIL -- p95 {p95_str}ms over budget"
+        badge_text = f"FAIL -- p95 | {p95_str}ms over budget"
 
     results = {
         "status": "PASS" if is_pass else "FAIL",

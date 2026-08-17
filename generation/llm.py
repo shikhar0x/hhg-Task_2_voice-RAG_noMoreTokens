@@ -32,7 +32,7 @@ class LLMGenerationStep(BaseStep):
             except Exception as e:
                 logger.warning(f"Groq init note: {e}")
 
-    @retry_step(max_retries=5, base_delay=1.0, max_delay=6.0)
+    @retry_step(max_retries=3, base_delay=0.5, max_delay=3.0)
     def _generate_groq(self, question: str, context: str) -> str:
         api_key = os.getenv("GROQ_API_KEY") or self.api_key
         if not self.client:
@@ -40,29 +40,51 @@ class LLMGenerationStep(BaseStep):
             self.client = Groq(api_key=api_key, http_client=self.http_client, max_retries=0)
 
         clean_context = re.sub(r'Passage \d+:', '', context).strip()
-        
         t0 = time.perf_counter()
-        chat_completion = self.client.chat.completions.create(
-            messages=[
-                {
-                    "role": "system",
-                    "content": (
-                        "You are a concise, factually grounded AI assistant. "
-                        "Answer the user's question directly in 2-3 clear sentences using ONLY the provided context passages."
-                    )
-                },
-                {
-                    "role": "user",
-                    "content": f"Verified Context Passages:\n{clean_context}\n\nQuestion:\n{question}\n\nConcise Grounded Answer:"
-                }
-            ],
-            model=settings.groq_model,
-            temperature=0.0,
-            max_tokens=100  # Optimized max_tokens for ultra-fast sub-150ms Groq LPU generation
-        )
-        elapsed_ms = (time.perf_counter() - t0) * 1000.0
-        logger.info(f"Groq LLM generation completed in {elapsed_ms:.1f}ms (httpx connection pool active)")
-        return chat_completion.choices[0].message.content.strip()
+        
+        models_to_try = [
+            os.getenv("GROQ_MODEL") or settings.groq_model,
+            "groq/compound-mini",
+            "openai/gpt-oss-20b",
+            "groq/compound"
+        ]
+        
+        unique_models = []
+        for m in models_to_try:
+            if m and m not in unique_models:
+                unique_models.append(m)
+
+        last_error = None
+        for model_name in unique_models:
+            try:
+                chat_completion = self.client.chat.completions.create(
+                    messages=[
+                        {
+                            "role": "system",
+                            "content": (
+                                "You are a concise, factually grounded AI assistant. "
+                                "Answer the user's question directly in 2-3 clear sentences using ONLY the provided context passages."
+                            )
+                        },
+                        {
+                            "role": "user",
+                            "content": f"Verified Context Passages:\n{clean_context}\n\nQuestion:\n{question}\n\nConcise Grounded Answer:"
+                        }
+                    ],
+                    model=model_name,
+                    temperature=0.0,
+                    max_tokens=100
+                )
+                elapsed_ms = (time.perf_counter() - t0) * 1000.0
+                logger.info(f"Groq LLM ({model_name}) generation completed in {elapsed_ms:.1f}ms")
+                return chat_completion.choices[0].message.content.strip()
+            except Exception as e:
+                last_error = e
+                logger.warning(f"Groq model '{model_name}' returned error: {e}. Trying next model candidate...")
+
+        if last_error:
+            raise last_error
+        return ""
 
     def execute(self, input_data: dict) -> StepResult:
         question = input_data.get("transcript", "")

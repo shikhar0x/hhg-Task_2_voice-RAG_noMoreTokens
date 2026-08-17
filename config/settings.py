@@ -9,7 +9,7 @@ class Settings(BaseSettings):
     hf_token: str = Field(default="", validation_alias="HF_TOKEN")
     
     groq_api_key: str = Field(default="", validation_alias="GROQ_API_KEY")
-    groq_model: str = Field(default="llama-3.1-8b-instant", validation_alias="GROQ_MODEL")
+    groq_model: str = Field(default="groq/compound-mini", validation_alias="GROQ_MODEL")
     
     chroma_path: str = Field(default="./data/chroma", validation_alias="CHROMA_PATH")
     metrics_db_path: str = Field(default="./data/metrics.db", validation_alias="METRICS_DB_PATH")

@@ -62,15 +62,15 @@ app.benchmark = _app_benchmark
 def index():
     return """
     <!DOCTYPE html>
-    <html lang="en">
+    <html lang="en" class="dark">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>HH Goa 2026 | Voice-Enabled RAG</title>
+        <title>HH Goa 2026 | Voice-Enabled Grounded RAG</title>
         <script src="https://cdn.tailwindcss.com"></script>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
         <style>
             * {
                 font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -78,205 +78,273 @@ def index():
             .font-mono {
                 font-family: 'JetBrains Mono', monospace;
             }
+            .font-heading {
+                font-family: 'Inter', sans-serif;
+            }
+            
             /* Custom glassmorphism & gradients */
             .glass-panel {
-                background: rgba(15, 23, 42, 0.75);
-                backdrop-filter: blur(16px);
-                -webkit-backdrop-filter: blur(16px);
+                background: rgba(13, 18, 30, 0.75);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
                 border: 1px solid rgba(255, 255, 255, 0.08);
-                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+                box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.6);
+            }
+            .glass-panel-interactive {
+                background: rgba(13, 18, 30, 0.75);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.6);
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .glass-panel-interactive:hover {
+                border-color: rgba(255, 255, 255, 0.15);
+                box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.7), 0 0 30px rgba(99, 102, 241, 0.1);
             }
             .glass-input {
-                background: rgba(2, 6, 23, 0.6);
+                background: rgba(4, 9, 20, 0.75);
                 border: 1px solid rgba(255, 255, 255, 0.1);
-                transition: all 0.2s ease-in-out;
+                transition: all 0.25s ease;
             }
             .glass-input:focus {
-                border-color: #10b981;
-                box-shadow: 0 0 15px rgba(16, 185, 129, 0.25);
+                border-color: rgba(16, 185, 129, 0.6);
+                box-shadow: 0 0 20px rgba(16, 185, 129, 0.2), inset 0 0 10px rgba(16, 185, 129, 0.05);
             }
             .glow-emerald {
-                box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.3);
+                box-shadow: 0 0 30px -5px rgba(16, 185, 129, 0.35);
             }
             .glow-rose {
-                box-shadow: 0 0 25px -5px rgba(225, 29, 72, 0.4);
+                box-shadow: 0 0 30px -5px rgba(225, 29, 72, 0.4);
+            }
+            .glow-indigo {
+                box-shadow: 0 0 30px -5px rgba(99, 102, 241, 0.35);
             }
             .bg-mesh {
-                background-color: #020617;
+                background-color: #060913;
                 background-image: 
                     radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.12) 0px, transparent 50%),
-                    radial-gradient(at 100% 0%, rgba(99, 102, 241, 0.12) 0px, transparent 50%),
-                    radial-gradient(at 50% 100%, rgba(15, 23, 42, 0.8) 0px, transparent 50%);
+                    radial-gradient(at 100% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+                    radial-gradient(at 50% 100%, rgba(139, 92, 246, 0.12) 0px, transparent 50%),
+                    linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+                background-size: 100% 100%, 100% 100%, 100% 100%, 36px 36px, 36px 36px;
             }
+            
             /* Custom styled scrollbars */
             ::-webkit-scrollbar {
                 width: 6px;
                 height: 6px;
             }
             ::-webkit-scrollbar-track {
-                background: #020617;
+                background: #040814;
                 border-radius: 4px;
             }
             ::-webkit-scrollbar-thumb {
-                background: #334155;
+                background: #1e293b;
                 border-radius: 4px;
             }
             ::-webkit-scrollbar-thumb:hover {
                 background: #10b981;
             }
+
+            @keyframes pulse-ring {
+                0% { transform: scale(0.95); opacity: 0.8; }
+                50% { transform: scale(1.05); opacity: 0.4; }
+                100% { transform: scale(0.95); opacity: 0.8; }
+            }
+            .animate-pulse-ring {
+                animation: pulse-ring 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+            }
         </style>
     </head>
-    <body class="bg-mesh text-slate-100 min-h-screen p-6 md:p-12 relative overflow-x-hidden">
-        <!-- Ambient background glows -->
-        <div class="fixed top-0 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="fixed bottom-0 right-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <body class="bg-mesh text-slate-100 min-h-screen p-4 sm:p-6 md:p-12 relative overflow-x-hidden">
+        <!-- Ambient background glow elements -->
+        <div class="fixed -top-24 left-1/4 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="fixed top-1/3 -right-24 w-[500px] h-[500px] bg-indigo-500/12 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="fixed -bottom-24 left-1/3 w-[500px] h-[500px] bg-violet-600/10 rounded-full blur-[120px] pointer-events-none"></div>
 
-        <div class="max-w-3xl mx-auto space-y-6 relative z-10">
-            <header class="border-b border-slate-800/80 pb-5">
-                <div class="flex items-center justify-between">
-                    <span class="text-xs uppercase tracking-widest text-emerald-400 font-mono font-bold bg-emerald-950/60 border border-emerald-800/50 px-2.5 py-1 rounded-md flex items-center gap-1.5">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                        HH Goa 2026 · Task #2
-                    </span>
-                    <div class="flex items-center gap-3">
-                        <span class="text-xs text-indigo-300 font-mono font-semibold bg-indigo-950/60 border border-indigo-800/50 px-2.5 py-1 rounded-md flex items-center gap-1.5">
-                            <svg class="w-3.5 h-3.5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                            Team: No More Tokens
-                        </span>
-                        <span class="text-xs text-slate-500 font-mono hidden sm:flex items-center gap-1">
-                            <svg class="w-3.5 h-3.5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"/></svg>
-                            RAGInGoa
-                        </span>
-                    </div>
-                </div>
-                <h1 class="text-3xl md:text-4xl font-extrabold mt-3 tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-400 bg-clip-text text-transparent flex items-center gap-3">
-                    <svg class="w-8 h-8 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
-                    </svg>
-                    Voice-Enabled Grounded RAG
-                </h1>
-                <p class="text-slate-400 text-sm mt-2 leading-relaxed">Built by <span class="text-slate-200 font-semibold">Team No More Tokens</span> · ElevenLabs & Sarvam STT · Multi-Strategy Chunking · Latency Analytics · Refusal Guardrail</p>
-            </header>
-
-            <!-- Input Controls -->
-            <div class="glass-panel rounded-2xl p-6 md:p-7 space-y-6 border border-slate-800/80">
-                <div>
-                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-2">
-                        <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>
-                        Voice Input (Live Microphone or Audio Upload)
-                    </label>
-                    <div class="flex flex-wrap items-center gap-3">
-                        <button id="recordBtn" onclick="toggleRecording()" class="flex items-center gap-2.5 bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-500 hover:to-rose-600 text-white font-semibold px-6 py-3 rounded-xl text-sm transition-all duration-200 shadow-lg glow-rose active:scale-95">
-                            <span id="recordIcon" class="w-2.5 h-2.5 rounded-full bg-white animate-pulse"></span>
-                            <span id="recordLabel">Start Live Mic</span>
-                        </button>
-
-                        <label class="cursor-pointer flex items-center gap-2 bg-slate-800/80 hover:bg-slate-700/80 text-slate-200 border border-slate-700/80 font-medium px-5 py-3 rounded-xl text-sm transition-all duration-200 hover:border-slate-600 active:scale-95">
-                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
-                            <span>Upload .WAV</span>
-                            <input id="audioFileInput" type="file" accept="audio/*" class="hidden" onchange="uploadAudioFile(this)">
-                        </label>
-                        <span id="recordStatus" class="text-xs text-slate-400 font-mono w-full md:w-auto flex items-center gap-1.5"></span>
-                    </div>
-                </div>
-
-                <div class="relative flex items-center">
-                    <div class="flex-grow border-t border-slate-800/80"></div>
-                    <span class="flex-shrink mx-4 text-xs uppercase tracking-wider text-slate-500 font-mono font-medium">or test with query text</span>
-                    <div class="flex-grow border-t border-slate-800/80"></div>
-                </div>
-
-                <div class="flex gap-3">
-                    <input id="textInput" type="text" placeholder="e.g. What is the definition of honesty and integrity?" class="flex-1 glass-input rounded-xl px-4 py-3 text-sm text-slate-100 placeholder-slate-500 focus:outline-none">
-                    <button onclick="sendTextQuery()" class="bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 font-semibold px-6 py-3 rounded-xl text-sm transition-all duration-200 shadow-lg glow-emerald active:scale-95 flex items-center gap-2">
-                        <span>Submit</span>
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Loading Spinner -->
-            <div id="loader" class="hidden text-center py-8 glass-panel rounded-2xl border border-slate-800/80">
-                <div class="relative inline-flex items-center justify-center">
-                    <div class="w-10 h-10 border-4 border-emerald-500/20 border-t-emerald-500 rounded-full animate-spin"></div>
-                    <svg class="w-4 h-4 text-emerald-400 absolute" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                </div>
-                <div class="text-xs text-slate-400 mt-3 font-mono">Transcribing Speech, Retrieving Context & Formulating Answer...</div>
-            </div>
-
-            <!-- Results Card -->
-            <div id="outputCard" class="hidden glass-panel rounded-2xl p-6 md:p-7 space-y-5 border border-slate-800/80">
-                <div class="flex justify-between items-center border-b border-slate-800/80 pb-4">
-                    <h3 class="text-base font-bold text-white flex items-center gap-2">
-                        <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                        Pipeline Execution Result
-                    </h3>
-                    <span id="statusBadge" class="px-3.5 py-1.5 text-xs rounded-full font-mono font-semibold flex items-center gap-1.5"></span>
-                </div>
+        <div class="max-w-[1500px] w-full mx-auto relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-7 items-start">
                 
-                <div class="space-y-2">
-                    <div id="sttEngineLabel" class="text-xs text-slate-400 font-mono uppercase tracking-wider flex items-center gap-2 px-1">
-                        <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>
-                        <span>Speech Transcript</span>
+                <!-- Left Column: Header + Latency Benchmark -->
+                <div class="space-y-7">
+                    <!-- Upper Frame Header -->
+                    <header class="glass-panel rounded-2xl p-7 md:p-8 relative overflow-hidden border border-slate-800/80 space-y-5 shadow-2xl">
+                        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 via-indigo-500 to-violet-500"></div>
+                        <div class="flex flex-wrap items-center justify-between gap-3">
+                            <span class="text-xs uppercase tracking-widest text-emerald-400 font-mono font-bold bg-emerald-950/80 border border-emerald-500/30 px-3.5 py-1.5 rounded-lg flex items-center gap-2 shadow-sm">
+                                <span class="relative flex h-2 w-2">
+                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+                                </span>
+                                HH Goa 2026 · Task #2
+                            </span>
+                            <div class="flex items-center gap-2.5">
+                                <span class="text-xs text-indigo-300 font-mono font-semibold bg-indigo-950/80 border border-indigo-500/30 px-3 py-1.5 rounded-lg flex items-center gap-1.5 shadow-sm">
+                                    <svg class="w-3.5 h-3.5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                                    Team: No More Tokens
+                                </span>
+                                <span class="text-xs text-slate-400 font-mono hidden sm:flex items-center gap-1.5 bg-slate-900/70 border border-slate-800 px-3 py-1.5 rounded-lg">
+                                    <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                                    RAGInGoa
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <h1 class="text-2xl sm:text-3xl font-extrabold mt-3 tracking-tight font-heading flex items-center gap-3.5">
+                            <span class="p-2.5 rounded-xl bg-gradient-to-br from-emerald-500/20 to-indigo-500/20 border border-emerald-500/30 text-emerald-400 shrink-0 shadow-lg shadow-emerald-950/50">
+                                <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
+                                </svg>
+                            </span>
+                            <span class="bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent">
+                                Voice-Enabled Grounded RAG
+                            </span>
+                        </h1>
+                        
+                        <p class="text-slate-400 text-xs mt-3 leading-relaxed flex flex-wrap items-center gap-x-2 gap-y-1.5 pt-3 border-t border-slate-800/60">
+                            <span>Built by <strong class="text-slate-200">Team No More Tokens</strong></span>
+                            <span class="text-slate-600">·</span>
+                            <span class="px-2.5 py-1 rounded-lg bg-slate-900/80 border border-slate-800 text-slate-300 text-[11px] font-mono">ElevenLabs & Sarvam STT</span>
+                            <span class="text-slate-600">·</span>
+                            <span class="px-2.5 py-1 rounded-lg bg-slate-900/80 border border-slate-800 text-slate-300 text-[11px] font-mono">Multi-Strategy Chunking</span>
+                            <span class="text-slate-600">·</span>
+                            <span class="px-2.5 py-1 rounded-lg bg-slate-900/80 border border-slate-800 text-slate-300 text-[11px] font-mono">Latency Analytics</span>
+                            <span class="text-slate-600">·</span>
+                            <span class="px-2.5 py-1 rounded-lg bg-slate-900/80 border border-slate-800 text-slate-300 text-[11px] font-mono">Refusal Guardrail</span>
+                        </p>
+                    </header>
+
+                    <!-- Latency Benchmark Card Component (UNIFORM GLASS STYLING) -->
+                    <div class="glass-panel rounded-2xl p-7 md:p-8 border border-slate-800/80 space-y-5 shadow-2xl">
+                        <div class="flex items-center justify-between pb-1">
+                            <h2 class="text-base font-bold text-white tracking-tight flex items-center gap-2.5">
+                                <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                                <span>Latency benchmark</span>
+                            </h2>
+                            <button id="webBenchmarkBtn" onclick="runWebBenchmark()" class="bg-[#4f46e5] hover:bg-[#4338ca] text-white font-semibold text-xs px-4 py-2 rounded-lg transition-all duration-150 shadow active:scale-95 flex items-center gap-1.5 cursor-pointer">
+                                <span id="webBenchmarkSpinner" class="hidden w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+                                <span>Run benchmark</span>
+                            </button>
+                        </div>
+
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm">
+                                <thead>
+                                    <tr class="border-b border-zinc-800/80 text-slate-400 text-xs font-medium uppercase">
+                                        <th class="text-left py-2.5 font-normal"></th>
+                                        <th class="text-right py-2.5 px-4 font-semibold tracking-wider">AVG</th>
+                                        <th class="text-right py-2.5 px-4 font-semibold tracking-wider">P50</th>
+                                        <th class="text-right py-2.5 px-4 font-semibold tracking-wider">P95</th>
+                                        <th class="text-right py-2.5 px-4 font-semibold tracking-wider">P99</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="benchmarkTableBody" class="font-mono text-white text-xs divide-y divide-zinc-800/40">
+                                    <tr>
+                                        <td class="text-left py-3.5 text-slate-300 font-sans">total (ms)</td>
+                                        <td class="text-right py-3.5 px-4 text-slate-100 font-medium" id="bm-avg">5.31</td>
+                                        <td class="text-right py-3.5 px-4 text-slate-100 font-medium" id="bm-p50">5.23</td>
+                                        <td class="text-right py-3.5 px-4 text-slate-100 font-medium" id="bm-p95">6.1</td>
+                                        <td class="text-right py-3.5 px-4 text-slate-100 font-medium" id="bm-p99">6.11</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="pt-2 border-t border-slate-800/60">
+                            <span id="benchmarkBadgePill" class="inline-flex items-center px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wider bg-emerald-950/90 text-emerald-400 border border-emerald-800/70">
+                                PASS -- p95 | 6.1ms within budget
+                            </span>
+                        </div>
                     </div>
-                    <div id="transcriptText" class="text-slate-100 font-medium bg-slate-950/90 px-5 py-4 rounded-xl border border-slate-800/80 text-sm leading-relaxed shadow-inner"></div>
                 </div>
 
-                <!-- Increased Height & Scrollable Answer Box -->
-                <div class="space-y-2 pt-1">
-                    <div class="text-xs text-slate-400 font-mono uppercase tracking-wider flex items-center gap-2 px-1">
-                        <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
-                        <span>Grounded Answer (Groq Meta LLaMA-3.1)</span>
+                <!-- Right Column: Voice Input & Pipeline Execution Result -->
+                <div class="space-y-7">
+                    <!-- Input Controls Card -->
+                    <div class="glass-panel rounded-2xl p-7 md:p-8 space-y-6 border border-slate-800/80 shadow-2xl">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-3.5 flex items-center gap-2">
+                                <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>
+                                Voice Input (Live Microphone or Audio Upload)
+                            </label>
+                            <div class="flex flex-wrap items-center gap-3">
+                                <button id="recordBtn" onclick="toggleRecording()" class="flex items-center gap-2.5 bg-gradient-to-r from-rose-600 via-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white font-semibold px-6 py-3 rounded-xl text-sm transition-all duration-200 shadow-lg glow-rose active:scale-95 cursor-pointer">
+                                    <span id="recordIcon" class="w-2.5 h-2.5 rounded-full bg-white animate-pulse"></span>
+                                    <span id="recordLabel">Start Live Mic</span>
+                                </button>
+
+                                <label class="cursor-pointer flex items-center gap-2 bg-slate-800/90 hover:bg-slate-700/90 text-slate-200 border border-slate-700/90 hover:border-slate-500 font-medium px-5 py-3 rounded-xl text-sm transition-all duration-200 active:scale-95 shadow-md">
+                                    <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                                    <span>Upload .WAV</span>
+                                    <input id="audioFileInput" type="file" accept="audio/*" class="hidden" onchange="uploadAudioFile(this)">
+                                </label>
+                                <span id="recordStatus" class="text-xs text-slate-400 font-mono w-full md:w-auto flex items-center gap-1.5"></span>
+                            </div>
+                        </div>
+
+                        <div class="relative flex items-center py-1">
+                            <div class="flex-grow border-t border-slate-800/80"></div>
+                            <span class="flex-shrink mx-4 text-[11px] uppercase tracking-widest text-slate-400 font-mono font-semibold bg-slate-900/80 px-3 py-1 rounded-full border border-slate-800">or test with query text</span>
+                            <div class="flex-grow border-t border-slate-800/80"></div>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <input id="textInput" type="text" placeholder="e.g. What is the definition of honesty and integrity?" class="flex-1 glass-input rounded-xl px-4 py-3.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none">
+                            <button onclick="sendTextQuery()" class="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-500 hover:from-emerald-500 hover:to-teal-400 text-white font-bold px-7 py-3.5 rounded-xl text-sm transition-all duration-200 shadow-lg glow-emerald active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
+                                <span>Submit</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                            </button>
+                        </div>
                     </div>
-                    <div id="answerText" class="text-emerald-300 font-normal leading-relaxed bg-slate-950/90 px-5 py-4 rounded-xl border border-slate-800/80 min-h-[140px] max-h-[300px] overflow-y-auto whitespace-pre-wrap text-sm shadow-inner"></div>
-                </div>
 
-                <div class="space-y-2 pt-1">
-                    <div class="text-xs text-slate-400 font-mono uppercase tracking-wider flex items-center gap-2 px-1">
-                        <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                        <span>Empirical Latency Breakdown</span>
+                    <!-- Loading Spinner -->
+                    <div id="loader" class="hidden text-center py-10 glass-panel rounded-2xl border border-slate-800/80 shadow-2xl">
+                        <div class="relative inline-flex items-center justify-center">
+                            <div class="w-12 h-12 border-4 border-emerald-500/20 border-t-emerald-500 rounded-full animate-spin"></div>
+                            <svg class="w-5 h-5 text-emerald-400 absolute animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                        </div>
+                        <div class="text-xs text-slate-300 mt-4 font-mono font-medium">Transcribing Speech, Retrieving Context & Formulating Answer...</div>
                     </div>
-                    <div id="timingsBreakdown" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 font-mono text-xs text-center"></div>
-                </div>
-            </div>
 
-            <!-- Latency Benchmark Card Component -->
-            <div class="glass-panel rounded-2xl p-6 md:p-7 border border-slate-800/80 bg-[#121214]/90 space-y-4">
-                <div class="flex items-center justify-between">
-                    <h2 class="text-base font-bold text-white tracking-tight">Latency benchmark</h2>
-                    <button id="webBenchmarkBtn" onclick="runWebBenchmark()" class="bg-[#4f46e5] hover:bg-[#4338ca] text-white font-semibold text-xs px-4 py-2 rounded-lg transition-all duration-150 shadow active:scale-95 flex items-center gap-1.5 cursor-pointer">
-                        <span id="webBenchmarkSpinner" class="hidden w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
-                        <span>Run benchmark</span>
-                    </button>
-                </div>
+                    <!-- Results Card -->
+                    <div id="outputCard" class="hidden glass-panel rounded-2xl p-7 md:p-8 space-y-6 border border-slate-800/80 shadow-2xl">
+                        <div class="flex justify-between items-center border-b border-slate-800/80 pb-4">
+                            <h3 class="text-base font-bold text-white flex items-center gap-2.5">
+                                <div class="p-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                </div>
+                                Pipeline Execution Result
+                            </h3>
+                            <span id="statusBadge" class="px-3.5 py-1.5 text-xs rounded-full font-mono font-semibold flex items-center gap-1.5"></span>
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <div id="sttEngineLabel" class="text-xs text-slate-400 font-mono uppercase tracking-wider flex items-center gap-2 px-1">
+                                <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>
+                                <span>Speech Transcript</span>
+                            </div>
+                            <div id="transcriptText" class="text-slate-100 font-medium bg-slate-950/90 px-5 py-4 rounded-xl border border-slate-800/80 text-sm leading-relaxed shadow-inner"></div>
+                        </div>
 
-                <div class="overflow-x-auto pt-1">
-                    <table class="w-full text-sm">
-                        <thead>
-                            <tr class="border-b border-zinc-800/80 text-slate-400 text-xs font-medium uppercase">
-                                <th class="text-left py-2 font-normal"></th>
-                                <th class="text-right py-2 px-4 font-semibold tracking-wider">AVG</th>
-                                <th class="text-right py-2 px-4 font-semibold tracking-wider">P50</th>
-                                <th class="text-right py-2 px-4 font-semibold tracking-wider">P95</th>
-                                <th class="text-right py-2 px-4 font-semibold tracking-wider">P99</th>
-                            </tr>
-                        </thead>
-                        <tbody id="benchmarkTableBody" class="font-mono text-white text-xs divide-y divide-zinc-800/40">
-                            <tr>
-                                <td class="text-left py-3 text-slate-300 font-sans">total (ms)</td>
-                                <td class="text-right py-3 px-4 text-slate-100 font-medium" id="bm-avg">5.31</td>
-                                <td class="text-right py-3 px-4 text-slate-100 font-medium" id="bm-p50">5.23</td>
-                                <td class="text-right py-3 px-4 text-slate-100 font-medium" id="bm-p95">6.1</td>
-                                <td class="text-right py-3 px-4 text-slate-100 font-medium" id="bm-p99">6.11</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                        <!-- Grounded Answer Box -->
+                        <div class="space-y-2 pt-1">
+                            <div class="text-xs text-slate-400 font-mono uppercase tracking-wider flex items-center gap-2 px-1">
+                                <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                                <span>Grounded Answer (Groq Meta LLaMA-3.1)</span>
+                            </div>
+                            <div id="answerText" class="text-emerald-300 font-normal leading-relaxed bg-slate-950/90 px-5 py-4 rounded-xl border border-slate-800/80 min-h-[140px] max-h-[300px] overflow-y-auto whitespace-pre-wrap text-sm shadow-inner"></div>
+                        </div>
 
-                <div class="pt-2">
-                    <span id="benchmarkBadgePill" class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-950/90 text-emerald-400 border border-emerald-800/70">
-                        PASS -- p95 6.1ms within budget
-                    </span>
+                        <div class="space-y-2 pt-3 border-t border-slate-800/60">
+                            <div class="text-xs text-slate-400 font-mono uppercase tracking-wider flex items-center gap-2 px-1">
+                                <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                <span>Empirical Latency Breakdown</span>
+                            </div>
+                            <div id="timingsBreakdown" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 font-mono text-xs text-center"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -304,9 +372,9 @@ def index():
                     const badge = document.getElementById('benchmarkBadgePill');
                     badge.innerText = data.badge_text;
                     if (data.status === 'PASS') {
-                        badge.className = 'inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-950/90 text-emerald-400 border border-emerald-800/70';
+                        badge.className = 'inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold tracking-wider bg-emerald-950/90 text-emerald-400 border border-emerald-800/70';
                     } else {
-                        badge.className = 'inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-rose-950/90 text-rose-400 border border-rose-800/70';
+                        badge.className = 'inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold tracking-wider bg-rose-950/90 text-rose-400 border border-rose-800/70';
                     }
                 } catch (e) {
                     console.error("Benchmark failed:", e);
@@ -315,6 +383,10 @@ def index():
                     if (spinner) spinner.classList.add('hidden');
                 }
             }
+
+            window.addEventListener('DOMContentLoaded', () => {
+                runWebBenchmark();
+            });
 
             let mediaRecorder = null;
             let audioChunks = [];
@@ -370,7 +442,7 @@ def index():
                         mediaRecorder.start();
                         isRecording = true;
                         document.getElementById('recordLabel').innerText = "Stop & Run";
-                        document.getElementById('recordBtn').className = "flex items-center gap-2.5 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-semibold px-6 py-3 rounded-xl text-sm transition-all duration-200 active:scale-95 shadow-lg shadow-amber-950/40";
+                        document.getElementById('recordBtn').className = "flex items-center gap-2.5 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-semibold px-6 py-3 rounded-xl text-sm transition-all duration-200 active:scale-95 shadow-lg shadow-amber-950/40 cursor-pointer";
                         document.getElementById('recordStatus').innerHTML = `<svg class="w-3.5 h-3.5 text-rose-500 animate-pulse" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/></svg> Microphone active. Speaking...`;
                     } catch (err) {
                         alert("Microphone permission error: " + err.message);
@@ -381,7 +453,7 @@ def index():
                     }
                     isRecording = false;
                     document.getElementById('recordLabel').innerText = "Start Live Mic";
-                    document.getElementById('recordBtn').className = "flex items-center gap-2.5 bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-500 hover:to-rose-600 text-white font-semibold px-6 py-3 rounded-xl text-sm transition-all duration-200 shadow-lg glow-rose active:scale-95";
+                    document.getElementById('recordBtn').className = "flex items-center gap-2.5 bg-gradient-to-r from-rose-600 via-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white font-semibold px-6 py-3 rounded-xl text-sm transition-all duration-200 shadow-lg glow-rose active:scale-95 cursor-pointer";
                     document.getElementById('recordStatus').innerText = "Transcribing audio...";
                 }
             }
