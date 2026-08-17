@@ -54,7 +54,7 @@ def build_fast_vector_index(docs: list[str], metadatas: list[dict]):
     doc_freq = {}
     
     for doc in docs:
-        words = re.findall(r'\w+', doc.lower())
+        words = re.findall(r'[\u0600-\u0D7F\w]+', doc.lower())
         counts = {}
         seen_in_doc = set()
         for w in words:
@@ -139,8 +139,8 @@ class VectorRetrievalStep(BaseStep):
         if _doc_matrix is None:
             warmup_vector_index()
 
-        # Vectorize query using TF-IDF
-        q_words = re.findall(r'\w+', query.lower())
+        # Vectorize query using TF-IDF (supports English + 14 Indian languages)
+        q_words = re.findall(r'[\u0600-\u0D7F\w]+', query.lower())
         q_counts = {}
         for w in q_words:
             q_counts[w] = q_counts.get(w, 0) + 1

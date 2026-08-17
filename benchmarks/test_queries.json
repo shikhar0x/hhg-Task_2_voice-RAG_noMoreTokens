@@ -6,9 +6,21 @@
     "ground_truth_answer": "A corporation is a company or group of people authorized to act as a single entity and recognized as such in law."
   },
   {
+    "query_id": "1102432",
+    "eng_query": ". what is a corporation?",
+    "indic_query": "কর্পোরেশন কী?",
+    "ground_truth_answer": "A corporation is a company or group of people authorized to act as a single entity and recognized as such in law."
+  },
+  {
     "query_id": "1102431",
     "eng_query": "why did rachel carson write an obligation to endure",
     "indic_query": "रेचल कार्सन ने क्यों एक दायित्व बर्दाश्त करने के लिए लिखा",
+    "ground_truth_answer": "Rachel Carson writes The Obligation to Endure because believes that as man tries to eliminate unwanted insects and weeds, however he is actually causing more problems by polluting the environment."
+  },
+  {
+    "query_id": "1102431",
+    "eng_query": "why did rachel carson write an obligation to endure",
+    "indic_query": "র‍্যাচেল কারসন কেন একটি বাধ্যবাধকতা সহ্য করার জন্য লিখেছিলেন",
     "ground_truth_answer": "Rachel Carson writes The Obligation to Endure because believes that as man tries to eliminate unwanted insects and weeds, however he is actually causing more problems by polluting the environment."
   },
   {
@@ -18,9 +30,21 @@
     "ground_truth_answer": "No Answer Present."
   },
   {
+    "query_id": "90836",
+    "eng_query": "chart for foods low in potassium.",
+    "indic_query": "পটাসিয়াম কম থাকা খাবারের তালিকা।",
+    "ground_truth_answer": "No Answer Present."
+  },
+  {
     "query_id": "55665",
     "eng_query": "bottom front of a cargo ship",
     "indic_query": "मालवाहक जहाज़ के नीचे की तरफ",
+    "ground_truth_answer": "No Answer Present."
+  },
+  {
+    "query_id": "55665",
+    "eng_query": "bottom front of a cargo ship",
+    "indic_query": "একটি পণ্যবাহী জাহাজের নীচের সামনের অংশ",
     "ground_truth_answer": "No Answer Present."
   },
   {
@@ -30,9 +54,21 @@
     "ground_truth_answer": "Honesty: The condition of being honest. \nIntegrity: The value and morals of a individual in relation or in addition to honesty."
   },
   {
+    "query_id": "205107",
+    "eng_query": "honesty or integrity definition",
+    "indic_query": "সততা বা সততার সংজ্ঞা",
+    "ground_truth_answer": "Honesty: The condition of being honest. \nIntegrity: The value and morals of a individual in relation or in addition to honesty."
+  },
+  {
     "query_id": "1060386",
     "eng_query": "what is barometric pressure in lincoln ne now?",
     "indic_query": "लिंकन में अब वायुमंडलीय दबाव क्या है?",
+    "ground_truth_answer": "No Answer Present."
+  },
+  {
+    "query_id": "1060386",
+    "eng_query": "what is barometric pressure in lincoln ne now?",
+    "indic_query": "লিঙ্কনে এখন ব্যারোমেট্রিক চাপ কত?",
     "ground_truth_answer": "No Answer Present."
   },
   {
@@ -42,9 +78,21 @@
     "ground_truth_answer": "No Answer Present."
   },
   {
+    "query_id": "1090356",
+    "eng_query": "struthers city school district state number",
+    "indic_query": "স্ট্রুথার্স শহর বিদ্যালয় জেলা রাজ্য নম্বর",
+    "ground_truth_answer": "No Answer Present."
+  },
+  {
     "query_id": "168868",
     "eng_query": "does medical marijuana help with ptsd",
     "indic_query": "क्या चिकित्सीय मारिजुआना मदत करता है?",
+    "ground_truth_answer": "No Answer Present."
+  },
+  {
+    "query_id": "168868",
+    "eng_query": "does medical marijuana help with ptsd",
+    "indic_query": "চিকিৎসা গাঁজা মাদকের সঙ্গে সাহায্য করে কিনা?",
     "ground_truth_answer": "No Answer Present."
   },
   {
@@ -54,9 +102,21 @@
     "ground_truth_answer": "Frank Gifford married to three women."
   },
   {
+    "query_id": "300122",
+    "eng_query": "how many women did frank gifford marry",
+    "indic_query": "ফ্র্যাঙ্ক গিফোর্ড কতজন মহিলাকে বিয়ে করেছিলেন",
+    "ground_truth_answer": "Frank Gifford married to three women."
+  },
+  {
     "query_id": "290643",
     "eng_query": "how many ongoing trump administration investigations",
     "indic_query": "कितनी ट्रम्प प्रशासन की जांच चल रही हैं",
+    "ground_truth_answer": "No Answer Present."
+  },
+  {
+    "query_id": "290643",
+    "eng_query": "how many ongoing trump administration investigations",
+    "indic_query": "ট্রাম্প প্রশাসনের কতগুলি তদন্ত চলছে।",
     "ground_truth_answer": "No Answer Present."
   },
   {
@@ -66,9 +126,21 @@
     "ground_truth_answer": "No Answer Present."
   },
   {
+    "query_id": "197590",
+    "eng_query": "guide to how to collect followers on wow",
+    "indic_query": "ওয়াও-তে অনুসারীদের কীভাবে সংগ্রহ করতে হয় তার নির্দেশিকা",
+    "ground_truth_answer": "No Answer Present."
+  },
+  {
     "query_id": "265552",
     "eng_query": "how long is zales layaway",
     "indic_query": "ज़ेल्स कितने समय तक दूर रहना पड़ता है",
+    "ground_truth_answer": "No Answer Present."
+  },
+  {
+    "query_id": "265552",
+    "eng_query": "how long is zales layaway",
+    "indic_query": "জেলস কতদিন অবসর নেয়।",
     "ground_truth_answer": "No Answer Present."
   },
   {
@@ -78,9 +150,21 @@
     "ground_truth_answer": "क्या आप किसी के काम के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किस क के काम को करने के लिए किसी के काम को करने के लिए किसी के काम को करने के लिए किस क के काम को करने के लिए किसी के काम को करने के लिए किस क के काम को करने के लिए किस क के काम को करने के लिए किस क के काम को करने के लिए किस क के काम को करने के लिए किस क के काम को करने के लिए किस क के काम को करने के लिए किस क के काम को करने के लिए किस क के काम को करने के लिए किस क के काम को करने के लिए किस क के काम को करने के लिए किस क के काम को करने के लिए किस क के काम को करने के लिए किस क के काम को करने के लिए किस क के काम को करने के लिए किस क के काम को करने के लिए किस क के काम को करने के लिए किस क के काम को करने के लिए किस क के काम को करने के लिए किस क के काम को करने के लिए किस क के काम को करने के लिए किस क के काम को करने के लिए किस क के काम को करने के लिए किस क के काम को करने के लिए किस क के काम को करने के लिए किस क के काम को करने के लिए किस क के काम को करने के लिए किस क के काम को करने के लिए किस क के काम को करने के लिए किस क के काम को करने के लिए किस क के काम को करने के लिए किस क के काम को करने के लिए किस क के काम को करने के लिए किस क के काम को करने के लिए किस क के काम को करने के लिए किस क के काम को करने के लिए किस क के काम को करने के लिए किस क के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करने के लिए किस के काम को करन"
   },
   {
+    "query_id": "227261",
+    "eng_query": "how does pollution increase human population",
+    "indic_query": "দূষণ কীভাবে মানুষের জনসংখ্যা বৃদ্ধি করে।",
+    "ground_truth_answer": "এই প্রক্রিয়াটি অতিক্রম করতে সাহায্য করে বিশ্বব্যাপী একটি বৃহৎ সংখ্যা অফ গ্যানের সাহায্য �প্রক্রিয়া চালু রাখতে সাহায্য করে।"
+  },
+  {
     "query_id": "227029",
     "eng_query": "how does nhl playoff seeding work",
     "indic_query": "एन.एच.एल. प्लेऑफ़ सीडिंग कैसे काम करती है",
+    "ground_truth_answer": "No Answer Present."
+  },
+  {
+    "query_id": "227029",
+    "eng_query": "how does nhl playoff seeding work",
+    "indic_query": "এনএইচএল প্লে-অফ সিডিং কিভাবে কাজ করে",
     "ground_truth_answer": "No Answer Present."
   },
   {
@@ -90,9 +174,21 @@
     "ground_truth_answer": "No Answer Present."
   },
   {
+    "query_id": "166290",
+    "eng_query": "does filth cause ringworm?",
+    "indic_query": "কি ময়লা আজবাত সৃষ্টি করে?",
+    "ground_truth_answer": "No Answer Present."
+  },
+  {
     "query_id": "316415",
     "eng_query": "how much does it cost to recement a crown",
     "indic_query": "एक ताज को फिर से बनाने की कीमत कितनी होती है",
+    "ground_truth_answer": "No Answer Present."
+  },
+  {
+    "query_id": "316415",
+    "eng_query": "how much does it cost to recement a crown",
+    "indic_query": "একটি মুকুট পুনর্বার লাগানোর খরচ কত",
     "ground_truth_answer": "No Answer Present."
   },
   {
@@ -102,9 +198,21 @@
     "ground_truth_answer": "No Answer Present."
   },
   {
+    "query_id": "1060370",
+    "eng_query": "what is barrel o slime?",
+    "indic_query": "ব্যারেল ও স্লাইম কী?",
+    "ground_truth_answer": "No Answer Present."
+  },
+  {
     "query_id": "233826",
     "eng_query": "how fast does an eagle travel",
     "indic_query": "बाज़ कितनी तेजी से यात्रा करता है",
+    "ground_truth_answer": "30 to 55 mph"
+  },
+  {
+    "query_id": "233826",
+    "eng_query": "how fast does an eagle travel",
+    "indic_query": "একটি ঈগল কত দ্রুত ভ্রমণ করে।",
     "ground_truth_answer": "30 to 55 mph"
   },
   {
@@ -114,9 +222,21 @@
     "ground_truth_answer": "The toll free number of Stubhub is 866-788-2482."
   },
   {
+    "query_id": "1090355",
+    "eng_query": "stubhub toll free number",
+    "indic_query": "স্টাবহাব টোল ফ্রি নম্বর",
+    "ground_truth_answer": "The toll free number of Stubhub is 866-788-2482."
+  },
+  {
     "query_id": "287284",
     "eng_query": "how many kw do solar city panels produce",
     "indic_query": "सौर शहर के पैनल कितना कि.डब्ल्यू उत्पादन करते हैं",
+    "ground_truth_answer": "No Answer Present."
+  },
+  {
+    "query_id": "287284",
+    "eng_query": "how many kw do solar city panels produce",
+    "indic_query": "সৌর শহরের প্যানেলগুলি কতগুলি কিলোওয়াট উৎপাদন করে।",
     "ground_truth_answer": "No Answer Present."
   },
   {
@@ -126,9 +246,21 @@
     "ground_truth_answer": "No Answer Present."
   },
   {
+    "query_id": "187378",
+    "eng_query": "first defense nasal filter sales numbers",
+    "indic_query": "প্রথম প্রতিরক্ষা নাসার ফিল্টার বিক্রয় সংখ্যা",
+    "ground_truth_answer": "No Answer Present."
+  },
+  {
     "query_id": "361332",
     "eng_query": "how to get clear desktop icon on windows 8",
     "indic_query": "विंडोज 8 पर स्पष्ट डेस्कटॉप आइकन कैसे प्राप्त करें",
+    "ground_truth_answer": "No Answer Present."
+  },
+  {
+    "query_id": "361332",
+    "eng_query": "how to get clear desktop icon on windows 8",
+    "indic_query": "উইণ্ডোজ ৮-এ কিভাবে ডেস্কটপ আইকনটি পরিষ্কার করতে হয়",
     "ground_truth_answer": "No Answer Present."
   },
   {
@@ -138,9 +270,21 @@
     "ground_truth_answer": "Yes"
   },
   {
+    "query_id": "165349",
+    "eng_query": "does delta fly to bangalore",
+    "indic_query": "ডুবলুমধ্য বাঁক বাঁগালোরে উড়ে যায়",
+    "ground_truth_answer": "Yes"
+  },
+  {
     "query_id": "260880",
     "eng_query": "how long for cantaloupe to mature",
     "indic_query": "कैंटालूप को कितने समय तक परिपक्व होना है",
+    "ground_truth_answer": "90 days."
+  },
+  {
+    "query_id": "260880",
+    "eng_query": "how long for cantaloupe to mature",
+    "indic_query": "কতদিন করে ক্যান্টালুপ পাকাবে।",
     "ground_truth_answer": "90 days."
   },
   {
@@ -150,153 +294,9 @@
     "ground_truth_answer": "No Answer Present."
   },
   {
-    "query_id": "116898",
-    "eng_query": "defination arbitrary",
-    "indic_query": "परिभाषा मनमानी है",
-    "ground_truth_answer": "A course of action or a decision that is not based on reason or judgment but on personal will or discretion without regard to rules or standards."
-  },
-  {
-    "query_id": "237853",
-    "eng_query": "how is time to degree calculated graduate degrees",
-    "indic_query": "स्नातक डिग्री की डिग्री के लिए समय की गणना कैसे की जाती है",
+    "query_id": "110842",
+    "eng_query": "cost to replace converter with test pipe",
+    "indic_query": "পরীক্ষামূলক পাইপ দিয়ে রূপান্তরক প্রতিস্থাপন করার খরচ",
     "ground_truth_answer": "No Answer Present."
-  },
-  {
-    "query_id": "1060361",
-    "eng_query": "what is barter system and its problems",
-    "indic_query": "किन्ना पारस्परिक आदान-प्रदान होता है और इसकी समस्याएं क्या हैं",
-    "ground_truth_answer": "Barter is a type of trade where goods or services are exchanged for a certain amount of other goods or services; no money is involved in the transaction. And the biggest problem of the barter system in economics is that primitive barter requires those whom you wish to trade with must have something YOU want."
-  },
-  {
-    "query_id": "144943",
-    "eng_query": "did roblox have a power ranger event",
-    "indic_query": "क्या रोब्लॉक्स में पावर रेंजर इवेंट होता था?",
-    "ground_truth_answer": "No Answer Present."
-  },
-  {
-    "query_id": "1090353",
-    "eng_query": "study of climate weather",
-    "indic_query": "जलवायु मौसम का अध्ययन",
-    "ground_truth_answer": "Weather is the day-to-day state of the atmosphere in a region and its short-term variations, whereas climate is defined as statistical weather information that describes the variation of weather at a given place for a specified interval."
-  },
-  {
-    "query_id": "368321",
-    "eng_query": "how to make an oil infused herbal infusion",
-    "indic_query": "तेल मिश्रित जड़ी-बूटी का संक्षेपण कैसे बनाएं",
-    "ground_truth_answer": "No Answer Present."
-  },
-  {
-    "query_id": "113570",
-    "eng_query": "culture of sociology definition",
-    "indic_query": "समाजशास्त्र की परिभाषा की संस्कृति",
-    "ground_truth_answer": "The systematic analysis of culture, usually understood as the ensemble of symbolic codes used by a members of a society, as it is manifested in the society."
-  },
-  {
-    "query_id": "126172",
-    "eng_query": "define radical neck",
-    "indic_query": "मूलगामी गर्दन को परिभाषित करें",
-    "ground_truth_answer": "It is a surgical procedure that is used to remove cancerous tissues or growths in the head or neck."
-  },
-  {
-    "query_id": "198064",
-    "eng_query": "half cup how many ounces",
-    "indic_query": "आधा कप में कितने औंस होते हैं",
-    "ground_truth_answer": "No Answer Present."
-  },
-  {
-    "query_id": "129220",
-    "eng_query": "define workday",
-    "indic_query": "कार्यदिवस को परिभाषित करें।",
-    "ground_truth_answer": "No Answer Present."
-  },
-  {
-    "query_id": "331047",
-    "eng_query": "how much xbox games cost",
-    "indic_query": "कितने खर्च होते हैं यू.एस.एक्स. गेम्स?",
-    "ground_truth_answer": "$80 to $250"
-  },
-  {
-    "query_id": "63220",
-    "eng_query": "can a signed stipulation be overturned",
-    "indic_query": "क्या एक हस्ताक्षरित विनिर्णय को रद्द किया जा सकता है?",
-    "ground_truth_answer": "No Answer Present."
-  },
-  {
-    "query_id": "74039",
-    "eng_query": "can stress crack on glass pane be remedied",
-    "indic_query": "कांच के पैनल पर आ रहे तनाव का समाधान किया जा सकता है",
-    "ground_truth_answer": "No Answer Present."
-  },
-  {
-    "query_id": "1060359",
-    "eng_query": "what is basal in dna",
-    "indic_query": "आधारभूत क्या है जीने में?",
-    "ground_truth_answer": "Bind to cis-acting DNA sequences RNA Polymerase and the group of protein that directly interact with it are called the basal transcription apparatus."
-  },
-  {
-    "query_id": "229231",
-    "eng_query": "how effective is boniva",
-    "indic_query": "बोनिवा कितना प्रभावी है",
-    "ground_truth_answer": "No Answer Present."
-  },
-  {
-    "query_id": "267380",
-    "eng_query": "how long should you carb cycle",
-    "indic_query": "आपको कितने समय तक कार्ब चक्र लगाना चाहिए",
-    "ground_truth_answer": "Two and eight weeks"
-  },
-  {
-    "query_id": "1090352",
-    "eng_query": "sty causes",
-    "indic_query": "स्टाई कारण होता है",
-    "ground_truth_answer": "Styes are caused by infections of the oil glands in the eyelid, or staphylococcus bacteria."
-  },
-  {
-    "query_id": "202891",
-    "eng_query": "highest record temperature for redding ca",
-    "indic_query": "रेडिंग का उच्चतम रिकॉर्ड तापमान",
-    "ground_truth_answer": "118 F"
-  },
-  {
-    "query_id": "112025",
-    "eng_query": "court of two sisters brunch price",
-    "indic_query": "दो बहनों के ब्रंच की कीमत",
-    "ground_truth_answer": "No Answer Present."
-  },
-  {
-    "query_id": "317450",
-    "eng_query": "how much does matt lauer make a year",
-    "indic_query": "मैट लॉयर एक साल में कितना कमाता है",
-    "ground_truth_answer": "$20 million"
-  },
-  {
-    "query_id": "58871",
-    "eng_query": "california domestic violence leave laws",
-    "indic_query": "कैलिफोर्निया के घरेलू हिंसा के कानून",
-    "ground_truth_answer": "No Answer Present."
-  },
-  {
-    "query_id": "373460",
-    "eng_query": "how to print an excel sheet",
-    "indic_query": "एक 'एक्सेल शीट' कैसे प्रिंट करें",
-    "ground_truth_answer": "Step 1. Go into Print form of Microsoft Excel by clicking on FILE tab in the Ribbon bar. Step 2. Then do left mouse click on Print in the FILE menu. Step 3. On the Print form, you can see that our excel sheet spread on three pages. Click on Page Setup. Step 4. The Page Setup dialog will show up. Click on Page tab and look at Scaling section. There is one option named Fit to, Click to select that option."
-  },
-  {
-    "query_id": "116095",
-    "eng_query": "death head units definition",
-    "indic_query": "डेथ हेड यूनिट्स की परिभाषा",
-    "ground_truth_answer": "Death's Head unit which eventually made up the guards of all the concentration camps. On their caps, they wore a silver emblem of a skull, the same emblem that was worn by the Waffen-SS.The death's head was supposed to signify that they were loyal to the death, not that they were murderers."
-  },
-  {
-    "query_id": "21860",
-    "eng_query": "are corn meal and corn flour the same",
-    "indic_query": "मक्का का भोजन और मक्का का आटा एक जैसा ही है।",
-    "ground_truth_answer": "Yes, Corn flour and corn meal are the same."
-  },
-  {
-    "query_id": "1060348",
-    "eng_query": "what is basic? uni",
-    "indic_query": "क्या बुनियादी है?",
-    "ground_truth_answer": "BASIC is a family of general-purpose, high-level programming languages whose design philosophy emphasizes ease of use."
   }
 ]

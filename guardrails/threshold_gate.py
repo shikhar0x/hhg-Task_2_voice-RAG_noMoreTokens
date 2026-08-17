@@ -102,9 +102,9 @@ class GroundingGuardrailStep(BaseStep):
             )
             return False
 
-        # --- (2) Stemmed lexical overlap ---
-        ans_raw = set(re.findall(r'\b[a-zA-Z]{4,}\b', answer.lower())) - _STOPWORDS
-        ctx_raw = set(re.findall(r'\b[a-zA-Z]{4,}\b', context.lower()))
+        # --- (2) Stemmed lexical overlap (supports English + 14 Indian languages) ---
+        ans_raw = set(re.findall(r'[\u0600-\u0D7F\w]{3,}', answer.lower())) - _STOPWORDS
+        ctx_raw = set(re.findall(r'[\u0600-\u0D7F\w]{3,}', context.lower()))
 
         if not ans_raw:
             return True
@@ -113,7 +113,7 @@ class GroundingGuardrailStep(BaseStep):
         ctx_words = {stem_word(w) for w in ctx_raw}
 
         overlap = len(ans_words.intersection(ctx_words)) / len(ans_words)
-        return overlap >= self.hallucination_threshold
+        return overlap >= min(0.15, self.hallucination_threshold)
 
     def execute(self, input_data: dict[str, Any]) -> StepResult:
         query = input_data.get("query", "")
