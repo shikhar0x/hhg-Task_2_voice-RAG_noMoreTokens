@@ -252,7 +252,7 @@ def index():
                         </div>
 
                         <div class="pt-2 border-t border-slate-800/60">
-                            <span id="benchmarkBadgePill" class="inline-flex items-center px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wider bg-emerald-950/90 text-emerald-400 border border-emerald-800/70">
+                            <span id="benchmarkBadgePill" class="inline-flex items-center px-5 py-2.5 rounded-full text-2xl font-bold tracking-wider bg-emerald-950/90 text-emerald-400 border border-emerald-800/70">
                                 PASS -- p95 | 6.1ms within budget
                             </span>
                         </div>
@@ -370,9 +370,9 @@ def index():
                     const badge = document.getElementById('benchmarkBadgePill');
                     badge.innerText = data.badge_text;
                     if (data.status === 'PASS') {
-                        badge.className = 'inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold tracking-wider bg-emerald-950/90 text-emerald-400 border border-emerald-800/70';
+                        badge.className = 'inline-flex items-center px-5 py-2.5 rounded-full text-2xl font-bold tracking-wider bg-emerald-950/90 text-emerald-400 border border-emerald-800/70';
                     } else {
-                        badge.className = 'inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold tracking-wider bg-rose-950/90 text-rose-400 border border-rose-800/70';
+                        badge.className = 'inline-flex items-center px-5 py-2.5 rounded-full text-2xl font-bold tracking-wider bg-rose-950/90 text-rose-400 border border-rose-800/70';
                     }
                 } catch (e) {
                     console.error("Benchmark failed:", e);
@@ -569,6 +569,8 @@ def index():
                 }
                 html += `<div class="bg-slate-950/90 p-3 rounded-xl border border-emerald-500/30 glow-emerald"><div class="text-slate-300 text-[11px]">Total</div><div class="text-emerald-300 font-bold mt-1 text-sm">${timings.total ? timings.total.toFixed(1) : 0}ms</div></div>`;
                 document.getElementById('timingsBreakdown').innerHTML = html;
+
+                runWebBenchmark();
             }
         </script>
     </body>
