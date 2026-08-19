@@ -4,7 +4,7 @@ from typing import Any
 
 from stt.engine import SpeechToTextStep
 from retrieval.vector_store import VectorRetrievalStep
-from retrieval.extractive import extract_answer
+from retrieval.extractive import ABSTAIN_TEXT, extract_answer, grounding_verdict
 from guardrails.threshold_gate import GroundingGuardrailStep
 from generation.llm import LLMGenerationStep
 from infrastructure.metrics_db import MetricsDB
@@ -147,6 +147,14 @@ class VoiceRAGOrchestrator:
                 "generated_answer": "",
                 "similarities": ret_res.data.get("similarities", []),
                 "retrieved_docs": ret_res.data.get("documents", []),
+                "sources": [
+                    {
+                        "text": d,
+                        "score": round(float((ret_res.data.get("similarities") or [0])[i]), 4)
+                        if i < len(ret_res.data.get("similarities") or []) else 0.0,
+                    }
+                    for i, d in enumerate(ret_res.data.get("documents") or [])
+                ],
                 "stt_engine": stt_engine,
                 "fast_path_ms": timings["fast_path"],
                 "budget_ms": BUDGET_MS,
@@ -163,22 +171,49 @@ class VoiceRAGOrchestrator:
             similarities=ret_res.data.get("similarities") or [],
         )
         timings["extract"] = extracted.took_ms
+        grounded, ground_reason, coverage = grounding_verdict(transcript, extracted)
         timings["fast_path"] = (
             timings["retrieval"] + timings["guardrail"] + timings["extract"]
         )
 
+        sims = list(ret_res.data.get("similarities") or [])
+        sources = [
+            {"text": doc, "score": round(float(sims[i]), 4) if i < len(sims) else 0.0}
+            for i, doc in enumerate(docs)
+        ]
+
         base_payload = {
             "query_id": query_id,
             "transcript": transcript,
-            "similarities": ret_res.data.get("similarities", []),
+            "similarities": sims,
             "retrieved_docs": docs,
+            "sources": sources,
             "extractive_answer": extracted.text,
             "extractive_support": extracted.support,
+            "extractive_coverage": round(coverage, 4),
             "stt_engine": stt_engine,
             "fast_path_ms": timings["fast_path"],
             "budget_ms": BUDGET_MS,
             "within_budget": timings["fast_path"] < BUDGET_MS,
         }
+
+        if not grounded:
+            timings["generation"] = 0.0
+            timings["hallucination_check"] = 0.0
+            timings["hedge_check"] = 0.0
+            timings["total"] = (time.perf_counter() - start_total) * 1000.0
+            logger.info(f"Extractive grounding gate: abstain ({ground_reason})")
+            self.metrics_db.log(query_id, transcript, timings, refused=True, mode=mode)
+            return {
+                **base_payload,
+                "answer": ABSTAIN_TEXT,
+                "refused": True,
+                "refusal_reason": f"abstain:{ground_reason}",
+                "answer_source": "abstain",
+                "generated_answer": "",
+                "generation_provider": "none",
+                "timings": timings,
+            }
 
         if not generate:
             timings["generation"] = 0.0

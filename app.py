@@ -81,12 +81,15 @@ def _run_live_benchmark(n: int = 80):
     n = max(20, min(int(n), 200))
     return run_benchmark(n=n, verbose=False, orch=orchestrator)
 
+
 @app.api_route("/api/benchmark", methods=["GET", "POST"])
 def api_benchmark(n: int = 80):
     return JSONResponse(content=_run_live_benchmark(n))
 
+
 @app.get("/benchmark")
 def benchmark(n: int = 80):
+    """Alias so `GET /benchmark?n=80` matches the README command."""
     return JSONResponse(content=_run_live_benchmark(n))
 
 def _app_benchmark(*args, **kwargs):
@@ -380,6 +383,7 @@ def index():
                             </div>
                             <div id="answerText" class="text-emerald-300 font-normal leading-relaxed bg-slate-950/90 px-5 py-4 rounded-xl border border-slate-800/80 min-h-[140px] max-h-[300px] overflow-y-auto whitespace-pre-wrap text-sm shadow-inner"></div>
                         </div>
+                        <div id="sourcesPanel" class="hidden space-y-2 pt-1"></div>
 
                         <div class="space-y-2 pt-3 border-t border-slate-800/60">
                             <div class="text-xs text-slate-400 font-mono uppercase tracking-wider flex items-center gap-2 px-1">
@@ -625,6 +629,28 @@ def index():
                 document.getElementById('transcriptText').innerText = data.transcript || "N/A";
                 document.getElementById('answerText').innerText = cleanAns;
 
+                const sourcesPanel = document.getElementById('sourcesPanel');
+                const srcs = data.sources && data.sources.length
+                    ? data.sources
+                    : (data.retrieved_docs || []).map((t, i) => ({ text: t, score: (data.similarities || [])[i] }));
+                if (sourcesPanel) {
+                    if (!srcs.length) {
+                        sourcesPanel.classList.add('hidden');
+                        sourcesPanel.innerHTML = '';
+                    } else {
+                        sourcesPanel.classList.remove('hidden');
+                        const support = (data.extractive_support != null) ? Number(data.extractive_support).toFixed(3) : '—';
+                        const cov = (data.extractive_coverage != null) ? Number(data.extractive_coverage).toFixed(2) : '—';
+                        sourcesPanel.innerHTML =
+                            `<div class="text-xs text-slate-400 font-mono uppercase tracking-wider flex items-center gap-2 px-1">Retrieved passages <span class="text-slate-500 normal-case">support ${support} · coverage ${cov}</span></div>` +
+                            srcs.slice(0, 3).map((s, i) => {
+                                const text = (s.text || s || '').toString();
+                                const score = (s.score != null) ? Number(s.score).toFixed(3) : '—';
+                                return `<div class="text-slate-300 text-xs leading-relaxed bg-slate-950/90 px-4 py-3 rounded-xl border border-slate-800/80"><span class="text-slate-500 font-mono">[${i + 1}] sim ${score}</span><br>${text.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])).slice(0, 420)}</div>`;
+                            }).join('');
+                    }
+                }
+
                 const src = data.answer_source || (data.refused ? 'refusal' : 'generated');
                 const t1 = document.getElementById('tierExtractive');
                 const t2 = document.getElementById('tierGenerated');
@@ -679,7 +705,6 @@ def index():
                 html += `<div class="bg-slate-950/90 p-3 rounded-xl border border-emerald-500/30 glow-emerald"><div class="text-slate-300 text-[11px]">Total</div><div class="text-emerald-300 font-bold mt-1 text-sm">${timings.total ? timings.total.toFixed(1) : 0}ms</div></div>`;
                 document.getElementById('timingsBreakdown').innerHTML = html;
 
-                runWebBenchmark();
             }
         </script>
     </body>

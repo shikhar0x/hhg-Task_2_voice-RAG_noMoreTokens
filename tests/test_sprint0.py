@@ -75,8 +75,36 @@ def test_generate_false_never_calls_llm(mocker):
     assert res["timings"]["generation"] == 0.0
     assert "fast_path" in res["timings"]
     assert res["fast_path_ms"] == res["timings"]["fast_path"]
-    assert res["budget_ms"] == 200.0
+    assert res["budget_ms"] == 50.0
     assert res["within_budget"] is True
+    assert res["sources"]
+
+
+def test_weak_span_abstains_without_llm(mocker):
+    """L3 can pass on a high cosine to the wrong topic; the span gate must still abstain."""
+    orch = _orch(
+        mocker,
+        docs=["The weather in Goa is humid in August and the beaches are crowded with tourists."],
+    )
+    orch.generation.run = mocker.Mock(side_effect=AssertionError("LLM must not run on abstain"))
+    res = orch.process(text_override="what is a corporation?", generate=True)
+    assert res["answer_source"] == "abstain"
+    assert res["refused"] is True
+    assert res["timings"]["generation"] == 0.0
+    assert "abstain:" in (res.get("refusal_reason") or "")
+
+
+def test_grounding_verdict_rejects_empty_and_offtopic():
+    from retrieval.extractive import ExtractiveAnswer, extract_answer, grounding_verdict
+    ok, reason, _ = grounding_verdict("what is a corporation?", ExtractiveAnswer("", 0.0, "", 0, 0.0))
+    assert ok is False
+    assert reason == "empty_span"
+    weak = extract_answer(
+        "what is a corporation?",
+        ["Monsoon rains flood the Mandovi every July."],
+    )
+    ok, reason, cov = grounding_verdict("what is a corporation?", weak)
+    assert ok is False
 
 
 def test_failed_generation_keeps_extractive(mocker):

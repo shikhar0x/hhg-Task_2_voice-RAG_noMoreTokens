@@ -157,6 +157,42 @@ def _score_sentence(
     return score
 
 
+# Dual gate for "do we have a span worth serving?"
+# Support is overlap × definitional/rank boosts (can exceed 1.0).
+# Coverage is the fraction of salient query terms attested in the span.
+MIN_SUPPORT = 0.20
+MIN_COVERAGE = 0.25
+
+ABSTAIN_TEXT = (
+    "I don't have enough grounded information in the indexed passages to answer that."
+)
+
+
+def query_coverage(query: str, text: str) -> float:
+    """Fraction of content query terms attested (with light stemming) in `text`."""
+    q_terms = _query_terms(query)
+    if not q_terms:
+        return 1.0
+    s_terms = _tokens(text)
+    hit = 0
+    for q in q_terms:
+        if any(_related({q}, w) for w in s_terms):
+            hit += 1
+    return hit / len(q_terms)
+
+
+def grounding_verdict(query: str, extracted: ExtractiveAnswer) -> tuple[bool, str, float]:
+    """Return (ok, reason, coverage). ok=False means abstain — do not serve or polish."""
+    if extracted.is_empty:
+        return False, "empty_span", 0.0
+    cov = query_coverage(query, extracted.text)
+    if extracted.support < MIN_SUPPORT:
+        return False, f"low_support({extracted.support:.3f}<{MIN_SUPPORT})", cov
+    if cov < MIN_COVERAGE:
+        return False, f"low_query_coverage({cov:.3f}<{MIN_COVERAGE})", cov
+    return True, "ok", cov
+
+
 def extract_answer(
     query: str,
     documents: list[str],

@@ -375,6 +375,7 @@ def index():
                             </div>
                             <div id="answerText" class="text-emerald-300 font-normal leading-relaxed bg-slate-950/90 px-5 py-4 rounded-xl border border-slate-800/80 min-h-[140px] max-h-[300px] overflow-y-auto whitespace-pre-wrap text-sm shadow-inner"></div>
                         </div>
+                        <div id="sourcesPanel" class="hidden space-y-2 pt-1"></div>
 
                         <div class="space-y-2 pt-3 border-t border-slate-800/60">
                             <div class="text-xs text-slate-400 font-mono uppercase tracking-wider flex items-center gap-2 px-1">
@@ -614,6 +615,28 @@ def index():
                 document.getElementById('transcriptText').innerText = data.transcript || "N/A";
                 document.getElementById('answerText').innerText = cleanAns;
 
+                const sourcesPanel = document.getElementById('sourcesPanel');
+                const srcs = data.sources && data.sources.length
+                    ? data.sources
+                    : (data.retrieved_docs || []).map((t, i) => ({ text: t, score: (data.similarities || [])[i] }));
+                if (sourcesPanel) {
+                    if (!srcs.length) {
+                        sourcesPanel.classList.add('hidden');
+                        sourcesPanel.innerHTML = '';
+                    } else {
+                        sourcesPanel.classList.remove('hidden');
+                        const support = (data.extractive_support != null) ? Number(data.extractive_support).toFixed(3) : '—';
+                        const cov = (data.extractive_coverage != null) ? Number(data.extractive_coverage).toFixed(2) : '—';
+                        sourcesPanel.innerHTML =
+                            `<div class="text-xs text-slate-400 font-mono uppercase tracking-wider flex items-center gap-2 px-1">Retrieved passages <span class="text-slate-500 normal-case">support ${support} · coverage ${cov}</span></div>` +
+                            srcs.slice(0, 3).map((s, i) => {
+                                const text = (s.text || s || '').toString();
+                                const score = (s.score != null) ? Number(s.score).toFixed(3) : '—';
+                                return `<div class="text-slate-300 text-xs leading-relaxed bg-slate-950/90 px-4 py-3 rounded-xl border border-slate-800/80"><span class="text-slate-500 font-mono">[${i + 1}] sim ${score}</span><br>${text.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])).slice(0, 420)}</div>`;
+                            }).join('');
+                    }
+                }
+
                 const src = data.answer_source || (data.refused ? 'refusal' : 'generated');
                 const t1 = document.getElementById('tierExtractive');
                 const t2 = document.getElementById('tierGenerated');
@@ -641,11 +664,14 @@ def index():
                 }
 
                 const badge = document.getElementById('statusBadge');
-                if (data.refused) {
+                if (data.refused || data.answer_source === 'abstain') {
                     badge.className = 'px-3.5 py-1.5 text-xs rounded-full font-mono bg-rose-950/80 text-rose-300 border border-rose-800/80 flex items-center gap-1.5';
-                    const refusalText = (data.refusal_reason && data.refusal_reason.includes("grounding check")) 
-                        ? "GUARDRAIL REFUSAL (UNFAITHFUL / HALLUCINATION)" 
-                        : "GUARDRAIL REFUSAL (OUT OF DOMAIN)";
+                    let refusalText = "GUARDRAIL REFUSAL (OUT OF DOMAIN)";
+                    if (data.answer_source === 'abstain' || (data.refusal_reason || '').startsWith('abstain')) {
+                        refusalText = "ABSTAIN (WEAK GROUNDING)";
+                    } else if (data.refusal_reason && data.refusal_reason.includes("grounding check")) {
+                        refusalText = "GUARDRAIL REFUSAL (UNFAITHFUL / HALLUCINATION)";
+                    }
                     badge.innerHTML = `${SVG_REFUSAL}<span>${refusalText}</span>`;
                 } else {
                     badge.className = 'px-3.5 py-1.5 text-xs rounded-full font-mono bg-emerald-950/80 text-emerald-300 border border-emerald-800/80 flex items-center gap-1.5';
@@ -668,7 +694,6 @@ def index():
                 html += `<div class="bg-slate-950/90 p-3 rounded-xl border border-emerald-500/30 glow-emerald"><div class="text-slate-300 text-[11px]">Total</div><div class="text-emerald-300 font-bold mt-1 text-sm">${timings.total ? timings.total.toFixed(1) : 0}ms</div></div>`;
                 document.getElementById('timingsBreakdown').innerHTML = html;
 
-                runWebBenchmark();
             }
         </script>
     </body>
