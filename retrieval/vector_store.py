@@ -121,12 +121,32 @@ def _get_chroma_client():
 def get_vector_store():
     return _get_chroma_client().get_or_create_collection("msmarco_corpus")
 
+
+def is_indic_script(text: str) -> bool:
+    """True only for Indic *scripts*, not fancy English punctuation.
+
+    Groq answers often contain en-dashes, smart quotes, nbsp (ord > 127).
+    The old `ord(c) > 127` test treated those as Hindi and fired a live
+    Groq translate call inside retrieval / Layer 4 — which is why
+    hallucination_check showed ~1s P50 and the TPM limiter tripped.
+    """
+    if not text:
+        return False
+    for ch in text:
+        o = ord(ch)
+        if 0x0900 <= o <= 0x0D7F:  # Devanagari .. Malayalam
+            return True
+        if 0x0980 <= o <= 0x09FF:  # Bengali (already in range above)
+            return True
+    return False
+
+
 def translate_to_english_if_needed(text: str) -> str:
     """Translates Indic/non-English query text to English for vector index lookup."""
     if not text:
         return text
     # Check if string contains non-ASCII characters (e.g. Devanagari \u0600-\u0D7F)
-    if any(ord(c) > 127 for c in text):
+    if is_indic_script(text):
         try:
             import os
             from groq import Groq

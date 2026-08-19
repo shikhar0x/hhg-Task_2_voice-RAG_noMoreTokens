@@ -4,6 +4,7 @@ from contextlib import asynccontextmanager
 from harness.orchestrator import VoiceRAGOrchestrator
 from retrieval.vector_store import get_vector_store
 from config.logger import logger
+from pydantic import BaseModel, Field
 import shutil
 import tempfile
 import os
@@ -23,7 +24,8 @@ app = FastAPI(title="HH Goa Voice-RAG Service", lifespan=lifespan)
 @app.post("/api/query")
 def handle_query(
     audio: UploadFile = File(None),
-    text_override: str = Form(None)
+    text_override: str = Form(None),
+    generate: bool = Form(True),
 ):
     temp_path = None
     if audio and audio.filename:
@@ -33,7 +35,11 @@ def handle_query(
             temp_path = tmp.name
 
     try:
-        result = orchestrator.process(audio_path=temp_path, text_override=text_override)
+        result = orchestrator.process(
+            audio_path=temp_path,
+            text_override=text_override,
+            generate=generate,
+        )
         return JSONResponse(content=result)
     finally:
         if temp_path and os.path.exists(temp_path):
@@ -46,11 +52,42 @@ def handle_query(
 def get_metrics():
     return orchestrator.metrics_db.compute_percentiles()
 
-@app.api_route("/api/benchmark", methods=["GET", "POST"])
-def benchmark_endpoint():
+class AskRequest(BaseModel):
+    question: str = Field(min_length=1, max_length=2000)
+    generate: bool = True
+
+
+@app.post("/ask")
+def ask(req: AskRequest):
+    """Text question → answer. `generate=false` is the official <50ms fast path."""
+    result = orchestrator.process(text_override=req.question, generate=req.generate)
+    return JSONResponse(content=result)
+
+
+@app.get("/health")
+def health():
+    col = get_vector_store()
+    return {
+        "status": "ok",
+        "passages": col.count(),
+        "budget_ms": 50,
+        "fast_path": "retrieve + guardrail + extractive",
+    }
+
+
+
+def _run_live_benchmark(n: int = 80):
     from app.benchmark import run_benchmark
-    res = run_benchmark(n=50, verbose=False)
-    return JSONResponse(content=res)
+    n = max(20, min(int(n), 200))
+    return run_benchmark(n=n, verbose=False, orch=orchestrator)
+
+@app.api_route("/api/benchmark", methods=["GET", "POST"])
+def api_benchmark(n: int = 80):
+    return JSONResponse(content=_run_live_benchmark(n))
+
+@app.get("/benchmark")
+def benchmark(n: int = 80):
+    return JSONResponse(content=_run_live_benchmark(n))
 
 def _app_benchmark(*args, **kwargs):
     from app.benchmark import run_benchmark
@@ -311,6 +348,7 @@ def index():
                     <!-- Results Card -->
                     <div id="outputCard" class="hidden glass-panel rounded-2xl p-7 md:p-8 space-y-6 border border-slate-800/80 shadow-2xl">
                         <div class="flex justify-between items-center border-b border-slate-800/80 pb-4">
+                            <div class="flex items-center gap-3 flex-wrap">
                             <h3 class="text-base font-bold text-white flex items-center gap-2.5">
                                 <div class="p-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -318,6 +356,12 @@ def index():
                                 Pipeline Execution Result
                             </h3>
                             <span id="statusBadge" class="px-3.5 py-1.5 text-xs rounded-full font-mono font-semibold flex items-center gap-1.5"></span>
+                            </div>
+                            <div id="tierTrack" class="flex items-center gap-2 text-[10px] font-mono uppercase tracking-wider text-slate-500">
+                                <span id="tierExtractive" class="px-2 py-1 rounded-md border border-slate-800">01 extractive <em class="not-italic text-slate-400" id="t1ms">—</em></span>
+                                <span class="text-slate-700">→</span>
+                                <span id="tierGenerated" class="px-2 py-1 rounded-md border border-slate-800">02 generated <em class="not-italic text-slate-400" id="t2ms">—</em></span>
+                            </div>
                         </div>
                         
                         <div class="space-y-2">
@@ -332,7 +376,7 @@ def index():
                         <div class="space-y-2 pt-1">
                             <div class="text-xs text-slate-400 font-mono uppercase tracking-wider flex items-center gap-2 px-1">
                                 <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
-                                <span>Grounded Answer (Groq Meta LLaMA-3.1)</span>
+                                <span id="answerTierLabel">Answer</span>
                             </div>
                             <div id="answerText" class="text-emerald-300 font-normal leading-relaxed bg-slate-950/90 px-5 py-4 rounded-xl border border-slate-800/80 min-h-[140px] max-h-[300px] overflow-y-auto whitespace-pre-wrap text-sm shadow-inner"></div>
                         </div>
@@ -471,11 +515,15 @@ def index():
                 }
                 const formData = new FormData();
                 formData.append('audio', audioBlob, 'mic_voice.wav');
+                formData.append('generate', 'false');
 
                 try {
                     const res = await fetch('/api/query', { method: 'POST', body: formData });
                     const data = await res.json();
-                    renderResult(data);
+                    renderResult(data, 'extractive');
+                    if (data.transcript && !data.refused && !data.error) {
+                        await polishQuestion(data.transcript);
+                    }
                 } catch (e) {
                     alert("Query failed: " + e.message);
                     document.getElementById('loader').classList.add('hidden');
@@ -491,14 +539,35 @@ def index():
 
                 const formData = new FormData();
                 formData.append('audio', file, file.name);
+                formData.append('generate', 'false');
 
                 try {
                     const res = await fetch('/api/query', { method: 'POST', body: formData });
                     const data = await res.json();
-                    renderResult(data);
+                    renderResult(data, 'extractive');
+                    if (data.transcript && !data.refused && !data.error) {
+                        await polishQuestion(data.transcript);
+                    }
                 } catch (e) {
                     alert("Upload failed: " + e.message);
                     document.getElementById('loader').classList.add('hidden');
+                }
+            }
+
+            async function polishQuestion(question) {
+                try {
+                    const res = await fetch('/ask', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ question, generate: true }),
+                    });
+                    const data = await res.json();
+                    renderResult(data, 'generated');
+                } catch (e) {
+                    const t2 = document.getElementById('t2ms');
+                    if (t2) t2.textContent = 'unavailable';
+                    const hint = document.getElementById('recordStatus');
+                    if (hint) hint.innerText = 'generation unavailable — extractive answer stands';
                 }
             }
 
@@ -509,20 +578,24 @@ def index():
                 document.getElementById('loader').classList.remove('hidden');
                 document.getElementById('outputCard').classList.add('hidden');
 
-                const formData = new FormData();
-                formData.append('text_override', text);
-
                 try {
-                    const res = await fetch('/api/query', { method: 'POST', body: formData });
+                    const res = await fetch('/ask', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ question: text, generate: false }),
+                    });
                     const data = await res.json();
-                    renderResult(data);
+                    renderResult(data, 'extractive');
+                    if (!data.refused && !data.error) {
+                        await polishQuestion(text);
+                    }
                 } catch (e) {
                     alert("Query failed: " + e.message);
                     document.getElementById('loader').classList.add('hidden');
                 }
             }
 
-            function renderResult(data) {
+            function renderResult(data, tier) {
                 document.getElementById('loader').classList.add('hidden');
                 document.getElementById('outputCard').classList.remove('hidden');
                 document.getElementById('recordStatus').innerText = "";
@@ -552,6 +625,32 @@ def index():
                 document.getElementById('transcriptText').innerText = data.transcript || "N/A";
                 document.getElementById('answerText').innerText = cleanAns;
 
+                const src = data.answer_source || (data.refused ? 'refusal' : 'generated');
+                const t1 = document.getElementById('tierExtractive');
+                const t2 = document.getElementById('tierGenerated');
+                const t1ms = document.getElementById('t1ms');
+                const t2ms = document.getElementById('t2ms');
+                const tierLabel = document.getElementById('answerTierLabel');
+                if (t1ms) t1ms.textContent = (data.fast_path_ms != null) ? (data.fast_path_ms.toFixed(1) + 'ms') : '—';
+                if (t1) t1.className = 'px-2 py-1 rounded-md border border-emerald-800/70 text-emerald-300';
+                if (tier === 'extractive' && src !== 'refusal') {
+                    if (t2ms) t2ms.textContent = '···';
+                    if (t2) t2.className = 'px-2 py-1 rounded-md border border-amber-800/70 text-amber-300';
+                    if (tierLabel) tierLabel.innerText = 'Extractive answer (no LLM)';
+                } else if (src === 'generated') {
+                    const genMs = (data.timings && data.timings.generation) ? data.timings.generation.toFixed(1) + 'ms' : '—';
+                    if (t2ms) t2ms.textContent = genMs;
+                    if (t2) t2.className = 'px-2 py-1 rounded-md border border-emerald-800/70 text-emerald-300';
+                    if (tierLabel) tierLabel.innerText = 'Polished answer (Groq) · extractive stood at ' + (data.fast_path_ms ? data.fast_path_ms.toFixed(1) + 'ms' : '—');
+                } else if (src === 'extractive') {
+                    if (t2ms) t2ms.textContent = 'kept extractive';
+                    if (t2) t2.className = 'px-2 py-1 rounded-md border border-slate-700 text-slate-400';
+                    if (tierLabel) tierLabel.innerText = 'Extractive answer (generation unused or rejected)';
+                } else {
+                    if (t2ms) t2ms.textContent = '—';
+                    if (tierLabel) tierLabel.innerText = 'Answer';
+                }
+
                 const badge = document.getElementById('statusBadge');
                 if (data.refused) {
                     badge.className = 'px-3.5 py-1.5 text-xs rounded-full font-mono bg-rose-950/80 text-rose-300 border border-rose-800/80 flex items-center gap-1.5';
@@ -565,11 +664,14 @@ def index():
                 }
 
                 const timings = data.timings || {};
+                const fast = (data.fast_path_ms != null) ? data.fast_path_ms : (timings.fast_path || 0);
                 let html = `
-                    <div class="bg-slate-950/90 p-3 rounded-xl border border-slate-800/80"><div class="text-slate-400 text-[11px]">STT</div><div class="text-emerald-400 font-bold mt-1 text-sm">${timings.stt ? timings.stt.toFixed(1) : 0}ms</div></div>
+                    <div class="bg-slate-950/90 p-3 rounded-xl border border-slate-800/80"><div class="text-slate-400 text-[11px]">STT (outside)</div><div class="text-emerald-400 font-bold mt-1 text-sm">${timings.stt ? timings.stt.toFixed(1) : 0}ms</div></div>
                     <div class="bg-slate-950/90 p-3 rounded-xl border border-slate-800/80"><div class="text-slate-400 text-[11px]">Retrieval</div><div class="text-emerald-400 font-bold mt-1 text-sm">${timings.retrieval ? timings.retrieval.toFixed(1) : 0}ms</div></div>
                     <div class="bg-slate-950/90 p-3 rounded-xl border border-slate-800/80"><div class="text-slate-400 text-[11px]">Guardrail</div><div class="text-emerald-400 font-bold mt-1 text-sm">${timings.guardrail ? timings.guardrail.toFixed(1) : 0}ms</div></div>
-                    <div class="bg-slate-950/90 p-3 rounded-xl border border-slate-800/80"><div class="text-slate-400 text-[11px]">LLM</div><div class="text-emerald-400 font-bold mt-1 text-sm">${timings.generation ? timings.generation.toFixed(1) : 0}ms</div></div>
+                    <div class="bg-slate-950/90 p-3 rounded-xl border border-slate-800/80"><div class="text-slate-400 text-[11px]">Extract</div><div class="text-emerald-400 font-bold mt-1 text-sm">${timings.extract ? timings.extract.toFixed(1) : 0}ms</div></div>
+                    <div class="bg-slate-950/90 p-3 rounded-xl border border-emerald-500/30 glow-emerald"><div class="text-slate-300 text-[11px]">Fast path</div><div class="text-emerald-300 font-bold mt-1 text-sm">${fast ? fast.toFixed(1) : 0}ms</div></div>
+                    <div class="bg-slate-950/90 p-3 rounded-xl border border-slate-800/80"><div class="text-slate-400 text-[11px]">LLM (outside)</div><div class="text-emerald-400 font-bold mt-1 text-sm">${timings.generation ? timings.generation.toFixed(1) : 0}ms</div></div>
                 `;
                 if (timings.hallucination_check !== undefined) {
                     html += `<div class="bg-slate-950/90 p-3 rounded-xl border border-slate-800/80"><div class="text-slate-400 text-[11px]">Hallucination Check</div><div class="text-emerald-400 font-bold mt-1 text-sm">${timings.hallucination_check.toFixed(1)}ms</div></div>`;

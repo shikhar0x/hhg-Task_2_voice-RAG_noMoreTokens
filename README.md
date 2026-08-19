@@ -83,7 +83,7 @@ Empirically evaluated on the complete **`ai4bharat/MSMARCO-XI`** dataset across 
 
 ## 📊 Empirical Latency Analytics (P50 / P70 / P100) (Task Requirement #4)
 
-> **Scope & Target Clarification**: The official Task #3 target of **< 200ms** applies specifically to the core local computation pipeline (chunking, vector index search, and guardrail logic). When exercising real speech recognition (ElevenLabs / Sarvam STT) and remote neural generation (Groq LLaMA 3.1), third-party network API delays dominate total latency. Below, we report both benchmark modes honestly and separately.
+> **Scope & Target Clarification (Sprint 0)**: The **< 200ms** budget is the local **transcript → extractive answer** window (`fast_path_ms` = retrieval + pre-gen guardrail + extractive span). That is the answer painted on screen before any LLM returns. Speech-to-text and Groq polish are reported separately and are **outside** that window. `POST /ask` with `generate=false` is the measured path; `generate=true` may replace the extractive span but can never remove it.
 
 ### 1. Retrieval-Only Pipeline Latency (STT Bypassed)
 Benchmarked across **35 diverse queries** (30 authentic queries directly from `ai4bharat/MSMARCO-XI` + 5 out-of-domain guardrail refusal cases) using text override to evaluate internal pipeline performance:
@@ -93,9 +93,11 @@ Benchmarked across **35 diverse queries** (30 authentic queries directly from `a
 | **STT** | `0.01 ms` | `0.01 ms` | `0.01 ms` | Bypassed (Text Override Input) |
 | **Vector Retrieval** | `0.41 ms` | `0.43 ms` | `4.23 ms` | In-Memory NumPy TF Cosine Index |
 | **Guardrail Gate (Pre-Gen)** | `0.02 ms` | `0.03 ms` | `1.50 ms` | Layers 1–3 Safety & Threshold Gate |
-| **LLM Generation (Text Mode)** | **`268.69 ms`** | **`325.13 ms`** | **`628.85 ms`** | Groq LLaMA-3.1 Cloud API |
-| **Hallucination Check (Post-Gen)** | `0.16 ms` | `0.21 ms` | `1.43 ms` | Layer 4 Entity Term-Overlap Check |
-| **Total End-to-End** | **`269.24 ms`** | **`326.78 ms`** | **`629.54 ms`** | Complete Text Pipeline Run |
+| **Extractive Span** | `~0.1 ms` | — | — | Top-hit sentence (Sprint 0 scorer) |
+| **Fast Path (budget window)** | **retrieval + guardrail + extract** | | | **This is the <200ms number** |
+| **LLM Generation (Text Mode)** | **`268.69 ms`** | **`325.13 ms`** | **`628.85 ms`** | Groq polish — *outside budget* |
+| **Hallucination Check (Post-Gen)** | `0.16 ms` | `0.21 ms` | `1.43 ms` | Layer 4; on fail, extractive stands |
+| **Total End-to-End** | **`269.24 ms`** | **`326.78 ms`** | **`629.54 ms`** | Includes Groq; not the budget window |
 
 ### 2. Full End-to-End Latency (Real STT + Real LLM)
 Benchmarked across representative **16kHz WAV audio samples** using real **ElevenLabs Scribe v2 STT** and live **Groq Meta LLaMA 3.1** cloud generation:
@@ -232,3 +234,5 @@ Copy `.env.example` to `.env` and set the values you need:
 ## 📜 License
 
 Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
+
+

@@ -1,8 +1,10 @@
 import time
 import uuid
 from typing import Any
+
 from stt.engine import SpeechToTextStep
 from retrieval.vector_store import VectorRetrievalStep
+from retrieval.extractive import extract_answer
 from guardrails.threshold_gate import GroundingGuardrailStep
 from generation.llm import LLMGenerationStep
 from infrastructure.metrics_db import MetricsDB
@@ -29,6 +31,7 @@ HEDGE_PHRASES = [
     "does not appear", "do not provide enough",
 ]
 
+
 def is_hedge_answer(answer: str) -> bool:
     """Returns True if the model's answer text is itself a hedge / non-answer."""
     if not answer:
@@ -37,8 +40,25 @@ def is_hedge_answer(answer: str) -> bool:
     return any(phrase in lowered for phrase in HEDGE_PHRASES)
 
 
+BUDGET_MS = 200.0
+
+
 class VoiceRAGOrchestrator:
-    """Central pipeline harness running end-to-end Voice-RAG execution."""
+    """Central pipeline harness running end-to-end Voice-RAG execution.
+
+    Sprint 0 contract
+    -----------------
+    An extractive span is computed after retrieval / pre-gen guardrails and
+    *before* any LLM call. `fast_path_ms` is that local window
+    (retrieve + guardrail + extract). STT and generation are timed separately
+    and are not part of the 200ms claim.
+
+    `generate=False` returns the extractive answer and never touches the LLM.
+    `generate=True` may replace the answer with a polished generation; if
+    generation fails Layers 4/5 the extractive span still stands (it is not
+    discarded). Pre-gen refusals (Layers 1–3) still refuse — there is no
+    grounded span to serve.
+    """
 
     def __init__(self):
         self.stt = SpeechToTextStep()
@@ -47,7 +67,13 @@ class VoiceRAGOrchestrator:
         self.generation = LLMGenerationStep()
         self.metrics_db = MetricsDB()
 
-    def process(self, audio_path: str | None = None, text_override: str | None = None, mode: str | None = None) -> dict[str, Any]:
+    def process(
+        self,
+        audio_path: str | None = None,
+        text_override: str | None = None,
+        mode: str | None = None,
+        generate: bool = True,
+    ) -> dict[str, Any]:
         query_id = str(uuid.uuid4())[:8]
         start_total = time.perf_counter()
         timings: dict[str, float] = {}
@@ -55,7 +81,7 @@ class VoiceRAGOrchestrator:
         if not mode:
             mode = "retrieval_only" if (text_override and not audio_path) else "end_to_end"
 
-        # 1. STT (Speech-to-Text)
+        # 1. STT (Speech-to-Text) — outside the 200ms budget
         stt_res = self.stt.run({"audio_path": audio_path, "text_override": text_override})
         timings["stt"] = stt_res.duration_ms
         if not stt_res.success:
@@ -64,13 +90,19 @@ class VoiceRAGOrchestrator:
                 "success": False,
                 "error": stt_res.error,
                 "stt_engine": "error",
-                "timings": timings
+                "answer_source": "error",
+                "extractive_answer": "",
+                "generated_answer": "",
+                "fast_path_ms": 0.0,
+                "budget_ms": BUDGET_MS,
+                "within_budget": False,
+                "timings": timings,
             }
 
         transcript = stt_res.data.get("transcript", "")
         stt_engine = stt_res.data.get("engine", "stt")
 
-        # 2. Retrieval (ChromaDB Vector Store)
+        # 2. Retrieval (local vector store)
         ret_res = self.retrieval.run({"transcript": transcript})
         timings["retrieval"] = ret_res.duration_ms
         if not ret_res.success:
@@ -80,7 +112,13 @@ class VoiceRAGOrchestrator:
                 "error": ret_res.error,
                 "transcript": transcript,
                 "stt_engine": stt_engine,
-                "timings": timings
+                "answer_source": "error",
+                "extractive_answer": "",
+                "generated_answer": "",
+                "fast_path_ms": timings["retrieval"],
+                "budget_ms": BUDGET_MS,
+                "within_budget": timings["retrieval"] < BUDGET_MS,
+                "timings": timings,
             }
 
         # 3. Guardrail Gate (Layers 1-3: "Know when not to answer")
@@ -91,9 +129,11 @@ class VoiceRAGOrchestrator:
         timings["guardrail"] = guard_res.duration_ms
 
         if guard_res.refused:
+            timings["extract"] = 0.0
             timings["generation"] = 0.0
             timings["hallucination_check"] = 0.0
             timings["hedge_check"] = 0.0
+            timings["fast_path"] = timings["retrieval"] + timings["guardrail"]
             timings["total"] = (time.perf_counter() - start_total) * 1000.0
             self.metrics_db.log(query_id, transcript, timings, refused=True, mode=mode)
             return {
@@ -102,80 +142,129 @@ class VoiceRAGOrchestrator:
                 "answer": guard_res.data.get("answer"),
                 "refused": True,
                 "refusal_reason": guard_res.refusal_reason,
+                "answer_source": "refusal",
+                "extractive_answer": "",
+                "generated_answer": "",
                 "similarities": ret_res.data.get("similarities", []),
+                "retrieved_docs": ret_res.data.get("documents", []),
                 "stt_engine": stt_engine,
-                "timings": timings
+                "fast_path_ms": timings["fast_path"],
+                "budget_ms": BUDGET_MS,
+                "within_budget": timings["fast_path"] < BUDGET_MS,
+                "timings": timings,
             }
 
-        # 4. LLM Generation (Groq Meta LLaMA-3.1)
+        # 4. Extractive span — computed BEFORE generation, never depends on it.
         context = guard_res.data.get("valid_context", "")
+        docs = ret_res.data.get("documents", [])
+        extracted = extract_answer(
+            transcript,
+            docs,
+            similarities=ret_res.data.get("similarities") or [],
+        )
+        timings["extract"] = extracted.took_ms
+        timings["fast_path"] = (
+            timings["retrieval"] + timings["guardrail"] + timings["extract"]
+        )
+
+        base_payload = {
+            "query_id": query_id,
+            "transcript": transcript,
+            "similarities": ret_res.data.get("similarities", []),
+            "retrieved_docs": docs,
+            "extractive_answer": extracted.text,
+            "extractive_support": extracted.support,
+            "stt_engine": stt_engine,
+            "fast_path_ms": timings["fast_path"],
+            "budget_ms": BUDGET_MS,
+            "within_budget": timings["fast_path"] < BUDGET_MS,
+        }
+
+        if not generate:
+            timings["generation"] = 0.0
+            timings["hallucination_check"] = 0.0
+            timings["hedge_check"] = 0.0
+            timings["total"] = (time.perf_counter() - start_total) * 1000.0
+            self.metrics_db.log(query_id, transcript, timings, refused=False, mode=mode)
+            return {
+                **base_payload,
+                "answer": extracted.text,
+                "refused": False,
+                "answer_source": "extractive",
+                "generated_answer": "",
+                "generation_provider": "none",
+                "timings": timings,
+            }
+
+        # 5. LLM Generation (optional polish — outside the 200ms budget)
         gen_res = self.generation.run({
             "transcript": transcript,
             "context": context
         })
         timings["generation"] = gen_res.duration_ms
-        answer = gen_res.data.get("answer", "")
+        generated = gen_res.data.get("answer", "")
+        provider = gen_res.data.get("provider", "unknown")
 
-        # 5. Guardrail Layer 4: Post-Generation Hallucination & Faithfulness Check
+        # 6. Guardrail Layer 4: Post-Generation Hallucination & Faithfulness Check
+        #    Applies to the *generated* text only. On failure the extractive
+        #    span stands — generation can only replace, never remove, a
+        #    grounded answer.
         start_hallucination = time.perf_counter()
-        is_faithful = self.guardrail.check_hallucination(answer, context)
+        is_faithful = self.guardrail.check_hallucination(generated, context)
         timings["hallucination_check"] = (time.perf_counter() - start_hallucination) * 1000.0
 
         if not is_faithful:
             timings["hedge_check"] = 0.0
             timings["total"] = (time.perf_counter() - start_total) * 1000.0
-            refusal_reason = "Refusal: Generated answer failed post-generation grounding check against retrieved context."
-            logger.warning(f"Guardrail Layer 4 Triggered: {refusal_reason}")
-            fallback_answer = "I cannot provide this answer as it failed post-generation grounding verification against retrieved context."
-            self.metrics_db.log(query_id, transcript, timings, refused=True, mode=mode)
+            reason = (
+                "generation_rejected: post-generation grounding check failed; "
+                "keeping extractive span"
+            )
+            logger.warning(f"Guardrail Layer 4: {reason}")
+            self.metrics_db.log(query_id, transcript, timings, refused=False, mode=mode)
             return {
-                "query_id": query_id,
-                "transcript": transcript,
-                "answer": fallback_answer,
-                "refused": True,
-                "refusal_reason": refusal_reason,
-                "similarities": ret_res.data.get("similarities", []),
-                "stt_engine": stt_engine,
-                "generation_provider": gen_res.data.get("provider", "unknown"),
-                "timings": timings
+                **base_payload,
+                "answer": extracted.text,
+                "refused": False,
+                "refusal_reason": reason,
+                "answer_source": "extractive",
+                "generated_answer": generated,
+                "generation_provider": provider,
+                "timings": timings,
             }
 
-        # 6. Guardrail Layer 5: Hedge / Non-Answer Detection
-        # Even when an answer passes numeric + lexical grounding, the model may itself
-        # indicate it lacks grounded information ("I do not have any information about
-        # ..."). Treat that as a refusal so it is logged/benchmarked as REFUSE.
+        # 7. Guardrail Layer 5: Hedge / Non-Answer Detection on generated text
         start_hedge = time.perf_counter()
-        hedge_triggered = is_hedge_answer(answer)
+        hedge_triggered = is_hedge_answer(generated)
         timings["hedge_check"] = (time.perf_counter() - start_hedge) * 1000.0
         timings["total"] = (time.perf_counter() - start_total) * 1000.0
 
         if hedge_triggered:
-            hedge_reason = "Refusal: Model indicated insufficient grounded information to answer."
-            logger.warning(f"Guardrail Layer 5 Triggered: {hedge_reason}")
-            hedge_fallback = "I cannot provide this answer as the model indicated insufficient grounded information to answer from the retrieved context."
-            self.metrics_db.log(query_id, transcript, timings, refused=True, mode=mode)
+            hedge_reason = (
+                "generation_rejected: model indicated insufficient grounded "
+                "information; keeping extractive span"
+            )
+            logger.warning(f"Guardrail Layer 5: {hedge_reason}")
+            self.metrics_db.log(query_id, transcript, timings, refused=False, mode=mode)
             return {
-                "query_id": query_id,
-                "transcript": transcript,
-                "answer": hedge_fallback,
-                "refused": True,
+                **base_payload,
+                "answer": extracted.text,
+                "refused": False,
                 "refusal_reason": hedge_reason,
-                "similarities": ret_res.data.get("similarities", []),
-                "stt_engine": stt_engine,
-                "generation_provider": gen_res.data.get("provider", "unknown"),
-                "timings": timings
+                "answer_source": "extractive",
+                "generated_answer": generated,
+                "generation_provider": provider,
+                "timings": timings,
             }
 
         self.metrics_db.log(query_id, transcript, timings, refused=False, mode=mode)
 
         return {
-            "query_id": query_id,
-            "transcript": transcript,
-            "answer": answer,
+            **base_payload,
+            "answer": generated,
             "refused": False,
-            "similarities": ret_res.data.get("similarities", []),
-            "retrieved_docs": ret_res.data.get("documents", []),
-            "stt_engine": stt_engine,
-            "generation_provider": gen_res.data.get("provider", "unknown"),
-            "timings": timings
+            "answer_source": "generated",
+            "generated_answer": generated,
+            "generation_provider": provider,
+            "timings": timings,
         }

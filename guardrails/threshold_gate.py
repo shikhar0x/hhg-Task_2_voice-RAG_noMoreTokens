@@ -107,7 +107,7 @@ class GroundingGuardrailStep(BaseStep):
 
         # --- (2) Stemmed lexical overlap (supports English + Hindi / Indic answers) ---
         check_ans = answer
-        if any(ord(c) > 127 for c in answer):
+        if any(0x0900 <= ord(c) <= 0x0D7F for c in answer):
             from retrieval.vector_store import translate_to_english_if_needed
             check_ans = translate_to_english_if_needed(answer)
 

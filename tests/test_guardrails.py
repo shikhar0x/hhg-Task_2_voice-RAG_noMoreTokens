@@ -74,8 +74,10 @@ def test_orchestrator_invokes_layer4_hallucination_check(mocker):
 
     res = orchestrator.process(text_override="what is a corporation?")
 
-    # Layer 4 must catch this hallucination and trigger a refusal
-    assert res["refused"] is True
-    assert "failed post-generation grounding check" in res["refusal_reason"]
+    # Layer 4 rejects the hallucinated generation; the extractive span stands.
+    assert res["refused"] is False
+    assert res["answer_source"] == "extractive"
+    assert "generation_rejected" in (res.get("refusal_reason") or "")
     assert "hallucination_check" in res["timings"]
     assert res["timings"]["hallucination_check"] >= 0.0
+    assert res["extractive_answer"]
