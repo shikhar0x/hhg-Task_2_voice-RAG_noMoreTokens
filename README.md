@@ -9,6 +9,8 @@
 [![Guardrail](https://img.shields.io/badge/Guardrail_Accuracy-87.1%25_median_(range_85.7--88.6%25)-brightgreen.svg)](#-guardrail-precision--recall-benchmark-task-requirement-6)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-brightgreen.svg)](https://www.python.org)
 
+**Live:** [https://hhg-task-2-voice-rag-nomoretokens.onrender.com](https://hhg-task-2-voice-rag-nomoretokens.onrender.com)
+
 > High-performance, guardrailed Voice-to-Answer RAG system built for **Hacker House Goa 2026 (Task #2)**.
 > **Local query-time pipeline (chunking + vector retrieval + guardrail logic): P50 = 0.41 ms | P100 = 4.23 ms — ~45× under the official sub-200 ms target.**
 > **Full end-to-end voice pipeline (real ElevenLabs Scribe v2 STT + Groq LLaMA-3.1 LLM): P50 = 1.16 s (1,156 ms) | P70 = 1.25 s | P100 = 1.31 s — governed by cloud network API roundtrips.**
@@ -84,6 +86,11 @@ Empirically evaluated on the complete **`ai4bharat/MSMARCO-XI`** dataset across 
 ## 📊 Empirical Latency Analytics (P50 / P70 / P100) (Task Requirement #4)
 
 > **Scope & Target Clarification (Sprint 0)**: The **< 200ms** budget is the local **transcript → extractive answer** window (`fast_path_ms` = retrieval + pre-gen guardrail + extractive span). That is the answer painted on screen before any LLM returns. Speech-to-text and Groq polish are reported separately and are **outside** that window. `POST /ask` with `generate=false` is the measured path; `generate=true` may replace the extractive span but can never remove it.
+
+Official table below is **laptop** (`shikhar-ubuntu`, `python -m app.benchmark`).
+The Render free instance is the same code; retrieve is ~130–300ms there.
+The in-app badge reads `this host p50 … · 50ms table is laptop`.
+Wake the box with `GET /health` before a demo (free tier sleeps).
 
 ### 1. Retrieval-Only Pipeline Latency (STT Bypassed)
 Benchmarked across **35 diverse queries** (30 authentic queries directly from `ai4bharat/MSMARCO-XI` + 5 out-of-domain guardrail refusal cases) using text override to evaluate internal pipeline performance:
@@ -213,6 +220,8 @@ python benchmarks/guardrail_eval.py
 python app.py
 ```
 
+Live deployment: [https://hhg-task-2-voice-rag-nomoretokens.onrender.com](https://hhg-task-2-voice-rag-nomoretokens.onrender.com)
+
 The demo is served at `http://127.0.0.1:8000`. It accepts live microphone input, uploaded audio, or a text-only query. `GET /api/metrics` returns the latency percentiles recorded in SQLite.
 
 ---
@@ -234,5 +243,4 @@ Copy `.env.example` to `.env` and set the values you need:
 ## 📜 License
 
 Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
-
 
