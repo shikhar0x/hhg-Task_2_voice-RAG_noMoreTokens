@@ -283,18 +283,18 @@ def index():
                                 <tbody id="benchmarkTableBody" class="font-mono text-white text-xs divide-y divide-zinc-800/40">
                                     <tr>
                                         <td class="text-left py-3.5 text-slate-300 font-sans">total (ms)</td>
-                                        <td class="text-right py-3.5 px-4 text-slate-100 font-medium" id="bm-avg">5.31</td>
-                                        <td class="text-right py-3.5 px-4 text-slate-100 font-medium" id="bm-p50">5.23</td>
-                                        <td class="text-right py-3.5 px-4 text-slate-100 font-medium" id="bm-p95">6.1</td>
-                                        <td class="text-right py-3.5 px-4 text-slate-100 font-medium" id="bm-p99">6.11</td>
+                                        <td class="text-right py-3.5 px-4 text-slate-100 font-medium" id="bm-avg">--</td>
+                                        <td class="text-right py-3.5 px-4 text-slate-100 font-medium" id="bm-p50">--</td>
+                                        <td class="text-right py-3.5 px-4 text-slate-100 font-medium" id="bm-p95">--</td>
+                                        <td class="text-right py-3.5 px-4 text-slate-100 font-medium" id="bm-p99">--</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
 
                         <div class="pt-2 border-t border-slate-800/60">
-                            <span id="benchmarkBadgePill" class="inline-flex items-center px-5 py-2.5 rounded-full text-2xl font-bold tracking-wider bg-emerald-950/90 text-emerald-400 border border-emerald-800/70">
-                                PASS -- p95 | 6.1ms within budget
+                            <span id="benchmarkBadgePill" class="inline-flex items-center px-5 py-2.5 rounded-full text-2xl font-bold tracking-wider bg-slate-900/80 text-slate-400 border border-slate-800">
+                                --
                             </span>
                         </div>
                     </div>
@@ -431,10 +431,6 @@ def index():
                     if (spinner) spinner.classList.add('hidden');
                 }
             }
-
-            window.addEventListener('DOMContentLoaded', () => {
-                runWebBenchmark();
-            });
 
             let mediaRecorder = null;
             let audioChunks = [];
