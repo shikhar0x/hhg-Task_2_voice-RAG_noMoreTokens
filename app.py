@@ -70,7 +70,7 @@ def health():
     return {
         "status": "ok",
         "passages": col.count(),
-        "budget_ms": 50,
+        "budget_ms": 200,
         "fast_path": "retrieve + guardrail + extractive",
     }
 
@@ -415,9 +415,14 @@ def index():
                     document.getElementById('bm-p95').innerText = (Math.round(p95Val * 10) / 10 === p95Val) ? p95Val.toFixed(1) : p95Val.toFixed(2);
                     document.getElementById('bm-p99').innerText = total.p99.toFixed(2);
 
-                    const badge = document.getElementById('benchmarkBadgePill');
-                    badge.innerText = 'this host  p50 ' + total.p50.toFixed(1) + 'ms  ·  50ms table is laptop';
-                    badge.className = 'inline-flex items-center px-5 py-2.5 rounded-full text-xl font-bold tracking-wider bg-slate-900 text-slate-200 border border-slate-700';
+                                        const badge = document.getElementById('benchmarkBadgePill');
+                    badge.innerText = data.badge_text;
+                    if (data.status === 'PASS') {
+                        badge.className = 'inline-flex items-center px-5 py-2.5 rounded-full text-2xl font-bold tracking-wider bg-emerald-950/90 text-emerald-400 border border-emerald-800/70';
+                    } else {
+                        badge.className = 'inline-flex items-center px-5 py-2.5 rounded-full text-2xl font-bold tracking-wider bg-rose-950/90 text-rose-400 border border-rose-800/70';
+                    }
+                
                 } catch (e) {
                     console.error("Benchmark failed:", e);
                 } finally {

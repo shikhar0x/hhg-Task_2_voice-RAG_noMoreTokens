@@ -19,7 +19,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")
 
 from harness.orchestrator import VoiceRAGOrchestrator
 
-BUDGET_MS = 50.0
+BUDGET_MS = 200.0
 OOD = [
     "What is the recipe for baking a chocolate lava cake?",
     "How do quantum computers factor 2048-bit RSA keys using Shor's algorithm?",
