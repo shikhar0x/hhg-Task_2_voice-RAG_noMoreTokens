@@ -1,4 +1,4 @@
-"""Fast-path latency: transcript → extractive answer (the official <50ms window).
+"""Fast-path latency: transcript → extractive answer (the official <200ms window).
 
 STT and Groq are not called. English queries only — Indic text would hit the
 legacy Groq translate hop and silently leave the budget.
@@ -109,7 +109,7 @@ def run_fastpath(n: int = 80, warmup: int = 8, orch=None) -> dict:
     status = "PASS" if total["p100"] <= BUDGET_MS else (
         "PASS" if total["p95"] <= BUDGET_MS else "FAIL"
     )
-    # Official target is the full local window under 50ms. P100 is the honest bar;
+    # Official target is the full local window under 200ms. P100 is the honest bar;
     # badge uses P95 so one outlier does not flip the dashboard, but the JSON
     # always reports P100 and within_budget count.
     p95 = total["p95"]

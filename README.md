@@ -22,7 +22,7 @@
 
 1. **Voice Input (Req #1)**: Powered by **ElevenLabs (`scribe_v2`)** as the primary Speech-to-Text engine. Sarvam AI (`saaras:v3`) remains available as an optional fallback.
 2. **Engineered Chunking (Req #2)**: Swappable chunking strategies (Fixed-window with sliding overlap, Recursive sentence-boundary splitter, and Semantic paragraph splitter) evaluated on the complete `ai4bharat/MSMARCO-XI` corpus.
-3. **Sub-50ms Vector Retrieval (Req #3)**: ChromaDB manages local disk persistence while query-time retrieval uses a pre-warmed, in-memory term-frequency cosine index built with NumPy (`retrieval/vector_store.py`), delivering **0.41 ms P50** and **4.23 ms P100** retrieval latency after warmup.
+3. **Sub-200ms Vector Retrieval (Req #3)**: ChromaDB manages local disk persistence while query-time retrieval uses a pre-warmed, in-memory term-frequency cosine index built with NumPy (`retrieval/vector_store.py`), delivering **0.41 ms P50** and **4.23 ms P100** retrieval latency after warmup.
 4. **5-Layer Defense-in-Depth Guardrails (Req #6)**:
    - **Layer 1 (Pre-Gen)**: Unsafe / Inappropriate Input & Prompt-Injection Blacklist Filter.
    - **Layer 2 (Pre-Gen)**: Insufficient Context Gate (refuses when zero relevant passages are retrieved).
@@ -89,8 +89,10 @@ Empirically evaluated on the complete **`ai4bharat/MSMARCO-XI`** dataset across 
 
 Official table below is **laptop** (`shikhar-ubuntu`, `python -m app.benchmark`).
 The Render free instance is the same code; retrieve is ~130–300ms there.
-The in-app badge reads `this host p50 … · 50ms table is laptop`.
+The in-app badge reads `this host p50 194ms · brief 200ms · laptop p50 1.5ms`.
 Wake the box with `GET /health` before a demo (free tier sleeps).
+
+**Environment latency metrics summary:** public brief: 200ms. Laptop P100 11ms. Render free P50 ~194ms (inside 200ms), P95 ~294ms (over — shared CPU).
 
 ### 1. Retrieval-Only Pipeline Latency (STT Bypassed)
 Benchmarked across **35 diverse queries** (30 authentic queries directly from `ai4bharat/MSMARCO-XI` + 5 out-of-domain guardrail refusal cases) using text override to evaluate internal pipeline performance:
@@ -120,7 +122,7 @@ Benchmarked across representative **16kHz WAV audio samples** using real **Eleve
 
 ### 🔍 Latency & Performance Breakdown
 
-- **Vector Retrieval**: Achieves **0.38–0.41 ms P50** and **4.23–4.43 ms P100**, comfortably satisfying the sub-50ms retrieval constraint (**Target Met 🏆**).
+- **Vector Retrieval**: Achieves **0.38–0.41 ms P50** and **4.23–4.43 ms P100**, comfortably satisfying the sub-200ms retrieval constraint (**Target Met 🏆**).
 - **Guardrail Efficiency**: Pre-generation safety and threshold checks execute in **0.02 ms P50**. Out-of-domain queries are rejected in sub-millisecond time, avoiding unnecessary LLM call overhead.
 - **Third-Party Network Overhead**: Speech recognition (~0.99s P50) and cloud LLM generation (~0.18s–0.27s P50) reflect external web service roundtrips outside local computational control.
 

@@ -75,7 +75,7 @@ def test_generate_false_never_calls_llm(mocker):
     assert res["timings"]["generation"] == 0.0
     assert "fast_path" in res["timings"]
     assert res["fast_path_ms"] == res["timings"]["fast_path"]
-    assert res["budget_ms"] == 50.0
+    assert res["budget_ms"] == 200.0
     assert res["within_budget"] is True
     assert res["sources"]
 
