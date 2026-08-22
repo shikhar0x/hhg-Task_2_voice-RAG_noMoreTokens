@@ -1,1 +1,3 @@
 LATENCY_BUDGET_MS = 200.0
+GENERATION_BACKEND = "extractive"
+GENERATION_MODEL = "extractive"

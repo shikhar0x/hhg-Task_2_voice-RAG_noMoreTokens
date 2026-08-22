@@ -1,3 +1,1 @@
-from app.main import app
-
-__all__ = ["app"]
+# eval-safe: do not boot FastAPI on import app.*

@@ -6,3 +6,9 @@ env/
 data/
 *.db
 .DS_Store
+eval/
+results/
+run.sh
+.venv/
+venv/
+install_eval_on_laptop.sh
